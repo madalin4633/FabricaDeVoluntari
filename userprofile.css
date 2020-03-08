@@ -1,0 +1,81 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+@import url(http://fonts.googleapis.com/css?family=Varela+Round);
+
+.myclass {
+    color: red;
+    font-size: x-large;
+}
+
+.leftPanel {
+    position: relative;
+    align-self: left;
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(39,137,166,1) 100%);
+    width: 10%;
+}
+
+.rightPanel {
+    position: relative;
+    align-self: right;
+    background-color: aqua;
+}
+
+.horizontal-split {
+    display: flex;
+}
+
+.top-menu {
+    flex: 0 0 50px;
+    flex-direction: column;
+    background-color: green;
+    position: sticky;
+    align-content: space-around; 
+}
+
+.vertical-split {
+    display: flex;
+    flex-direction: column;
+}
+
+nav .vertical-split{
+    align-items: center;
+}
+
+.horizontal-split nav {
+    flex: 0 0 200px;
+    padding: 10px;
+
+}
+
+#full-name {
+    font: 21px "Source Sans Pro";
+    color: whitesmoke;
+    padding: 0.2em;
+}
+
+.crop {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    align-content: center;
+    align-self: center;
+    /* box-shadow: 0 0 8px 8px white inset; */
+}
+
+.crop img {
+    width: 300px;
+    height:  200px;
+    margin: 0 0 0 -30px;
+}
+
+.banner {
+    overflow: hidden;
+    width: 100%;
+    height: 200px;
+}
+
+.banner img {
+    width: 100vw;
+    top: -70px;
+}
