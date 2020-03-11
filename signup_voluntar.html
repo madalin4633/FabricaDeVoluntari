@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Solution | HTML form</title>
+    </head>
+    <body>
+        <h1>Formular de inscriere - voluntar</h1>
+        <p>Aventura ta in Fabrica de Voluntari incepe acum. Completeaza campurile de mai jos, apoi vei putea explora toate oportunitatile oferite de asociatiile din aplicatie.</p>
+        <form method="POST" action="/signup_page.php">
+            <div>
+                <label for="nume">Nume:</label>
+                <input required type="text" id="nume" name="nume" />
+            </div>
+            <br />
+            <div>
+                <label for="prenume">Prenume:</label>
+                <input required type="text" id="prenume" name="prenume" />
+            </div>
+            <br />
+            <div>
+                <label for="varsta">Varsta:</label>
+                <input required type="text" id="varsta" name="varsta" />
+            </div>
+            <br />
+            <div>
+                <label for="numartelefon">Numar de telefon:</label>
+                <input required type="text" id="numartelefon" name="numartelefon" />
+            </div>
+            <br />
+            <div>
+                <label for="email">Email:</label>
+                <input required type="text" id="email" name="email" />
+            </div>
+            <br />
+            <div>
+                <label> Gen: </label> <br />
+                <label for="masculin"> Masculin</label>
+                <input type="radio" id="masculin" name="gen" />
+
+                <label for="feminin"> Feminin</label>
+                <input type="radio" id="feminin" name="gen" />
+            </div>
+            <br />
+            <div>
+                <label> Ocupatie: </label> <br />
+                <label for="elev"> Elev</label>
+                <input type="radio" id="elev" name="ocupatie" />
+
+                <label for="student"> Student</label>
+                <input type="radio" id="student" name="ocupatie" />
+            </div>
+            <br />
+            <div>
+                <label for="institutie">Liceul/facultatea</label>
+                <input required type="text" id="institutie" name="institutie" />
+            </div>
+            <br />
+            <div>
+                <label for="motivatie">De ce vrei sa te inscrii?</label>
+                <textarea required id="motivatie" name="motivatie"></textarea>
+            </div>
+            <br />
+            <div>
+                <label for="paymentMethod"> Payment method*</label>
+                <select required id="paymentMethod" name="paymentMethod">
+                    <option value="" selected> -- </option>
+                    <option value="cash"> Cash </option>
+                    <option value="card"> Card </option>
+                </select>
+            </div>
+            <br />
+            
+            <label>
+                <span>👆 Click to upload photo</span> <br />
+                <input required type="file" hidden name="photo" />
+            </label>
+            <br />
+            <button type="submit">Buy</button>
+        </form>
+    </body>
+</html>
