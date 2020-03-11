@@ -6,19 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="userprofile.css" />
     <title>Document</title>
-    <script>
-        function showSomething(str) {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("customli").innerHTML =  this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "userprofile.php", true);
-            xmlhttp.send();
-            document.getElementById("customli").innerHTML = str;
-            return str;
-        }
+    <script src="userprofile.js">
     </script>
 </head>
 
@@ -41,13 +29,6 @@
                         User name
                     </div>
                 </div>
-
-                <div>
-                    poza
-                </div>
-                <div>
-                    detalii personale
-                </div>
                 <div>
                     lista aptitudini
                 </div>
@@ -62,13 +43,25 @@
                 </div>
             </nav>
 
-            <div class="left_menu">
+            <div>
+                <div class="info-table">
+                    <h1>Detalii personale</h1>
+                    <table>
+                        <tr>
+                            <th>Nume</th>
+                            <td>Donald Trump</td>
+                        </tr>
+                        <tr>
+                            <th>Varsta</th>
+                            <td>70</td>
+                        </tr>
+                        <tr>
+                            <th>Ocupatia</th>
+                            <td>Pensionar</td>
+                        </tr>
+                    </table>
+                </div>
                 <ul>
-                    <li>info 1</li>
-                    <li>info 2</li>
-                    <li>
-                        ghgh
-                    </li>
                     <li id="customli" onmouseover="showSomething('!!')">
                         hover mouse over me
                     </li>

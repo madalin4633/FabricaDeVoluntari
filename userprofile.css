@@ -2,8 +2,8 @@
 @import url(http://fonts.googleapis.com/css?family=Varela+Round);
 
 .myclass {
-    color: red;
-    font-size: x-large;
+    color: rgb(154, 213, 228);
+    font-size: large;
 }
 
 .leftPanel {
@@ -53,6 +53,12 @@ nav .vertical-split{
     padding: 0.2em;
 }
 
+h1 {
+    font: 26px "Source Sans Pro";
+    color: rgb(37, 133, 223);
+    padding: 0.2em;
+}
+
 .crop {
     width: 200px;
     height: 200px;
@@ -78,4 +84,27 @@ nav .vertical-split{
 .banner img {
     width: 100vw;
     top: -70px;
+}
+
+th, td {
+    border: 1px solid black;
+    border-style: dotted;
+    border-color: whitesmoke;
+}
+
+th {
+    width: 150px;
+    color: rgb(251, 255, 255);
+    background-color: rgba(91, 156, 218, 0.836);
+    font: 21px "Varela Round";
+}
+
+td {
+    height: 2em;
+    width: 10em;
+    font: 16px "Varela Round";
+}
+
+.info-table {
+    padding: 5%;
 }
