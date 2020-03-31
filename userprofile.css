@@ -1,6 +1,13 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
 @import url(http://fonts.googleapis.com/css?family=Varela+Round);
 
+* {
+    /* border: red thin dashed; */
+
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+}
+
 .myclass {
     color: rgb(154, 213, 228);
     font-size: large;
@@ -17,7 +24,7 @@
 .rightPanel {
     position: relative;
     align-self: right;
-    background-color: aqua;
+    background-color: rgb(255, 0, 200);
 }
 
 .horizontal-split {
@@ -50,12 +57,6 @@ nav .vertical-split{
 #full-name {
     font: 21px "Source Sans Pro";
     color: whitesmoke;
-    padding: 0.2em;
-}
-
-h1 {
-    font: 26px "Source Sans Pro";
-    color: rgb(37, 133, 223);
     padding: 0.2em;
 }
 
@@ -106,5 +107,53 @@ td {
 }
 
 .info-table {
-    padding: 5%;
+    /* padding: 5%; */
+    display: block;
+    width: 100%;
 }
+
+.active, .collapsible-container:hover {
+    background-color: gold;
+    width: 100%;
+    text-align: left;
+}
+
+.collapsible-container {
+    font: 26px "Source Sans Pro";
+    font-size: 26px;
+    color: rgb(37, 133, 223);
+    padding: 0.2em;
+    margin: 0.1em;
+    padding: 0 20px;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    border: none;
+    background-color: white;
+}
+
+.collapsible-container::after {
+    content: '\02795';
+    float: right;
+    color: rgb(37, 133, 223);
+}
+
+.active::after {
+    content: '\2796';
+    color: rgb(37, 133, 223);
+}
+
+.content {
+    /* padding: 0 18px; */
+    /* display: none; */
+    max-height: 0;
+    overflow: hidden;
+    width: 100%;
+    transition: max-height 0.2s ease-out;
+}
+
+.details-container {
+    width: 100%;
+    margin: 4px;
+}
+

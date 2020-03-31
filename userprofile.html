@@ -43,23 +43,25 @@
                 </div>
             </nav>
 
-            <div>
+            <div class="details-container">
                 <div class="info-table">
-                    <h1>Detalii personale</h1>
-                    <table>
-                        <tr>
-                            <th>Nume</th>
-                            <td>Donald Trump</td>
-                        </tr>
-                        <tr>
-                            <th>Varsta</th>
-                            <td>70</td>
-                        </tr>
-                        <tr>
-                            <th>Ocupatia</th>
-                            <td>Pensionar</td>
-                        </tr>
-                    </table>
+                    <button class="collapsible-container">Detalii personale</button>
+                    <div class="content">
+                        <table class="content">
+                            <tr>
+                                <th>Nume</th>
+                                <td>Donald Trump</td>
+                            </tr>
+                            <tr>
+                                <th>Varsta</th>
+                                <td>70</td>
+                            </tr>
+                            <tr>
+                                <th>Ocupatia</th>
+                                <td>Pensionar</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <ul>
                     <li id="customli" onmouseover="showSomething('!!')">
@@ -70,6 +72,8 @@
 
         </section>
     </section>
+
+    <script>initCollapsible();</script>
 </body>
 
 </html>
