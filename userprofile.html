@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="userprofile.css" />
+    <link rel="stylesheet" type="text/css" href="collapsible.css" />
     <title>Document</title>
     <script src="userprofile.js">
     </script>
@@ -45,20 +46,79 @@
 
             <div class="details-container">
                 <div class="info-table">
-                    <button class="collapsible-container">Detalii personale</button>
-                    <div class="content">
-                        <table class="content">
+                    <button class="collapsible-container">
+                        <div class="collapsible-btn">Detalii personale</div>
+                        <img class="dropdown-btn" src="img/arrow_drop_down_circle-24px.svg">
+                    </button>
+                    <div class="collapsible-content">
+                        <table>
                             <tr>
                                 <th>Nume</th>
-                                <td>Donald Trump</td>
+                                <td>Duck</td>
+                            </tr>
+                            <tr>
+                                <th>Prenume</th>
+                                <td>Donald</td>
                             </tr>
                             <tr>
                                 <th>Varsta</th>
                                 <td>70</td>
                             </tr>
                             <tr>
-                                <th>Ocupatia</th>
-                                <td>Pensionar</td>
+                                <th>E-mail</th>
+                                <td>donald@duck.com</td>
+                            </tr>
+                            <tr>
+                                <th nowrap>Data inscriere</th>
+                                <td>martie 2020</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="info-table">
+                    <button class="collapsible-container active">
+                        <div class="collapsible-btn">Asociatii</div>
+                        <img class="dropdown-btn" src="img/arrow_drop_down_circle-24px.svg">
+                    </button>
+                    <div class="collapsible-content" style="max-height: fit-content;">
+                        <table class="tabel-asociatii">
+                            <tr>
+                                <td>
+                                    <div class="crop-logo"><img src="img/british-library-gTV2osuOsJc-unsplash.jpg"
+                                            class="logo-asociatie">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="progress-asociatie">
+                                        <div><img src="img/query_builder-24px.svg">
+                                            <span class="ore-lucrate">205</span></div>
+                                        <div><img src="img/favorite-24px.svg"
+                                                style="filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);">
+                                            <span class="ore-lucrate">74</span></div>
+                                            <div ><img src="img/star-24px.svg">
+                                                <img src="img/star-24px.svg">
+                                                <img src="img/star-24px.svg">
+                                                <img src="img/star_half-24px.svg">
+                                                <img src="img/star_border-24px.svg">
+                                                </div>
+                             </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="crop-logo"><img src="img/rich-smith-lVVs5skyWoo-unsplash.jpg"
+                                            class="logo-asociatie">
+                                    </div>
+                                </td>
+                                <td>Duck</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="crop-logo"><img src="img/wesley-tingey-Wr1gP-53phU-unsplash.jpg"
+                                            class="logo-asociatie">
+                                    </div>
+                                </td>
+                                <td>Duck</td>
                             </tr>
                         </table>
                     </div>

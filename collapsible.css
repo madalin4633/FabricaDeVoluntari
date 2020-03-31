@@ -1,0 +1,71 @@
+/* https://www.w3schools.com/howto/howto_js_collapsible.asp */
+
+.dropdown-btn {
+    transform: rotate(90deg);
+    transition: 0.1s ease-out;
+}
+
+.active .dropdown-btn {
+    transform: rotate(0deg);
+    transition: 0.1s ease-out;
+}
+
+.active, .collapsible-container:hover {
+    background: rgb(194, 235, 243);
+    border-radius: 2em;
+    transition: 0.2s ease-out;
+}
+
+@media (hover: hover){
+.collapsible-container:hover .dropdown-btn {
+    transform: rotate(45deg);
+    transition: 0.1s ease-out;
+    }
+}
+
+.collapsible-content {
+    /* padding: 0 18px; */
+    /* display: none; */
+    max-height: 0;
+    overflow: hidden;
+    width: 100%;
+    transition: max-height 0.2s ease-out;
+}
+
+.collapsible-container {
+    font: 26px "Source Sans Pro";
+    font-size: 26px;
+    color: rgb(37, 223, 68);
+    padding: 0.2em;
+    margin: 0.1em;
+    padding: 0 10px;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    border: none;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.collapsible-container > .collapsible-btn {
+    font-size: 26px;
+    color: rgb(37, 133, 223);
+    padding: 0.2em;
+    margin: 0.1em;
+    padding: 0 20px;
+    width: auto;
+    text-align: left;
+    outline: none;
+    border: none;
+    background-color: rgba(0,0,0,0);
+}
+
+.collapsible-container > .dropdown-btn {
+    justify-content: flex-end;
+    align-content: center;
+    height: 100%;
+    
+}
