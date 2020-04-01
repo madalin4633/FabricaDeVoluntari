@@ -43,7 +43,7 @@
     text-align: left;
     outline: none;
     border: none;
-    background-color: white;
+    background-color: transparent;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -60,7 +60,6 @@
     text-align: left;
     outline: none;
     border: none;
-    background-color: rgba(0,0,0,0);
 }
 
 .collapsible-container > .dropdown-btn {

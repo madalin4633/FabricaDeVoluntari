@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="commons.css" />
+    <link rel="stylesheet" type="text/css" href="tooltip.css" />
     <link rel="stylesheet" type="text/css" href="userprofile.css" />
     <link rel="stylesheet" type="text/css" href="collapsible.css" />
     <title>Document</title>
@@ -13,9 +15,7 @@
 
 <body>
     <section class="vertical-split">
-        <section class="banner">
-            <img src="img/dimitar-belchev-TQZ7OqSEG6Q-unsplash.jpg" alt="banner">
-        </section>
+
         <section class="top-menu">
             <div>menu 1</div>
             <div>menu 2</div>
@@ -33,7 +33,7 @@
                 <div>
                     lista aptitudini
                 </div>
-                <div class="myclass">
+                <div>
                     lista interese
                 </div>
                 <div>
@@ -84,41 +84,68 @@
                         <table class="tabel-asociatii">
                             <tr>
                                 <td>
-                                    <div class="crop-logo"><img src="img/british-library-gTV2osuOsJc-unsplash.jpg"
-                                            class="logo-asociatie">
+                                    <div id="asoc-logo-1" class="asoc-logo">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="progress-asociatie">
-                                        <div><img src="img/query_builder-24px.svg">
+                                        <div class="tooltip"><span class="tooltiptext">Ore lucrate</span><img src="img/query_builder-24px.svg">
                                             <span class="ore-lucrate">205</span></div>
-                                        <div><img src="img/favorite-24px.svg"
-                                                style="filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);">
-                                            <span class="ore-lucrate">74</span></div>
-                                            <div ><img src="img/star-24px.svg">
-                                                <img src="img/star-24px.svg">
-                                                <img src="img/star-24px.svg">
-                                                <img src="img/star_half-24px.svg">
-                                                <img src="img/star_border-24px.svg">
-                                                </div>
-                             </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="crop-logo"><img src="img/rich-smith-lVVs5skyWoo-unsplash.jpg"
-                                            class="logo-asociatie">
+                                        <div class="tooltip"><span class="tooltiptext">Aprecieri</span><img class="svg-red" src="img/favorite-24px.svg">
+                                            <span class="aprecieri">74</span></div>
+                                        <div class="nowrap svg-yellow pack-tight">
+                                            <img src="img/star-24px.svg">
+                                            <img src="img/star-24px.svg">
+                                            <img src="img/star-24px.svg">
+                                            <img src="img/star_half-24px.svg">
+                                            <img src="img/star_border-24px.svg">
+                                        </div>
                                     </div>
                                 </td>
-                                <td>Duck</td>
                             </tr>
+
                             <tr>
                                 <td>
-                                    <div class="crop-logo"><img src="img/wesley-tingey-Wr1gP-53phU-unsplash.jpg"
-                                            class="logo-asociatie">
+                                    <div id="asoc-logo-2" class="asoc-logo">
                                     </div>
                                 </td>
-                                <td>Duck</td>
+                                <td>
+                                    <div class="progress-asociatie">
+                                        <div class="tooltip"><span class="tooltiptext">Ore lucrate</span><img src="img/query_builder-24px.svg">
+                                            <span class="ore-lucrate">870</span></div>
+                                        <div class="tooltip"><span class="tooltiptext">Aprecieri</span><img class="svg-red" src="img/favorite-24px.svg">
+                                            <span class="aprecieri">215</span></div>
+                                        <div class="nowrap svg-yellow pack-tight">
+                                            <img src="img/star-24px.svg">
+                                            <img src="img/star-24px.svg">
+                                            <img src="img/star-24px.svg">
+                                            <img src="img/star-24px.svg">
+                                            <img src="img/star_half-24px.svg">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div id="asoc-logo-3" class="asoc-logo">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="progress-asociatie">
+                                        <div class="tooltip"><span class="tooltiptext">Ore lucrate</span><img src="img/query_builder-24px.svg">
+                                            <span class="ore-lucrate">65</span></div>
+                                        <div class="tooltip"><span class="tooltiptext">Aprecieri</span><img class="svg-red" src="img/favorite-24px.svg">
+                                            <span class="aprecieri">4</span></div>
+                                        <div class="nowrap svg-yellow pack-tight">
+                                            <img src="img/star-24px.svg">
+                                            <img src="img/star-24px.svg">
+                                            <img src="img/star_half-24px.svg">
+                                            <img src="img/star_border-24px.svg">
+                                            <img src="img/star_border-24px.svg">
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </div>

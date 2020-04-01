@@ -1,19 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
 @import url(http://fonts.googleapis.com/css?family=Varela+Round);
 
-* {
-    /* border: red thin dashed; */
-
-    font-family: "Source Sans Pro";
-    font-size: 16px;
-}
-
 .leftPanel {
     position: relative;
     align-self: left;
-    background: rgb(63,94,251);
-    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(39,137,166,1) 100%);
+    background: lightslategray;
     width: 10%;
+    height: auto;
 }
 
 .rightPanel {
@@ -24,6 +17,7 @@
 
 .horizontal-split {
     display: flex;
+    height:100%;
 }
 
 .top-menu {
@@ -110,12 +104,30 @@ td {
     width: auto;
 }
 
-.crop-logo {
+.asoc-logo {
     width: 120px;
     height: 120px;
     overflow: hidden;
     border-radius: 20%;
     box-shadow: 3px 3px 5px 5px #ccc;
+}
+
+#asoc-logo-1 {
+    background: url('img/british-library-gTV2osuOsJc-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#asoc-logo-3 {
+    background: url('img/wesley-tingey-Wr1gP-53phU-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#asoc-logo-2 {
+    background: url('img/rich-smith-lVVs5skyWoo-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 .logo-asociatie {
@@ -129,6 +141,7 @@ td {
 .tabel-asociatii tr td {
     width:fit-content;
     padding: 5px;
+    border-style: none;
 }
 
 .details-container {
@@ -141,4 +154,33 @@ td {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: space-evenly;
+    height: 80%;
+}
+
+.progress-asociatie > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.svg-red {
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+.svg-yellow {
+    filter: invert(27%) sepia(91%) saturate(5000%) hue-rotate(45deg) brightness(204%) contrast(97%);
+}
+
+.pack-tight {
+    display: flex;
+}
+
+.ore-lucrate, .aprecieri {
+    font-size: 1.6em;
+    color: steelblue;
 }
