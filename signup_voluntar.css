@@ -1,8 +1,16 @@
-body {
+@media screen and (min-width: 711px) {
+    body {
     background-image: url("blueWave.png");
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: left bottom;
    }
+}
+@media screen and (max-width: 710px) {
+    body {
+    background-color: #00a3e0
+   }
+}
 
 .btn {
 	display: block;
