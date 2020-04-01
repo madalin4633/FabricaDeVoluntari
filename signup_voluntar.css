@@ -1,15 +1,21 @@
-@media screen and (min-width: 711px) {
-    body {
-    background-image: url("blueWave.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left bottom;
+
+    .background-img{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: auto;
+    }
+
+    .background-img img{
+        display: table;
+        width: auto;
+        margin-left: 0rem;
    }
-}
-@media screen and (max-width: 710px) {
-    body {
-    background-color: #00a3e0
-   }
+
+.plate{
+    width: 100vw;
+    height: 100vh;
+    display:;
 }
 
 .btn {
