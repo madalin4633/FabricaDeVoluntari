@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Solution | HTML form</title>
+        <link rel="stylesheet" type="text/css" href="signup_voluntar.css">
+        <title>SIGNUP voluntar FDV</title>
     </head>
     <body>
         <h1>Formular de inscriere - voluntar</h1>
@@ -50,10 +51,13 @@
 
                 <label for="student"> Student</label>
                 <input type="radio" id="student" name="ocupatie" />
+
+                <label for="student"> Angajat</label>
+                <input type="radio" id="angajat" name="ocupatie" />
             </div>
             <br />
             <div>
-                <label for="institutie">Liceul/facultatea</label>
+                <label for="institutie">Liceul/facultatea:</label>
                 <input required type="text" id="institutie" name="institutie" />
             </div>
             <br />
@@ -62,22 +66,19 @@
                 <textarea required id="motivatie" name="motivatie"></textarea>
             </div>
             <br />
-            <div>
-                <label for="paymentMethod"> Payment method*</label>
-                <select required id="paymentMethod" name="paymentMethod">
-                    <option value="" selected> -- </option>
-                    <option value="cash"> Cash </option>
-                    <option value="card"> Card </option>
-                </select>
-            </div>
-            <br />
-            
             <label>
-                <span>👆 Click to upload photo</span> <br />
+                <span>👆Alege o imagine de profil👆</span> <br />
                 <input required type="file" hidden name="photo" />
             </label>
             <br />
-            <button type="submit">Buy</button>
+            <div>
+                <label> Acord de prelucare a datelor personale: </label> <br />
+                <p>Sunt de acord cu privire la protecția datelor cu caracter personal conform Regulamentului (UE) 2016/679 aplicabil din 25 mai 2018: datele din formular vor fi prelucrate de catre moderatori in scopul informarii cu privire la activitatea curenta. Sunt de acord sa fiu fotografiat(a) si filmat(a) in timpul acțiunilor si ca aceste materiale sa fie publicate, pentru promovarea si diseminarea rezultatelor, fara a afecta, insa, imaginea mea (cu exceptia cazurilor justificate, in care voi solicita expres sa nu apar in aceste materiale). Sunt de acord să fiu contactat(a) prin e-mail sau telefon de catre asociatii in scopul inscrierii in ele.</p>
+                <label for="da"> De acord: </label>
+                <input type="radio" id="da" name="acord" />
+            </div>
+            <br />
+            <button type="submit" class="btn">Creare cont</button>
         </form>
     </body>
 </html>
