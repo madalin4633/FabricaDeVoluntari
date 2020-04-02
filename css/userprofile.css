@@ -4,7 +4,7 @@
 .leftPanel {
     position: relative;
     align-self: left;
-    background: lightslategray;
+    background: rgb(67, 71, 82);
     width: 10%;
     height: auto;
 }
@@ -17,12 +17,18 @@
 
 .horizontal-split {
     display: flex;
-    height:100%;
+    min-height: fit-content;
+    height: 100%;
 }
 
 .top-menu {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
     flex: 0 0 50px;
-    flex-direction: column;
+    flex-direction: row;
     background-color: green;
     position: sticky;
     align-content: space-around; 
@@ -33,8 +39,15 @@
     flex-direction: column;
 }
 
+body > .vertical-split {
+    min-width: fit-content;
+    height: 100%;
+    width:100%;
+}
+
 nav .vertical-split{
     align-items: center;
+    justify-content: flex-start;
 }
 
 .horizontal-split nav {
@@ -65,17 +78,6 @@ nav .vertical-split{
     margin: 0 0 0 -30px;
 }
 
-.banner {
-    overflow: hidden;
-    width: 100%;
-    height: 200px;
-}
-
-.banner img {
-    width: 100vw;
-    top: -70px;
-}
-
 th, td {
     border: 1px solid black;
     border-style: dotted;
@@ -94,7 +96,7 @@ th {
 td {
     padding: 0 1em;
     height: 2em;
-    width: 100%;
+    width: auto;
     font: 16px "Varela Round";
 }
 
@@ -109,33 +111,28 @@ td {
     height: 120px;
     overflow: hidden;
     border-radius: 20%;
-    box-shadow: 3px 3px 5px 5px #ccc;
+    box-shadow: 3px 3px 5px 5px rgb(44, 74, 105);
 }
 
 #asoc-logo-1 {
-    background: url('img/british-library-gTV2osuOsJc-unsplash.jpg');
+    background: url('../img/british-library-gTV2osuOsJc-unsplash.jpg');
     background-size: cover;
     background-position: center;
+	background-repeat: no-repeat;
 }
 
 #asoc-logo-3 {
-    background: url('img/wesley-tingey-Wr1gP-53phU-unsplash.jpg');
+    background: url('../img/wesley-tingey-Wr1gP-53phU-unsplash.jpg');
     background-size: cover;
     background-position: center;
+	background-repeat: no-repeat;
 }
 
 #asoc-logo-2 {
-    background: url('img/rich-smith-lVVs5skyWoo-unsplash.jpg');
+    background: url('../img/rich-smith-lVVs5skyWoo-unsplash.jpg');
     background-size: cover;
     background-position: center;
-}
-
-.logo-asociatie {
-    border: 0 32em;
-    object-fit: cover;
-    width: 120px;
-    height: 120px;
-
+	background-repeat: no-repeat;
 }
 
 .tabel-asociatii tr td {
@@ -145,7 +142,7 @@ td {
 }
 
 .details-container {
-    width: 100%;
+    width: fit-content;
     margin: 4px;
 }
 
@@ -164,6 +161,11 @@ td {
     align-items: center;
 }
 
+.progress-asociatie  span {
+
+    padding-left: 0.3em;
+}
+
 .nowrap {
     white-space: nowrap;
 }
@@ -173,7 +175,11 @@ td {
 }
 
 .svg-yellow {
-    filter: invert(27%) sepia(91%) saturate(5000%) hue-rotate(45deg) brightness(204%) contrast(97%);
+    filter: invert(27%) sepia(91%) saturate(5000%) hue-rotate(45deg) brightness(254%) contrast(97%);
+}
+
+.svg-white {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(254%) contrast(97%);
 }
 
 .pack-tight {
@@ -182,5 +188,5 @@ td {
 
 .ore-lucrate, .aprecieri {
     font-size: 1.6em;
-    color: steelblue;
+    color: rgb(150, 231, 57);
 }

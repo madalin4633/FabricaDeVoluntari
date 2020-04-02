@@ -5,7 +5,7 @@ function showSomething(str) {
             document.getElementById("customli").innerHTML =  this.responseText;
         }
     };
-    xmlhttp.open("GET", "userprofile.php", true);
+    xmlhttp.open("GET", "./php/userprofile.php", true);
     xmlhttp.send();
     document.getElementById("customli").innerHTML = str;
     return str;
@@ -17,8 +17,8 @@ function initCollapsible() {
 
     for (i = 0; i < coll.length; i++){
         coll[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
 
         if (content.style.maxHeight) {
             content.style.maxHeight = null;
