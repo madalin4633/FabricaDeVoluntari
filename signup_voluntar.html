@@ -5,43 +5,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/signup_voluntar.css">
-    <title>SIGNUP voluntar FDV</title>
+    <title>Signup FDV</title>
+    <script src="../js/tabs.js"></script>
 </head>
-<script src="../js/tabs.js"></script>
+
 <body>
-    <p>Aventura ta in Fabrica de Voluntari incepe acum. Alege tipul de cont. Completeaza campurile de mai jos, apoi vei
+    <p id="aventura">Aventura ta in Fabrica de Voluntari incepe acum. Alege tipul de cont. Completeaza campurile de mai jos, apoi vei
         putea explora oportunitati nelimitate.</p>
+    <img src="img/fabrica_logo.png" alt="FDV logo" id="fdv"> <br/>
     <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'voluntar')">Cont de voluntar</button>
         <button class="tablinks" onclick="openCity(event, 'asociatie')">Cont de asociatie</button>
     </div>
     <div id="voluntar" class="tabcontent" style="display: block;">
-        <h3>Creeaza cont de voluntar</h3>
         <div class="plate">
             <form method="POST" action="/signup_page.php">
                 <div>
-                    <label for="nume">Nume:</label>
-                    <input required type="text" id="nume" name="nume" />
+                    <input required type="text" id="nume" name="nume" placeholder="Nume"/>
                 </div>
                 <br />
                 <div>
-                    <label for="prenume">Prenume:</label>
-                    <input required type="text" id="prenume" name="prenume" />
+                    <input required type="text" id="prenume" name="prenume" placeholder="Prenume"/>
                 </div>
                 <br />
                 <div>
-                    <label for="varsta">Varsta:</label>
-                    <input required type="text" id="varsta" name="varsta" />
+                    <label for="nastere">Data nasterii:</label><br />
+                    <input type="date" id="nastere" name="data-nastere" value="1999-06-10" min="1995-01-01," max="2005-01-01">
                 </div>
                 <br />
                 <div>
-                    <label for="numartelefon">Numar de telefon:</label>
-                    <input required type="text" id="numartelefon" name="numartelefon" />
+                    <input required type="text" id="numartelefon" name="numartelefon" placeholder="Numar de telefon"/>
                 </div>
                 <br />
                 <div>
-                    <label for="email">Email:</label>
-                    <input required type="text" id="email" name="email" />
+                    <input required type="email" id="email" name="email" placeholder="Email"/>
                 </div>
                 <br />
                 <div>
@@ -66,13 +63,17 @@
                 </div>
                 <br />
                 <div>
-                    <label for="institutie">Liceul/facultatea:</label>
-                    <input required type="text" id="institutie" name="institutie" />
+                    <input required type="text" id="institutie" name="institutie" placeholder="Liceul/facultatea"/>
                 </div>
                 <br />
                 <div>
-                    <label for="motivatie">De ce vrei sa te inscrii?</label>
+                    <label for="motivatie">De ce vrei sa te inscrii?</label><br/>
                     <textarea required id="motivatie" name="motivatie"></textarea>
+                </div>
+                <br />
+                <div>
+                    <img src="img/fb.png" alt="Facebook logo" id="logo"><br/>
+                    <input required type="url" id="retea" name="retea" placeholder="Link Fb. tau/alta retea"/>
                 </div>
                 <br />
                 <label>
@@ -82,7 +83,7 @@
                 <br />
                 <div>
                     <label> Acord de prelucare a datelor personale: </label> <br />
-                    <p>Sunt de acord cu privire la protecția datelor cu caracter personal conform Regulamentului (UE)
+                    <p id="GDPR">Sunt de acord cu privire la protecția datelor cu caracter personal conform Regulamentului (UE)
                         2016/679 aplicabil din 25 mai 2018: datele din formular vor fi prelucrate de catre moderatori in
                         scopul informarii cu privire la activitatea curenta. Sunt de acord sa fiu fotografiat(a) si
                         filmat(a) in timpul acțiunilor si ca aceste materiale sa fie publicate, pentru promovarea si

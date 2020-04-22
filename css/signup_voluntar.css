@@ -3,21 +3,53 @@
 	align-items: center;
 }
 form{
-	width: 350px;
+	width: 50%;
 }
+div {
+	margin: 0 auto;
+ }
 body{
 	background-image: url("../img/bkg.jpg");
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
+	font: bold 20px/1.5 "Garamond";
+	color: #fff;
 }
 
+#logo{
+	height: 10%;
+	width: 10%;
+}
+
+#fdv{
+	height: 10%;
+	width: 10%;
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+}
+
+.img{
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+input{
+	text-align: center;
+}
+
+#aventura{
+	text-align: center;
+	font-size: 125%;
+}
 .tab {
 	overflow: hidden;
 	border: 1px solid #ccc;
 	background-color: #f1f1f1;
   }
-  
+
   .tab button {
 	background-color: inherit;
 	float: left;
@@ -26,6 +58,8 @@ body{
 	cursor: pointer;
 	padding: 14px 16px;
 	transition: 0.3s;
+	font: bold 15px/1.5 "Courier New";
+	color: grey;
   }
   
   .tab button:hover {
@@ -41,8 +75,18 @@ body{
 	padding: 6px 12px;
 	border: 1px solid #ccc;
 	border-top: none;
+	animation: fadeEffect 1s;
   }
-
+  .plate{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+  }
+  @keyframes fadeEffect {
+	from {opacity: 0;}
+	to {opacity: 1;}
+  }
 .btn {
 	display: block;
 	width: 100%;
