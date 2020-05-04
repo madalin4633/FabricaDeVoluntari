@@ -12,7 +12,7 @@ html {
 }
 
 body{
-	background-image: url("../img/blue_background.jpg");
+	background-image: url("../images/blue_background.jpg");
 	background-repeat: no-repeat;
 	background-attachment: fixed;
     background-size: cover;
