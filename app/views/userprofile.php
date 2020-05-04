@@ -1,17 +1,15 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../public/styles/commons.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/styles/tooltip.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/styles/userprofile.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/styles/collapsible.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/commons.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/tooltip.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/userprofile.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/collapsible.css" />
     <title>Document</title>
-    <script src="../../public/javascript/userprofile.js">
+    <script src="http://localhost/fabricadevoluntari/public/javascript/userprofile.js">
     </script>
 </head>
 
@@ -26,7 +24,7 @@
             <nav class="leftPanel">
                 <div class="vertical-split">
                     <div class="crop">
-                        <img alt="profile pic" src="../../public/images/joshua-reddekopp-rTpR03TCFGQ-unsplash.jpg">
+                        <img alt="profile pic" src="http://localhost/fabricadevoluntari/public/images/joshua-reddekopp-rTpR03TCFGQ-unsplash.jpg">
                     </div>
                     <div id="full-name">
                         User name
@@ -50,7 +48,7 @@
                 <div class="info-table">
                     <button class="collapsible-container">
                         <div class="collapsible-btn">Detalii personale</div>
-                        <img class="dropdown-btn svg-white" src="../../public/images/arrow_drop_down_circle-24px.svg">
+                        <img class="dropdown-btn svg-white" src="http://localhost/fabricadevoluntari/public/images/arrow_drop_down_circle-24px.svg">
                     </button>
                     <div class="collapsible-content">
                         <table>
@@ -80,7 +78,7 @@
                 <div class="info-table">
                     <button class="collapsible-container active">
                         <div class="collapsible-btn">Asociatii</div>
-                        <img class="dropdown-btn svg-white" src="../../public/images/arrow_drop_down_circle-24px.svg">
+                        <img class="dropdown-btn svg-white" src="http://localhost/fabricadevoluntari/public/images/arrow_drop_down_circle-24px.svg">
                     </button>
                     <div class="collapsible-content" style="max-height: fit-content;">
                         <table class="tabel-asociatii">
@@ -91,16 +89,16 @@
                                 </td>
                                 <td>
                                     <div class="progress-asociatie">
-                                        <div class="tooltip"><span class="tooltiptext">Ore lucrate</span><img class="svg-white"  src="../../public/images/query_builder-24px.svg">
+                                        <div class="tooltip"><span class="tooltiptext">Ore lucrate</span><img class="svg-white"  src="http://localhost/fabricadevoluntari/public/images/query_builder-24px.svg">
                                             <span class="ore-lucrate">205</span></div>
-                                        <div class="tooltip"><span class="tooltiptext">Aprecieri</span><img class="svg-red" src="../../public/images/favorite-24px.svg">
+                                        <div class="tooltip"><span class="tooltiptext">Aprecieri</span><img class="svg-red" src="http://localhost/fabricadevoluntari/public/images/favorite-24px.svg">
                                             <span class="aprecieri">74</span></div>
                                         <div class="nowrap svg-yellow pack-tight">
-                                            <img src="../../public/images/star-24px.svg">
-                                            <img src="../../public/images/star-24px.svg">
-                                            <img src="../../public/images/star-24px.svg">
-                                            <img src="../../public/images/star_half-24px.svg">
-                                            <img src="../../public/images/star_border-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star_half-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star_border-24px.svg">
                                         </div>
                                     </div>
                                 </td>
@@ -113,16 +111,16 @@
                                 </td>
                                 <td>
                                     <div class="progress-asociatie">
-                                        <div class="tooltip"><span class="tooltiptext">Ore lucrate</span><img class="svg-white" src="../../public/images/query_builder-24px.svg">
+                                        <div class="tooltip"><span class="tooltiptext">Ore lucrate</span><img class="svg-white" src="http://localhost/fabricadevoluntari/public/images/query_builder-24px.svg">
                                             <span class="ore-lucrate">870</span></div>
-                                        <div class="tooltip"><span class="tooltiptext">Aprecieri</span><img class="svg-red" src="../../public/images/favorite-24px.svg">
+                                        <div class="tooltip"><span class="tooltiptext">Aprecieri</span><img class="svg-red" src="http://localhost/fabricadevoluntari/public/images/favorite-24px.svg">
                                             <span class="aprecieri">215</span></div>
                                         <div class="nowrap svg-yellow pack-tight">
-                                            <img src="../../public/images/star-24px.svg">
-                                            <img src="../../public/images/star-24px.svg">
-                                            <img src="../../public/images/star-24px.svg">
-                                            <img src="../../public/images/star-24px.svg">
-                                            <img src="../../public/images/star_half-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star_half-24px.svg">
                                         </div>
                                     </div>
                                 </td>
@@ -135,16 +133,16 @@
                                 </td>
                                 <td>
                                     <div class="progress-asociatie">
-                                        <div class="tooltip"><span class="tooltiptext">Ore lucrate</span><img class="svg-white"  src="../../public/images/query_builder-24px.svg">
+                                        <div class="tooltip"><span class="tooltiptext">Ore lucrate</span><img class="svg-white"  src="http://localhost/fabricadevoluntari/public/images/query_builder-24px.svg">
                                             <span class="ore-lucrate">65</span></div>
-                                        <div class="tooltip"><span class="tooltiptext">Aprecieri</span><img class="svg-red" src="../../public/images/favorite-24px.svg">
+                                        <div class="tooltip"><span class="tooltiptext">Aprecieri</span><img class="svg-red" src="http://localhost/fabricadevoluntari/public/images/favorite-24px.svg">
                                             <span class="aprecieri">4</span></div>
                                         <div class="nowrap svg-yellow pack-tight">
-                                            <img src="../../public/images/star-24px.svg">
-                                            <img src="../../public/images/star-24px.svg">
-                                            <img src="../../public/images/star_half-24px.svg">
-                                            <img src="../../public/images/star_border-24px.svg">
-                                            <img src="../../public/images/star_border-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star_half-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star_border-24px.svg">
+                                            <img src="http://localhost/fabricadevoluntari/public/images/star_border-24px.svg">
                                         </div>
                                     </div>
                                 </td>

@@ -40,7 +40,7 @@ class App {
         }
 
         // numele metodei, daca este definita in controller
-        if(isset($url[1]) && method_exists($controller, $url[1])){
+        if(isset($url[1]) && method_exists($this->controller, $url[1])){
             $this -> method = $url[1];
             $this -> params = array_slice($url, 2);
         }
