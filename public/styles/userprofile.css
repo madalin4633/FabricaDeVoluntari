@@ -1,0 +1,192 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+@import url(http://fonts.googleapis.com/css?family=Varela+Round);
+
+.leftPanel {
+    position: relative;
+    align-self: left;
+    background: rgb(67, 71, 82);
+    width: 10%;
+    height: auto;
+}
+
+.rightPanel {
+    position: relative;
+    align-self: right;
+    background-color: rgb(255, 0, 200);
+}
+
+.horizontal-split {
+    display: flex;
+    min-height: fit-content;
+    height: 100%;
+}
+
+.top-menu {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex: 0 0 50px;
+    flex-direction: row;
+    background-color: green;
+    position: sticky;
+    align-content: space-around; 
+}
+
+.vertical-split {
+    display: flex;
+    flex-direction: column;
+}
+
+body > .vertical-split {
+    min-width: fit-content;
+    height: 100%;
+    width:100%;
+}
+
+nav .vertical-split{
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.horizontal-split nav {
+    flex: 0 0 200px;
+    padding: 10px;
+
+}
+
+#full-name {
+    font: 21px "Source Sans Pro";
+    color: whitesmoke;
+    padding: 0.2em;
+}
+
+.crop {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    align-content: center;
+    align-self: center;
+    /* box-shadow: 0 0 8px 8px white inset; */
+}
+
+.crop img {
+    width: 300px;
+    height:  200px;
+    margin: 0 0 0 -30px;
+}
+
+th, td {
+    border: 1px solid black;
+    border-style: dotted;
+    border-color: whitesmoke;
+}
+
+th {
+    padding: 0 1em;
+    width: auto;
+    color: rgb(251, 255, 255);
+    background-color: rgba(91, 156, 218, 0.836);
+    font: 21px "Varela Round";
+    
+}
+
+td {
+    padding: 0 1em;
+    height: 2em;
+    width: auto;
+    font: 16px "Varela Round";
+}
+
+.info-table {
+    padding: 1em 2em;
+    /* display: block; */
+    width: auto;
+}
+
+.asoc-logo {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 20%;
+    box-shadow: 3px 3px 5px 5px rgb(44, 74, 105);
+}
+
+#asoc-logo-1 {
+    background: url('../images/british-library-gTV2osuOsJc-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+	background-repeat: no-repeat;
+}
+
+#asoc-logo-3 {
+    background: url('../images/wesley-tingey-Wr1gP-53phU-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+	background-repeat: no-repeat;
+}
+
+#asoc-logo-2 {
+    background: url('../images/rich-smith-lVVs5skyWoo-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+	background-repeat: no-repeat;
+}
+
+.tabel-asociatii tr td {
+    width:fit-content;
+    padding: 5px;
+    border-style: none;
+}
+
+.details-container {
+    width: fit-content;
+    margin: 4px;
+}
+
+.progress-asociatie {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: space-evenly;
+    height: 80%;
+}
+
+.progress-asociatie > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+.progress-asociatie  span {
+
+    padding-left: 0.3em;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.svg-red {
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+.svg-yellow {
+    filter: invert(27%) sepia(91%) saturate(5000%) hue-rotate(45deg) brightness(254%) contrast(97%);
+}
+
+.svg-white {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(254%) contrast(97%);
+}
+
+.pack-tight {
+    display: flex;
+}
+
+.ore-lucrate, .aprecieri {
+    font-size: 1.6em;
+    color: rgb(150, 231, 57);
+}
