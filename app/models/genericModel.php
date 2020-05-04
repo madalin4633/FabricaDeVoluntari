@@ -1,8 +1,12 @@
 <?php
 
+/**
+ * called from api/createTables (admin only)
+ */
 function createTables($conn) {
     try {
         pg_query($conn, 'DROP TABLE tblVolAssoc; DROP TABLE tblVolunteers; DROP TABLE tblAssociations;');
+        echo 'Tables dropped. \n';
     } catch (Exception $e) {
         echo 'Failed to drop tables: ' . $e->getMessage() . '\n';
     }
