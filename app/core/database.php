@@ -6,4 +6,3 @@ or die('Could not connect: ' . pg_last_error());
 if (pg_connection_status($conn) == PGSQL_CONNECTION_OK){
     $GLOBALS['db'] = $conn;
 }
-
