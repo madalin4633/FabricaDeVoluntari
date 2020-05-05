@@ -49,4 +49,36 @@ function createTables($conn) {
         echo "Table VolAssoc created!\n";
     }
 
+    insertData($conn);
+
+}
+
+function insertData($conn) {
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, "https://randomuser.me/api/");
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    
+
+    for ($xi = 0; $xi < 12; $xi++) {
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        $data = json_decode($response, true);
+
+        insert_Assoc($conn,  $data['results'][0]['location']['city'] . " Charity", 
+            $data['results'][0]['location']['street']['name'], $data['results'][0]['email']);
+    }
+    curl_close($curl);
+}
+
+/**
+ * Insert test data in tblAssociations
+ */
+function insert_Assoc($conn, $nume, $adresa, $email) {
+    $query  ='INSERT INTO tblAssociations 
+    (nume, adresa, email, created_on, updated_on) VALUES 
+    (\'' . $nume . '\',\'' . $adresa . '\',\'' . $email . '\', current_timestamp, current_timestamp)';
+
+    echo $query . '\n';
+
+    if (pg_query($conn, $query)) { echo "Record added in tblAssociations";}
 }

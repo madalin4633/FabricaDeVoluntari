@@ -1,7 +1,7 @@
 <?php
 
 class App {
-    private $controller = 'home'; // default controller
+    private $controller = 'userprofile'; // default controller
     private $method = 'index'; // default view
 
     private $params =[];

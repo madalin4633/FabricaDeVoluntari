@@ -46,8 +46,7 @@ class createTablesAPI extends GenericAPI {
                 
         require_once __DIR__ . "/../models/genericModel.php";
 
-        $this -> middlewares(['isAdmin',[]],[['createTables', [$GLOBALS['db']]]]);
-        //createTables($GLOBALS['db']);
+        $this -> middlewares([['createTables', [$GLOBALS['db']]]]);
     }
 }
 
