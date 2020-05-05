@@ -1,0 +1,144 @@
+*{
+	box-sizing: border-box;
+	align-items: center;
+}
+form{
+	width: 50%;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+}
+div {
+	margin: 0 auto;
+ }
+
+ .tab:nth-child(1) { 
+	 margin-left: 30%; 
+	}
+
+body{
+	background-image: url("../images/bkg.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	font: bold 20px/1.5 "Garamond";
+	color: #fff;
+	text-align: center;
+}
+
+#logo{
+	height: 10%;
+	width: 10%;
+}
+
+#fdv{
+	height: 10%;
+	width: 10%;
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+}
+
+.img{
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+input{
+	text-align: center;
+	width: 100%;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=url]:focus, input[type=date]:focus {
+	background-color: lightblue;
+  }
+
+input[type='checkbox']:focus,
+input[type='radio']:focus {
+  box-shadow: 0 0 0 var(--focus);
+}
+
+input[type='checkbox']:disabled + label,
+input[type='radio']:disabled + label {
+    cursor: not-allowed;
+}
+
+  textarea {
+	width: 100%;
+	height: 150px;
+	padding: 12px 20px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	resize: none;
+  }
+#aventura{
+	text-align: center;
+	font-size: 125%;
+}
+.tab {
+	overflow: hidden;
+	display: flex;
+	justify-content: center; // centers its children
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+  }
+
+  .tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font: bold 15px/1.5 "Courier New";
+	color: grey;
+  }
+  
+  .tab button:hover {
+	background-color: #ddd;
+  }
+  
+  .tab button.active {
+	background-color: #ccc;
+  }
+  
+  .tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+	animation: fadeEffect 1s;
+  }
+  .plate{
+	display: block;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+  }
+  @keyframes fadeEffect {
+	from {opacity: 0;}
+	to {opacity: 1;}
+  }
+.btn {
+	display: block;
+	width: 100%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+	background-size: 200%;
+	font-size: 1.2rem;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+	transition: .5s;/*
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;*/
+}
