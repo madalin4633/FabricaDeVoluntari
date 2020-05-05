@@ -4,17 +4,26 @@
 }
 form{
 	width: 50%;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
 }
 div {
 	margin: 0 auto;
  }
+
+ .tab:nth-child(1) { 
+	 margin-left: 30%; 
+	}
+
 body{
-	background-image: url("../img/bkg.jpg");
+	background-image: url("../images/bkg.jpg");
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
 	font: bold 20px/1.5 "Garamond";
 	color: #fff;
+	text-align: center;
 }
 
 #logo{
@@ -38,14 +47,41 @@ body{
 
 input{
 	text-align: center;
+	width: 100%;
 }
 
+input[type=text]:focus, input[type=email]:focus, input[type=url]:focus, input[type=date]:focus {
+	background-color: lightblue;
+  }
+
+input[type='checkbox']:focus,
+input[type='radio']:focus {
+  box-shadow: 0 0 0 var(--focus);
+}
+
+input[type='checkbox']:disabled + label,
+input[type='radio']:disabled + label {
+    cursor: not-allowed;
+}
+
+  textarea {
+	width: 100%;
+	height: 150px;
+	padding: 12px 20px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	resize: none;
+  }
 #aventura{
 	text-align: center;
 	font-size: 125%;
 }
 .tab {
 	overflow: hidden;
+	display: flex;
+	justify-content: center; // centers its children
 	border: 1px solid #ccc;
 	background-color: #f1f1f1;
   }
@@ -78,7 +114,7 @@ input{
 	animation: fadeEffect 1s;
   }
   .plate{
-	display: flex;
+	display: block;
 	justify-content: flex-start;
 	align-items: center;
 	text-align: center;
