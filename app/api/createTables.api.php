@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
 
 Create tables in the database
 
@@ -11,26 +11,69 @@ SQL Syntax: postgreSQL
 
 header("Content-type: application/json");
 
-class createTablesAPI extends GenericAPI {
+class createTablesAPI extends GenericAPI
+{
+    public function __construct()
+    {
+        require_once __DIR__ . "/../models/genericModel.php";
 
-    public function __construct() {
         switch ($_SERVER['REQUEST_METHOD']) {
-            case "GET":
-                if (preg_match('/api\/createTables\/(([0-9,a-z,A-Z,-])+)(\/)?$/', $_SERVER['REQUEST_URI'], $matches)) {
-                    echo "{response: 'API GET'}";
+            case "DELETE":
+                // api/createTables/Associations
+                if (preg_match('/api\/createTables\/Associations(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                    $this -> middlewares([['dropTableAssociations', [$GLOBALS['db']]]]);
+                
+                // api/createTables/Volunteers
+                } elseif (preg_match('/api\/createTables\/Volunteers(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                    $this -> middlewares([['dropTableVolunteers', [$GLOBALS['db']]]]);
+                        
+                // api/createTables/VolAssoc
+                } elseif (preg_match('/api\/createTables\/VolAssoc(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                    $this -> middlewares([['dropTableVolAssoc', [$GLOBALS['db']]]]);
+
                 } else {
                     http_response_code(400);
                     echo '{"status":400, "response":"Bad request!"}';
                 }
                 break;
-            case "POST":
-                if (preg_match('/api\/createTables(\/)?$/', $_SERVER['REQUEST_URI'], $matches)) {
-                    $this -> validateCreateTables();
+                case "PUT":
+                    // api/createTables/Associations
+                    if (preg_match('/api\/createTables\/Associations(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                        $this -> middlewares([['insertDataAssociations', [$GLOBALS['db']]]]);
                     
+                    // api/createTables/Volunteers
+                    } elseif (preg_match('/api\/createTables\/Volunteers(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                        $this -> middlewares([['insertDataVolunteers', [$GLOBALS['db']]]]);
+                            
+                    // api/createTables/VolAssoc
+                    } elseif (preg_match('/api\/createTables\/VolAssoc(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                        $this -> middlewares([['insertDataVolAssoc', [$GLOBALS['db']]]]);
+    
+                    } else {
+                        http_response_code(400);
+                        echo '{"status":400, "response":"Bad request!"}';
+                    }
+                    break;
+                case "POST":
+                // api/createTables/Associations
+                if (preg_match('/api\/createTables\/Associations(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                    $this -> middlewares([['createTableAssociations', [$GLOBALS['db']]]]);
+                
+                // api/createTables/Volunteers
+                } elseif (preg_match('/api\/createTables\/Volunteers(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                    $this -> middlewares([['createTableVolunteers', [$GLOBALS['db']]]]);
+                        
+                // api/createTables/VolAssoc
+                } elseif (preg_match('/api\/createTables\/VolAssoc(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                    $this -> middlewares([['createTableVolAssoc', [$GLOBALS['db']]]]);
+                        
+                // api/createTables
+                } elseif (preg_match('/api\/createTables(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                    $this -> middlewares([['createTables', [$GLOBALS['db']]]]);
+
                 } else {
                     http_response_code(400);
                     echo '{"status":400, "response":"Bad request!"}';
-                    
                 }
                 break;
             default:
@@ -40,7 +83,8 @@ class createTablesAPI extends GenericAPI {
         }
     }
 
-    private function validateCreateTables() {
+    private function validateCreateTables()
+    {
         // if user is authentificated (admin), then create tables in the database
         
                 
@@ -51,8 +95,10 @@ class createTablesAPI extends GenericAPI {
 }
 
 
-class GenericAPI {
-    protected function middlewares($array) {
+class GenericAPI
+{
+    protected function middlewares($array)
+    {
         for ($i = 0; $i < sizeof($array); $i++) {
             echo $array[$i][0];
             if (! $array[$i][0]($array[$i][1][0])) {
@@ -60,13 +106,15 @@ class GenericAPI {
             }
         }
     }
-    protected function adminOnly() {
+    protected function adminOnly()
+    {
         //TODO check if user is admin
 
         http_response_code(400);
         return true;
     }
 
-    protected function volunteerOnly() {}
-
+    protected function volunteerOnly()
+    {
+    }
 }
