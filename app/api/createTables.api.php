@@ -9,6 +9,8 @@ SQL Syntax: postgreSQL
 
 // TODO allow only logged in db admin
 
+require_once __DIR__ . '/genericAPI.php';
+
 header("Content-type: application/json");
 
 class createTablesAPI extends GenericAPI
@@ -31,6 +33,9 @@ class createTablesAPI extends GenericAPI
                 } elseif (preg_match('/api\/createTables\/VolAssoc(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
                     $this -> middlewares([['dropTableVolAssoc', [$GLOBALS['db']]]]);
 
+                // api/createTables/Feedback
+                } elseif (preg_match('/api\/createTables\/Feedback(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                    $this -> middlewares([['dropTableFeedback', [$GLOBALS['db']]]]);
                 } else {
                     http_response_code(400);
                     echo '{"status":400, "response":"Bad request!"}';
@@ -48,7 +53,11 @@ class createTablesAPI extends GenericAPI
                     // api/createTables/VolAssoc
                     } elseif (preg_match('/api\/createTables\/VolAssoc(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
                         $this -> middlewares([['insertDataVolAssoc', [$GLOBALS['db']]]]);
-    
+
+                     // api/createTables/Feedback
+                    } elseif (preg_match('/api\/createTables\/Feedback(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                        $this -> middlewares([['insertDataFeedback', [$GLOBALS['db']]]]);
+                        
                     } else {
                         http_response_code(400);
                         echo '{"status":400, "response":"Bad request!"}';
@@ -67,10 +76,14 @@ class createTablesAPI extends GenericAPI
                 } elseif (preg_match('/api\/createTables\/VolAssoc(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
                     $this -> middlewares([['createTableVolAssoc', [$GLOBALS['db']]]]);
                         
+                // api/createTables/Feedback
+                } elseif (preg_match('/api\/createTables\/Feedback(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                $this -> middlewares([['createTableFeedback', [$GLOBALS['db']]]]);
+                    
                 // api/createTables
                 } elseif (preg_match('/api\/createTables(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
                     $this -> middlewares([['createTables', [$GLOBALS['db']]]]);
-
+                    
                 } else {
                     http_response_code(400);
                     echo '{"status":400, "response":"Bad request!"}';
@@ -91,30 +104,5 @@ class createTablesAPI extends GenericAPI
         require_once __DIR__ . "/../models/genericModel.php";
 
         $this -> middlewares([['createTables', [$GLOBALS['db']]]]);
-    }
-}
-
-
-class GenericAPI
-{
-    protected function middlewares($array)
-    {
-        for ($i = 0; $i < sizeof($array); $i++) {
-            echo $array[$i][0];
-            if (! $array[$i][0]($array[$i][1][0])) {
-                break;
-            }
-        }
-    }
-    protected function adminOnly()
-    {
-        //TODO check if user is admin
-
-        http_response_code(400);
-        return true;
-    }
-
-    protected function volunteerOnly()
-    {
     }
 }
