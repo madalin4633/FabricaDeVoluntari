@@ -62,8 +62,8 @@ function insert_VolAssoc($conn, $assoc, $vol)
 {
     if (rand(0, 100) < 9) {                     /* 9% probabilitate ca voluntarul $vol sa lucreze la asociatia $assoc */
         $query  ='INSERT INTO tblVolAssoc 
-        (assoc_id, vol_id, created_on) VALUES 
-        (' . $assoc . ',' . $vol .', current_timestamp)';
+        (assoc_id, vol_id, hours_worked, bonus_points, created_on) VALUES 
+        (' . $assoc . ',' . $vol .', ' . strval(rand(0, 500)) .', ' . strval(rand(0, 150)) .', current_timestamp)';
 
         if (pg_query($conn, $query)) {
             echo "Record added in tblVolAssoc";

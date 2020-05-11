@@ -1,7 +1,7 @@
 <?php
 
 class App {
-    private $controller = 'userprofile'; // default controller
+    private $controller = 'volunteer'; // default controller
     private $method = 'index'; // default view
 
     private $params =[];
@@ -37,6 +37,10 @@ class App {
         if(isset($url[0]) && file_exists(__DIR__ . '/../controllers/' . $url[0] . '.php')){
             $this -> controller = $url[0];
             $this -> params = array_slice($url, 1); // daca controllerul exista, elimina primul element din tabloul param
+        }
+        else if(isset($url[0]) && $url[0] != ""){
+            require_once __DIR__ . "/../views/not-found.html";
+            return;
         }
 
         // numele metodei, daca este definita in controller

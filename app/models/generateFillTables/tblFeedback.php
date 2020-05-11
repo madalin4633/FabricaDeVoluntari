@@ -4,12 +4,6 @@
  *      Feedback pentru voluntari
  */
 
-define ("METRIC1","harnic");
-define ("METRIC2","comunicativ");
-define ("METRIC3","disponibil");
-define ("METRIC4","punctual");
-define ("METRIC5","saritor");
-
 function dropTableFeedback($conn)
 {
     try {

@@ -58,6 +58,10 @@ class createTablesAPI extends GenericAPI
                     } elseif (preg_match('/api\/createTables\/Feedback(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
                         $this -> middlewares([['insertDataFeedback', [$GLOBALS['db']]]]);
                         
+                     // api/createTables
+                    } elseif (preg_match('/api\/createTables(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                        $this -> middlewares([['insertDataAll', [$GLOBALS['db']]]]);
+                        
                     } else {
                         http_response_code(400);
                         echo '{"status":400, "response":"Bad request!"}';
