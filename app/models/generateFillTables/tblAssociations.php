@@ -72,7 +72,7 @@ function insert_Assoc($conn, $nume, $adresa, $email, $logo)
 {
     $query  ='INSERT INTO tblAssociations 
     (nume, adresa, email, logo, created_on, updated_on) VALUES 
-    (\'' . $nume . '\',\'' . $adresa . '\',\'' . $email . '\',' . $logo . ', current_timestamp, current_timestamp)';
+    (' . pg_escape_literal($nume) . ',' . pg_escape_literal($adresa) . ',' . pg_escape_literal($email) . ',' . $logo . ', current_timestamp, current_timestamp)';
 
     echo $query . '<br>';
 

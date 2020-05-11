@@ -27,7 +27,7 @@
                         <img alt="profile pic" src="http://localhost/fabricadevoluntari/public/images/joshua-reddekopp-rTpR03TCFGQ-unsplash.jpg">
                     </div>
                     <div id="full-name">
-                        User name
+                        <?php echo $volunteer -> username; ?>
                     </div>
                 </div>
                 <div>
@@ -52,26 +52,18 @@
                     </button>
                     <div class="collapsible-content">
                         <table>
-                            <tr>
-                                <th>Nume</th>
-                                <td>Duck</td>
-                            </tr>
-                            <tr>
-                                <th>Prenume</th>
-                                <td>Donald</td>
-                            </tr>
-                            <tr>
-                                <th>Varsta</th>
-                                <td>70</td>
-                            </tr>
-                            <tr>
-                                <th>E-mail</th>
-                                <td>donald@duck.com</td>
-                            </tr>
-                            <tr>
-                                <th nowrap>Data inscriere</th>
-                                <td>martie 2020</td>
-                            </tr>
+                            <?php 
+                                foreach($volunteer -> personalDetails as $key => $detail) {
+                                    echo "<tr>
+                                        <th nowrap>
+                                            " . $key . "
+                                        </th>
+                                        <td>
+                                            " . $detail . ' ' . "
+                                        </td>
+                                    </tr>";
+                                };
+                            ?>
                         </table>
                     </div>
                 </div>
@@ -89,7 +81,7 @@
                                     "<tr>
                                         <td>
                                             <div class='tooltip'><span class='tooltiptext'>" . $assoc['nume'] . "</span>
-                                            <div id='asoc-logo-1' class='asoc-logo'>
+                                            <div class='asoc-logo' style='background: url(http://localhost/fabricadevoluntari/public/images/logo/" . $assoc['logo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                                             </div>
                                         </td>
                                         <td>
@@ -98,7 +90,12 @@
                                                     <span class='ore-lucrate'>" . $assoc['hours_worked'] . "</span></div>
                                                 <div class='tooltip'><span class='tooltiptext'>Aprecieri</span><img class='svg-red' src='http://localhost/fabricadevoluntari/public/images/favorite-24px.svg'>
                                                     <span class='aprecieri'>" . $assoc['bonus_points'] . "</span></div>
-                                                <div class='nowrap svg-yellow pack-tight'>
+                                                <div class='nowrap ";
+                                                 if($assoc['rating']>0) 
+                                                    echo "svg-yellow"; 
+                                                else 
+                                                    echo "svg-grey";
+                                                echo " pack-tight'>
                                                     "; 
                                                     for ($i = 0; $i < 5; $i++) {
                                                         if (floor($assoc['rating']) > $i) 

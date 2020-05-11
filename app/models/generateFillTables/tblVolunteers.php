@@ -23,7 +23,12 @@ function createTableVolunteers($conn)
         id serial PRIMARY KEY,
         nume VARCHAR(50) NOT NULL,
         prenume VARCHAR(50) NOT NULL,
+        username VARCHAR(50) NOT NULL,
+        data_nasterii DATE,
+        gen VARCHAR(10),
+        nationalitate VARCHAR(20),
         email VARCHAR (355) UNIQUE NOT NULL,
+        profile_pic VARCHAR(64),
         created_on TIMESTAMP NOT NULL,
         updated_on TIMESTAMP NOT NULL,
         last_login TIMESTAMP
@@ -52,9 +57,13 @@ function insertDataVolunteers($conn)
 
         insert_Volunteers(
             $conn,
-            $data['results'][0]['name']['last'],
+            $data['results'][0]['name']['last'] ,
             $data['results'][0]['name']['first'],
-            $data['results'][0]['email']
+            $data['results'][0]['gender'],
+            $data['results'][0]['nat'],
+            $data['results'][0]['dob']['date'],
+            $data['results'][0]['email'],
+            'profile-pic-' . strval($xi+1) . '.jpg'
         );
     }
 
@@ -65,11 +74,13 @@ function insertDataVolunteers($conn)
 /**
  * Insert test data in tblVolunteers
  */
-function insert_Volunteers($conn, $nume, $prenume, $email)
+function insert_Volunteers($conn, $nume, $prenume, $gender, $nat, $dob, $email, $pic)
 {
     $query  ='INSERT INTO tblVolunteers 
-    (nume, prenume, email, created_on, updated_on) VALUES 
-    (\'' . $nume . '\',\'' . $prenume . '\',\'' . $email . '\', current_timestamp, current_timestamp)';
+    (nume, prenume, username, email, gen, nationalitate, data_nasterii, profile_pic, created_on, updated_on) VALUES 
+    (' . pg_escape_literal($nume) . ',' . pg_escape_literal($prenume) . ',' . pg_escape_literal($prenume .  $nume) . 
+     ',' . pg_escape_literal($email) . ',' . pg_escape_literal($gender) . ',' . pg_escape_literal($nat) . 
+     ',' . pg_escape_literal($dob) . ',' . pg_escape_literal($pic) . ', current_timestamp, current_timestamp)';
 
     echo $query . '<br>';
 

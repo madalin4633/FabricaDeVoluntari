@@ -112,24 +112,6 @@ td {
     overflow: hidden;
     border-radius: 20%;
     box-shadow: 3px 3px 5px 5px rgb(44, 74, 105);
-}
-
-#asoc-logo-1 {
-    background: url('../images/logo/assoc_1.jpg');
-    background-size: cover;
-    background-position: center;
-	background-repeat: no-repeat;
-}
-
-#asoc-logo-3 {
-    background: url('../images/wesley-tingey-Wr1gP-53phU-unsplash.jpg');
-    background-size: cover;
-    background-position: center;
-	background-repeat: no-repeat;
-}
-
-#asoc-logo-2 {
-    background: url('../images/rich-smith-lVVs5skyWoo-unsplash.jpg');
     background-size: cover;
     background-position: center;
 	background-repeat: no-repeat;
@@ -176,6 +158,10 @@ td {
 
 .svg-yellow {
     filter: invert(27%) sepia(91%) saturate(5000%) hue-rotate(45deg) brightness(254%) contrast(97%);
+}
+
+.svg-grey {
+    filter: invert(30%) sepia(4%) saturate(0%) hue-rotate(356deg) brightness(98%) contrast(80%);
 }
 
 .svg-white {
