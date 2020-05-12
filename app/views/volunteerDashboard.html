@@ -17,8 +17,9 @@
     <section class="vertical-split">
 
         <section class="top-menu">
-            <div>menu 1</div>
-            <div>menu 2</div>
+            <div><a class="menu-button" href = <?= $GLOBALS['URL_HOST'] . "/volunteer/dashboard"; ?>>Dashboard </a> </div>
+            <div><a class="menu-button" href = <?= $GLOBALS['URL_HOST'] . "/volunteer/profile"; ?> >Profile </a> </div>
+
         </section>
         <section class="horizontal-split">
             <nav class="leftPanel">
@@ -31,10 +32,10 @@
                     </div>
                 </div>
                 <div>
-                    lista aptitudini
+                    Profil
                 </div>
                 <div>
-                    lista interese
+                    Deconectare
                 </div>
                 <div>
                     badge-uri
@@ -45,28 +46,6 @@
             </nav>
 
             <div class="details-container">
-                <div class="info-table">
-                    <button class="collapsible-container">
-                        <div class="collapsible-btn">Detalii personale</div>
-                        <img class="dropdown-btn svg-white" src="http://localhost/fabricadevoluntari/public/images/arrow_drop_down_circle-24px.svg">
-                    </button>
-                    <div class="collapsible-content">
-                        <table>
-                            <?php 
-                                foreach($volunteer -> personalDetails as $key => $detail) {
-                                    echo "<tr>
-                                        <th nowrap>
-                                            " . $key . "
-                                        </th>
-                                        <td>
-                                            " . $detail . ' ' . "
-                                        </td>
-                                    </tr>";
-                                };
-                            ?>
-                        </table>
-                    </div>
-                </div>
                 <div class="info-table">
                     <button class="collapsible-container active">
                         <div class="collapsible-btn">Asociatii</div>
@@ -116,6 +95,7 @@
                         </table>
                     </div>
                 </div>
+
             </div>
 
         </section>

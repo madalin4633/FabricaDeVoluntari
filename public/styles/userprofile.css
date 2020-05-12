@@ -176,3 +176,10 @@ td {
     font-size: 1.6em;
     color: rgb(150, 231, 57);
 }
+
+.editable {
+    background: url("http://localhost/fabricadevoluntari/public/images/create-black-24dp.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-position-y: 0px;
+}

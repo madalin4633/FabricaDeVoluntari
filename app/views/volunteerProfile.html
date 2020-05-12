@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/commons.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/tooltip.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/userprofile.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/collapsible.css" />
+    <title>Document</title>
+    <script src="http://localhost/fabricadevoluntari/public/javascript/userprofile.js">
+    </script>
+</head>
+
+<body>
+    <section class="vertical-split">
+
+        <section class="top-menu">
+            <div><a class="menu-button" href = <?= $GLOBALS['URL_HOST'] . "/volunteer/dashboard"; ?>>Dashboard </a> </div>
+            <div><a class="menu-button" href = <?= $GLOBALS['URL_HOST'] . "/volunteer/profile"; ?> >Profile </a> </div>
+            
+        </section>
+        <section class="horizontal-split">
+            <nav class="leftPanel">
+                <div class="vertical-split">
+                    <div class="crop">
+                        <img alt="profile pic" src="http://localhost/fabricadevoluntari/public/images/joshua-reddekopp-rTpR03TCFGQ-unsplash.jpg">
+                    </div>
+                    <div id="full-name">
+                        <?php echo $volunteer -> username; ?>
+                    </div>
+                </div>
+                <div>
+                    Profil
+                </div>
+                <div>
+                    Deconectare
+                </div>
+                <div>
+                    badge-uri
+                </div>
+                <div>
+                    Feedback
+                </div>
+            </nav>
+
+            <div class="details-container">
+                <div class="info-table">
+                    <button class="collapsible-container">
+                        <div class="collapsible-btn">Detalii personale</div>
+                        <img class="dropdown-btn svg-white" src="http://localhost/fabricadevoluntari/public/images/arrow_drop_down_circle-24px.svg">
+                    </button>
+                    <div class="collapsible-content">
+                        <table>
+                            <?php 
+                                foreach($volunteer -> personalDetails as $key => $detail) {
+                                    echo "<tr>
+                                        <th nowrap>
+                                            " . $key . "
+                                        </th>
+                                        <td>
+                                            " . $detail . ' ' . "
+                                        </td>
+                                    </tr>";
+                                };
+                            ?>
+                        </table>
+                    </div>
+                </div>
+                <div class="info-table">
+                    <button class="collapsible-container">
+                        <div class="collapsible-btn">Aptitudini</div>
+                        <img class="dropdown-btn svg-white" src="http://localhost/fabricadevoluntari/public/images/arrow_drop_down_circle-24px.svg">
+                    </button>
+                    <div class="collapsible-content">
+                        <div class="under-construction">Under construction</div>
+                    </div>
+                </div>
+                <div class="info-table">
+                    <button class="collapsible-container">
+                        <div class="collapsible-btn">Interese</div>
+                        <img class="dropdown-btn svg-white" src="http://localhost/fabricadevoluntari/public/images/arrow_drop_down_circle-24px.svg">
+                    </button>
+                    <div class="collapsible-content">
+                        <div class="under-construction">Under construction</div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </section>
+
+    <script>initCollapsible();</script>
+</body>
+
+</html>

@@ -8,9 +8,9 @@ class VolunteerModel {
     public function __construct()
     {
         // read from db associations this volunteer has enrolled in
-        $this -> readAssociations("4");
+        $this -> readAssociations($GLOBALS['user_id']);
         
-        $this -> readPersonalDetails("4");
+        $this -> readPersonalDetails($GLOBALS['user_id']);
     }
 
     /**
