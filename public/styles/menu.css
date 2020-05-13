@@ -1,0 +1,49 @@
+.top-menu {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex: 0 0 50px;
+    flex-direction: row;
+    background-color: rgb(28, 42, 88);
+    position: sticky;
+    align-content: space-around;
+    justify-content: flex-start; 
+}
+
+.top-menu .crop {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 20%;
+    align-content: center;
+    align-self: center;
+    margin: 5px;
+    margin-left: auto;
+    /* box-shadow: 0 0 8px 8px white inset; */
+}
+
+.top-menu .crop img {
+    width: 50px;
+    height:  50px;
+    margin: 0 0 0 -3px;
+}
+
+.menu-button {
+    border: 1px rgb(94, 145, 160) solid;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgb(28, 70, 68);
+    color: ivory;
+    border-radius: 5%;
+    align-content: center;
+    margin: 2px;
+    font-size: large;
+
+}
+
+.menu-button:active{
+    background-color: cadetblue;
+    transition: 0.1s ease-out;
+}

@@ -7,13 +7,13 @@ class Volunteer {
         // signed in volunteer looking at his dashboard
         $volunteer = new VolunteerModel();
 
-        require_once __DIR__ . '/../views/volunteerDashboard.html';
+        require_once __DIR__ . '/../views/volunteerDashboard.php';
     }
 
     public function profile() {
         // signed in volunteer looking at his dashboard
         $volunteer = new VolunteerModel();
 
-        require_once __DIR__ . '/../views/volunteerProfile.html';
+        require_once __DIR__ . '/../views/volunteerProfile.php';
     }
 }

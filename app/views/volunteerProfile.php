@@ -4,28 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/commons.css" />
-    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/tooltip.css" />
-    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/userprofile.css" />
-    <link rel="stylesheet" type="text/css" href="http://localhost/fabricadevoluntari/public/styles/collapsible.css" />
+    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/commons.css"?> />
+    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/tooltip.css"?> />
+    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/userprofile.css"?> />
+    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/collapsible.css"?> />
+    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/menu.css"?> />
     <title>Document</title>
-    <script src="http://localhost/fabricadevoluntari/public/javascript/userprofile.js">
+    <script src=<?= $GLOBALS['URL_HOST'] . "/public/javascript/userprofile.js"?> >
     </script>
 </head>
 
 <body>
     <section class="vertical-split">
 
-        <section class="top-menu">
-            <div><a class="menu-button" href = <?= $GLOBALS['URL_HOST'] . "/volunteer/dashboard"; ?>>Dashboard </a> </div>
-            <div><a class="menu-button" href = <?= $GLOBALS['URL_HOST'] . "/volunteer/profile"; ?> >Profile </a> </div>
-            
-        </section>
+        <?php require_once __DIR__ . "/components/menu.php"; ?>
+        
         <section class="horizontal-split">
             <nav class="leftPanel">
                 <div class="vertical-split">
                     <div class="crop">
-                        <img alt="profile pic" src="http://localhost/fabricadevoluntari/public/images/joshua-reddekopp-rTpR03TCFGQ-unsplash.jpg">
+                        <img alt="profile pic" src=<?= $GLOBALS['URL_HOST'] . "/public/images/". $volunteer -> pic; ?>>
                     </div>
                     <div id="full-name">
                         <?php echo $volunteer -> username; ?>
@@ -49,20 +47,21 @@
                 <div class="info-table">
                     <button class="collapsible-container">
                         <div class="collapsible-btn">Detalii personale</div>
-                        <img class="dropdown-btn svg-white" src="http://localhost/fabricadevoluntari/public/images/arrow_drop_down_circle-24px.svg">
+                        <img class="dropdown-btn svg-white" src=<?= $GLOBALS['URL_HOST'] . "/public/images/arrow_drop_down_circle-24px.svg" ?>>
                     </button>
                     <div class="collapsible-content">
                         <table>
                             <?php 
                                 foreach($volunteer -> personalDetails as $key => $detail) {
+                                    if (strpos($key, '_ignore_') === false) {
                                     echo "<tr>
                                         <th nowrap>
-                                            " . $key . "
+                                            " . str_replace('_noedit_', '', $key) . "
                                         </th>
-                                        <td>
+                                        <td "; if (strpos($key, '_noedit_') !== false) echo " noedit='true'"; echo ">
                                             " . $detail . ' ' . "
                                         </td>
-                                    </tr>";
+                                    </tr>";}
                                 };
                             ?>
                         </table>
@@ -71,7 +70,7 @@
                 <div class="info-table">
                     <button class="collapsible-container">
                         <div class="collapsible-btn">Aptitudini</div>
-                        <img class="dropdown-btn svg-white" src="http://localhost/fabricadevoluntari/public/images/arrow_drop_down_circle-24px.svg">
+                        <img class="dropdown-btn svg-white" src=<?= $GLOBALS['URL_HOST'] . "/public/images/arrow_drop_down_circle-24px.svg" ?>>
                     </button>
                     <div class="collapsible-content">
                         <div class="under-construction">Under construction</div>
@@ -80,7 +79,7 @@
                 <div class="info-table">
                     <button class="collapsible-container">
                         <div class="collapsible-btn">Interese</div>
-                        <img class="dropdown-btn svg-white" src="http://localhost/fabricadevoluntari/public/images/arrow_drop_down_circle-24px.svg">
+                        <img class="dropdown-btn svg-white" src=<?= $GLOBALS['URL_HOST'] . "/public/images/arrow_drop_down_circle-24px.svg" ?>>
                     </button>
                     <div class="collapsible-content">
                         <div class="under-construction">Under construction</div>

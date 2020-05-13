@@ -21,19 +21,6 @@
     height: 100%;
 }
 
-.top-menu {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    display: flex;
-    flex: 0 0 50px;
-    flex-direction: row;
-    background-color: green;
-    position: sticky;
-    align-content: space-around; 
-}
-
 .vertical-split {
     display: flex;
     flex-direction: column;
@@ -82,6 +69,8 @@ th, td {
     border: 1px solid black;
     border-style: dotted;
     border-color: whitesmoke;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 th {
@@ -94,7 +83,6 @@ th {
 }
 
 td {
-    padding: 0 1em;
     height: 2em;
     width: auto;
     font: 16px "Varela Round";
@@ -112,14 +100,14 @@ td {
     overflow: hidden;
     border-radius: 20%;
     box-shadow: 3px 3px 5px 5px rgb(44, 74, 105);
-    background-size: cover;
+    margin: 7px;
+    /* background-size: cover;
     background-position: center;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat; */
 }
 
 .tabel-asociatii tr td {
     width:fit-content;
-    padding: 5px;
     border-style: none;
 }
 
@@ -134,6 +122,7 @@ td {
     justify-content: space-evenly;
     align-items: space-evenly;
     height: 80%;
+    padding-left: 4px;
 }
 
 .progress-asociatie > div {
@@ -182,4 +171,20 @@ td {
     background-repeat: no-repeat;
     background-position: right;
     background-position-y: 0px;
+}
+
+.flex-grid-expandable-list {
+    display: flex;
+    max-width: 500px;
+    flex-wrap: wrap;
+}
+
+.flex-grid-expandable {
+    order: 1;
+}
+
+.flex-grid-expandable:active {
+    width: 500px;
+    border: violet 2px solid;
+    order: 0;
 }
