@@ -10,8 +10,9 @@
     <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/collapsible.css"?> />
     <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/menu.css"?> />
     <title>Document</title>
-    <script src=<?= $GLOBALS['URL_HOST'] . "/public/javascript/userprofile.js"?> >
-    </script>
+    <script src=<?= $GLOBALS['URL_HOST'] . "/public/javascript/userprofile.js"?> ></script>
+    <script src=<?= $GLOBALS['URL_HOST'] . "/public/javascript/menu.js"?> ></script>
+    
 </head>
 
 <body>
@@ -90,7 +91,7 @@
         </section>
     </section>
 
-    <script>initCollapsible();</script>
+    <script>initCollapsible();initMenu()</script>
 </body>
 
 </html>

@@ -2,6 +2,7 @@
 
 
 // include core dependencies
+require_once 'core/notifications.php';
 require_once 'core/globals.php';
 
 if (strpos($_SERVER['REQUEST_URI'], 'fabricadevoluntari') !== false)

@@ -1,6 +1,5 @@
 .top-menu {
     position: -webkit-sticky;
-    position: sticky;
     top: 0;
     z-index: 1;
     display: flex;
@@ -20,7 +19,6 @@
     align-content: center;
     align-self: center;
     margin: 5px;
-    margin-left: auto;
     /* box-shadow: 0 0 8px 8px white inset; */
 }
 
@@ -28,6 +26,13 @@
     width: 50px;
     height:  50px;
     margin: 0 0 0 -3px;
+}
+
+.company-logo {
+    height:50px; 
+    align-self: center; 
+    margin-left:10px;
+    margin-right: 10px;
 }
 
 .menu-button {
@@ -47,3 +52,41 @@
     background-color: cadetblue;
     transition: 0.1s ease-out;
 }
+
+.messages-button {
+    margin-left: auto;
+    background-color: #00000000;
+    border: none;
+}
+
+
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+.notification {
+    background-color: chocolate;
+    border: coral 1px solid;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: fit-content;
+    font-size: large;
+    color: cornsilk;
+    display: flex;
+}
+
+  .notification button {
+      height: fit-content;
+      align-self: center;
+      margin-left: auto;
+      margin-right: 10px;
+  }
+
+  .notification.closed {
+    visibility: hidden;
+    height: 0px;
+  }
