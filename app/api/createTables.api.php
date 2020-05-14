@@ -2,10 +2,8 @@
 /* 
 
 Create tables in the database
-
 SQL Syntax: postgreSQL
 */
-
 
 // TODO allow only logged in db admin
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="http://localhost/FabricaDeVoluntari/public/styles/signup_voluntar.css">
     <title>Signup FDV</title>
-    <script src="http://localhost/FabricaDeVoluntari/public/styles/tabs.js"></script>
+    <script src="http://localhost/FabricaDeVoluntari/public/javascript/tabs.js"></script>
 </head>
 
 <body>
