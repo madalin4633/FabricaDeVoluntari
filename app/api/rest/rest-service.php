@@ -1,26 +1,32 @@
 <?php
 
-require_once "./associations-routes.php";
-require_once "./volunteers-routes.php";
+    header("Access-Control-Allow-Origin: *"); //pentru a evita CORS
+    header("Access-Control-Allow-Headers: *");
 
-header("Access-Control-Allow-Origin: *"); //pentru a evita CORS
-header("Access-Control-Allow-Headers: *");
+class RestService{
 
-$allHeaders = getallheaders();
+public function __construct()
+{   
+    require_once __DIR__ . "/associations-routes.php";
+    require_once __DIR__ . "/volunteers-routes.php";
 
-$allRoutes = [
+    $allHeaders = getallheaders();
+
+    $allRoutes = [
     ...$associationsRoutes,
     ...$volunteersRoutes
-];
+    ];
 
-foreach ($allRoutes as $routeConfig) {
-    if (parseRequest($routeConfig)) {
-        exit;
+    foreach ($allRoutes as $routeConfig) {
+        if ($this -> parseRequest($routeConfig)) {
+            exit;
+        }
     }
+    require_once __DIR__ . "/createTables.api.php";
+    $checkTableRoute = new CreateTablesApi();
+
+    //handle404(); //included in createtablesapi, so it wont appear here
 }
-
-handle404();
-
 
 
 function parseRequest($routeConfig)
@@ -33,7 +39,7 @@ function parseRequest($routeConfig)
         return false;
     }
 
-    $regExpString = routeExpToRegExp($routeConfig['route']);
+    $regExpString = $this -> routeExpToRegExp($routeConfig['route']);
 
 
     if (preg_match("/$regExpString/", $url, $matches)) {
@@ -101,7 +107,7 @@ function parseRequest($routeConfig)
 
 function handle404()
 {
-    // Response::status(404);
+    //Response::status(404);
 }
 
 
@@ -158,3 +164,5 @@ function routeExpToRegExp($route)
 //     default:
 //         break;
 // }
+
+}

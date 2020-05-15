@@ -8,7 +8,7 @@ RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
 RewriteRule (.+) public/$1 [L]
 
 # API REST redirect
-RewriteRule ^api/.+$    app/api/rest/rest-service.php    [NC,L]  
+# RewriteRule ^api/.+$    app/api/rest/rest-service.php    [NC,L]  
 
 # redirect all urls to index.php except urls to files
 RewriteCond ${REQUEST_FILENAME} !-f

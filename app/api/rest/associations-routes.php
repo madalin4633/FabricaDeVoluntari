@@ -1,93 +1,82 @@
 <?php
 
-class Response {
-    static function status($code) {
-        http_response_code($code);
-    }
-
-    static function json($data) {
-        header('Content-Type: application/json');
-        echo json_encode($data);
-    }
-}
-
 $associationsRoutes = [
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations",
         "handler" => "getAssociations"
     ],
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId",
         "handler" => "getAssociation"
     ],   
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/volunteers",
-        "handler" => "getVolunteers"
+        "handler" => "getVolunteersHere"
     ],
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/volunteers/:voluntId",
         "handler" => "getVolunteersActivity"
     ],
     [
         "method" => "DELETE",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/volunteers/:voluntId",
         "handler" => "removeVolunteer"
     ],   
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/volunteers/:voluntId/tasks",
-        "handler" => "getVolunteerTasks"
+        "handler" => "getVolunteerTasksHere"
     ],
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/volunteers/:voluntId/tasks/:taskId",
-        "handler" => "getVolunteerTask"
+        "handler" => "getVolunteerTaskHere"
     ],
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/tasks",
         "handler" => "getAssocTasks"
     ],
     [
         "method" => "POST",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/tasks",
         "handler" => "AddTask"
     ],
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/tasks/:taskId",
-        "handler" => "getAssocTask"
+        "handler" => "getAssocTaskHere"
     ],
     [
         "method" => "PATCH",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/tasks/:taskId",
         "handler" => "updateTask"
     ],
     [
         "method" => "DELETE",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/tasks/:taskId",
         "handler" => "deleteTask"
     ]
 ];
 //de discutat daca metodele alese sunt ok
 
-function IsLoggedIn()
+function IsLoggedInHere()
 {
     $allHeaders = getallheaders();
 
@@ -104,21 +93,6 @@ function IsLoggedIn()
     return false;
 }
 
-function IsPartOfAssociation($req) //middleware de verificare daca e in asociatie
-{
-    if ($req['params']['teamId'] === 'uaic') {
-        return true;
-    }
-
-    Response::status(403);
-    Response::json([
-        "status" => 403,
-        "reason" => "You can only access this teams you're part of!"
-    ]);
-
-    return false;
-}
-
 function getAssociation($req) {
     //ia din bd doar o asociatie si da info despre ea
 }
@@ -128,7 +102,7 @@ function getAssociations($req) {
     //un select din baza de date cu asociatii - toate
 }
 
-function getVolunteers($req) {
+function getVolunteersHere($req) {
     Response::status(200);
     echo "GET ALL VOLUTNEERS from a specific association." . $req['payload'];
     //un select din baza de date cu voluntari, avand where la asociatie setat.
@@ -142,11 +116,11 @@ function removeVolunteer($req){
     //de sters in tabela faptul ca e voluntar la aceasta asociatie.
 }
 
-function getVolunteerTasks($req){
+function getVolunteerTasksHere($req){
     //ia task-urile unui voluntar si le pune pe ecran
 }
 
-function getVolunteerTask($req){
+function getVolunteerTaskHere($req){
     //ia din task-urile voluntarului doar un task anume
 }
 
@@ -158,7 +132,7 @@ function addTask($req){
     //add task in asociatie - fiecare voluntar si-l poate prelua
 }
 
-function getAssocTask($req){
+function getAssocTaskHere($req){
     //ia un task al asociatiei
 }
 
@@ -172,7 +146,7 @@ function deleteTask($req){
 
 
 //mai jos exemple din cod - functii folosite la rutele din exemplele de pe devdrive.
-function getTeam($req) {
+function getTeamHere($req) {
 
 
     // req['payload']
@@ -198,7 +172,7 @@ function getTeam($req) {
         // echo json_encode($payload);
 }
 
-function addTeam($req) {
+function addTeamHere($req) {
     $modifiedPayload = $req['payload'];
     $modifiedPayload -> id = uniqid();
     

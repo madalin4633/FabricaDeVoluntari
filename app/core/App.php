@@ -18,18 +18,12 @@ class App {
 
         // redirect to api or to controller?
         if (isset($url[0]) && $url[0] == "api") 
-            $this -> executeAPI($url);
+        {
+            require_once __DIR__ . '/../api/rest/rest-service.php';
+            $APIRestClass = new RestService();
+        }
         else
             $this -> executeController($url);
-
-    }
-
-    private function executeAPI($url) {
-        if(isset($url[1]) && file_exists(__DIR__ . '/../api/' . $url[1] . '.api.php')) {
-            require_once __DIR__ . '/../api/' . $url[1] . '.api.php';
-            $className = $url[1] .'API';
-            $tablesAPI = new $className();
-        }
     }
 
     private function executeController($url) {
@@ -55,7 +49,6 @@ class App {
         $trimmedUrl = rtrim($url, '/');
 
         return explode('/', $url);
-
     }
 }
 ?>
