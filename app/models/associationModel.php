@@ -1,6 +1,6 @@
 <?php
 
-class Association {
+class AssociationModel {
     public $volunteers = [];
 
     public function __construct()

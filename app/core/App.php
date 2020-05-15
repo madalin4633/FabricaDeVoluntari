@@ -1,8 +1,9 @@
 <?php
 
+
 class App {
-    private $controller = 'home'; // default controller
-    private $method = 'index'; // default view
+    private $controller = 'volunteer'; // default controller
+    private $method = 'dashboard'; // default view
 
     private $params =[];
 
@@ -32,17 +33,24 @@ class App {
             $this -> controller = $url[0];
             $this -> params = array_slice($url, 1); // daca controllerul exista, elimina primul element din tabloul param
         }
-
-        // numele metodei, daca este definita in controller
-        if(isset($url[1]) && method_exists($this->controller, $url[1])){
-            $this -> method = $url[1];
-            $this -> params = array_slice($url, 2);
+        else if(isset($url[0]) && $url[0] != ""){
+            require_once __DIR__ . "/../views/not-found.html";
+            return;
         }
 
         require_once __DIR__ . '/../controllers/' . $this -> controller . '.php';
         $controller = new $this->controller();
 
-        $controller -> index();        
+        // numele metodei, daca este definita in controller
+        if(isset($url[1]) && method_exists($controller, $url[1])){
+            $this -> method = $url[1];
+            $this -> params = array_slice($url, 2);
+        }
+
+        $method = $this->method;
+
+        if (method_exists($controller, $this->method))
+            $controller->$method();
     }
 
     private function parseUrl($url) {

@@ -1,52 +1,64 @@
 <?php
+/**
+ * Model for api calls:
+ * POST api/createTables/ => createTables()
+ * POST api/createTables/Associations => createTableAssoc()
+ * POST api/createTables/Volunteers => createTableVolunteers()
+ * POST api/createTables/VolAssoc => createTableVolAssoc()
+ *
+ * 
+ * DELETE api/createTables/Associations => dropTableAssoc()
+ * DELETE api/createTables/Volunteers => dropTableVolunteers()
+ * DELETE api/createTables/VolAssoc => dropTableVolAssoc()
+ *
+ * PUT api/createTables/Associations => insertDataAssociations()
+ * PUT api/createTables/Volunteers => insertDataVolunteers()
+ * PUT api/createTables/VolAssoc => insertDataVolAssoc()
+ *
+ */
+
+// how many to generate?
+define("HOW_MANY_ASSOC", 12);
+define("HOW_MANY_VOL", 12);
+
+// ratings
+define ("METRIC1","harnic");
+define ("METRIC2","comunicativ");
+define ("METRIC3","disponibil");
+define ("METRIC4","punctual");
+define ("METRIC5","serios");
+
+
+require_once __DIR__ . "/generateFillTables/tblVolAssoc.php";
+require_once __DIR__ . "/generateFillTables/tblAssociations.php";
+require_once __DIR__ . "/generateFillTables/tblVolunteers.php";
+require_once __DIR__ . "/generateFillTables/tblFeedback.php";
+require_once __DIR__ . "/generateFillTables/viewVolunteerDashboard.php";
 
 /**
  * called from api/createTables (admin only)
  */
-function createTables($conn) {
-    try {
-        pg_query($conn, 'DROP TABLE tblVolAssoc; DROP TABLE tblVolunteers; DROP TABLE tblAssociations;');
-        echo 'Tables dropped. \n';
-    } catch (Exception $e) {
-        echo 'Failed to drop tables: ' . $e->getMessage() . '\n';
-    }
+function createTables($conn)
+{
+    dropViewVolunteerDashboard($conn);
+    dropTableFeedback($conn);
+    dropTableVolAssoc($conn);
+    dropTableVolunteers($conn);
+    dropTableAssociations($conn);
 
-    if (pg_query($conn, 'CREATE TABLE tblVolunteers(
-        id serial PRIMARY KEY,
-        nume VARCHAR(50) NOT NULL,
-        prenume VARCHAR(50) NOT NULL,
-        email VARCHAR (355) UNIQUE NOT NULL,
-        created_on TIMESTAMP NOT NULL,
-        updated_on TIMESTAMP NOT NULL,
-        last_login TIMESTAMP
-        )  ')) {
-        echo "Table Volunteers created!\n";
-    }
+    createTableVolunteers($conn);
+    createTableAssociations($conn);
+    createTableVolAssoc($conn);
+    createTableFeedback($conn);
+    createViewVolunteerDashboard($conn);
 
-    if (pg_query($conn, 'CREATE TABLE tblAssociations(
-        id serial PRIMARY KEY,
-        nume VARCHAR(50) NOT NULL,
-        adresa VARCHAR(50),
-        email VARCHAR (355) UNIQUE NOT NULL,
-        created_on TIMESTAMP NOT NULL,
-        updated_on TIMESTAMP NOT NULL,
-        last_login TIMESTAMP
-        )  ')) {
-        echo "Table Associations created!\n";
-    }
 
-    // asociere intre asociatii si voluntari
-    if (pg_query($conn, 'CREATE TABLE tblVolAssoc(
-        vol_id INTEGER NOT NULL,
-        assoc_id INTEGER NOT NULL,
-        created_on TIMESTAMP NOT NULL,
-        PRIMARY KEY (vol_id, assoc_id),
-        CONSTRAINT volassoc_vol_fkey FOREIGN KEY (vol_id)
-        REFERENCES tblVolunteers(id),
-        CONSTRAINT volassoc_assoc_fkey FOREIGN KEY (assoc_id)
-        REFERENCES tblAssociations(id)
-        )  ')) {
-        echo "Table VolAssoc created!\n";
-    }
+}
+
+function insertDataAll($conn) {
+    insertDataAssociations($conn);
+    insertDataVolunteers($conn);
+    insertDataVolAssoc($conn);
+    insertDataFeedback($conn);
 
 }

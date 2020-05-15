@@ -1,7 +1,9 @@
+<?php
 class GenericAPI {
     public function middlewares($array) {
         for ($i = 0; $i < sizeof($array); $i++) {
-            if (! $this -> $array[$i][0]($array[$i][1])) {
+            echo $array[$i][0];
+            if (! $array[$i][0]($array[$i][1][0])) {
                 break;
             }
         }

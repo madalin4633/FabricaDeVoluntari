@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
-@import url(http://fonts.googleapis.com/css?family=Varela+Round);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
 
 .leftPanel {
     position: relative;
@@ -19,19 +19,6 @@
     display: flex;
     min-height: fit-content;
     height: 100%;
-}
-
-.top-menu {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    display: flex;
-    flex: 0 0 50px;
-    flex-direction: row;
-    background-color: green;
-    position: sticky;
-    align-content: space-around; 
 }
 
 .vertical-split {
@@ -82,6 +69,8 @@ th, td {
     border: 1px solid black;
     border-style: dotted;
     border-color: whitesmoke;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 th {
@@ -94,7 +83,6 @@ th {
 }
 
 td {
-    padding: 0 1em;
     height: 2em;
     width: auto;
     font: 16px "Varela Round";
@@ -112,32 +100,14 @@ td {
     overflow: hidden;
     border-radius: 20%;
     box-shadow: 3px 3px 5px 5px rgb(44, 74, 105);
-}
-
-#asoc-logo-1 {
-    background: url('../images/british-library-gTV2osuOsJc-unsplash.jpg');
-    background-size: cover;
+    margin: 7px;
+    /* background-size: cover;
     background-position: center;
-	background-repeat: no-repeat;
-}
-
-#asoc-logo-3 {
-    background: url('../images/wesley-tingey-Wr1gP-53phU-unsplash.jpg');
-    background-size: cover;
-    background-position: center;
-	background-repeat: no-repeat;
-}
-
-#asoc-logo-2 {
-    background: url('../images/rich-smith-lVVs5skyWoo-unsplash.jpg');
-    background-size: cover;
-    background-position: center;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat; */
 }
 
 .tabel-asociatii tr td {
     width:fit-content;
-    padding: 5px;
     border-style: none;
 }
 
@@ -152,6 +122,7 @@ td {
     justify-content: space-evenly;
     align-items: space-evenly;
     height: 80%;
+    padding-left: 4px;
 }
 
 .progress-asociatie > div {
@@ -178,6 +149,10 @@ td {
     filter: invert(27%) sepia(91%) saturate(5000%) hue-rotate(45deg) brightness(254%) contrast(97%);
 }
 
+.svg-grey {
+    filter: invert(30%) sepia(4%) saturate(0%) hue-rotate(356deg) brightness(98%) contrast(80%);
+}
+
 .svg-white {
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(254%) contrast(97%);
 }
@@ -189,4 +164,27 @@ td {
 .ore-lucrate, .aprecieri {
     font-size: 1.6em;
     color: rgb(150, 231, 57);
+}
+
+.editable {
+    background: url("http://localhost/fabricadevoluntari/public/images/create-black-24dp.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-position-y: 0px;
+}
+
+.flex-grid-expandable-list {
+    display: flex;
+    max-width: 500px;
+    flex-wrap: wrap;
+}
+
+.flex-grid-expandable {
+    order: 1;
+}
+
+.flex-grid-expandable:active {
+    width: 500px;
+    border: violet 2px solid;
+    order: 0;
 }
