@@ -11,60 +11,54 @@ class Response {
     }
 }
 
-$associationsRoutes = [
+$volunteersRoutes = [
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
-        "route" => "associations",
-        "handler" => "getAssociations"
-    ],
-    [
-        "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId",
-        "handler" => "getAssociation"
-    ],   
-    [
-        "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/volunteers",
+        "route" => "volunteers",
         "handler" => "getVolunteers"
-    ],
-    [
-        "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/volunteers/:voluntId",
-        "handler" => "getVolunteersActivity"
-    ],
-    [
-        "method" => "DELETE",
-        "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/volunteers/:voluntId",
-        "handler" => "removeVolunteer"
     ],   
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/volunteers/:voluntId/tasks",
+        "route" => "volunteers/:voluntId",
+        "handler" => "getVolunteer"
+    ],
+    [
+        "method" => "PATCH",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "volunteers/:voluntId",
+        "handler" => "updateVolunteer"
+    ],
+    [
+        "method" => "GET",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "volunteers/:voluntId/associations",
+        "handler" => "getVoluntAssociations"
+    ],   
+    [
+        "method" => "GET",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "volunteers/:voluntId/associations/LassocId",
+        "handler" => "getAssocActivity"
+    ],
+    [
+        "method" => "GET",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "volunteers/:voluntId/associations/:assocId/tasks",
         "handler" => "getVolunteerTasks"
     ],
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/volunteers/:voluntId/tasks/:taskId",
-        "handler" => "getVolunteerTask"
-    ],
-    [
-        "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/tasks",
-        "handler" => "getAssocTasks"
+        "route" => "volunteers/:voluntId/associations/:assocId/tasks/:taskId",
+        "handler" => "getAssocTask"
     ],
     [
         "method" => "POST",
         "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/tasks",
-        "handler" => "AddTask"
+        "route" => "volunteers/:voluntId/tasks",
+        "handler" => "getVolunteerAllTasks"
     ],
     [
         "method" => "GET",
@@ -85,7 +79,7 @@ $associationsRoutes = [
         "handler" => "deleteTask"
     ]
 ];
-//de discutat daca metodele alese sunt ok
+//de terminat de adaugat toate rutele........
 
 function IsLoggedIn()
 {
@@ -119,43 +113,41 @@ function IsPartOfAssociation($req) //middleware de verificare daca e in asociati
     return false;
 }
 
-function getAssociation($req) {
-    //ia din bd doar o asociatie si da info despre ea
-}
-function getAssociations($req) {
-    Response::status(200);
-    echo "GET ALL TEAMS" . $req['payload'];
-    //un select din baza de date cu asociatii - toate
-}
 
 function getVolunteers($req) {
     Response::status(200);
-    echo "GET ALL VOLUTNEERS from a specific association." . $req['payload'];
+    echo "GET ALL TEAMS" . $req['payload'];
+    //un select din baza de date cu asociatii
+}
+
+function getVolunteer($req) {
+    Response::status(200);
+    echo "GET A VOLUTNEER from a specific association." . $req['payload'];
     //un select din baza de date cu voluntari, avand where la asociatie setat.
 }
 
-function getVolunteersActivity($req){
-    // de luat activitatea din bd si pus aici
+function updateVolunteer($req){
+    // de updatat info despre voluntar
 }
 
-function removeVolunteer($req){
-    //de sters in tabela faptul ca e voluntar la aceasta asociatie.
+function getVoluntAssociations($req){
+    //asociatiile unui voluntar
+}
+
+function getAssocActivity($req){
+    //activitatea unui voluntar dintr-o asociatie
 }
 
 function getVolunteerTasks($req){
-    //ia task-urile unui voluntar si le pune pe ecran
+    //ia din task-urile voluntarului in acea asociatie -- 
 }
 
-function getVolunteerTask($req){
-    //ia din task-urile voluntarului doar un task anume
+function getAssocTask($req){
+    //ia un task dintr-o asociatie
 }
 
-function getAssocTasks($req){
-    //ia toate task-urile dintr-o asociatie
-}
-
-function addTask($req){
-    //add task in asociatie - fiecare voluntar si-l poate prelua
+function getVolunteerAllTasks($req){
+    //toate task-urile unui singur voluntar pe toate asociatiile
 }
 
 function getAssocTask($req){
