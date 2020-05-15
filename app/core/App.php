@@ -1,0 +1,68 @@
+<?php
+
+
+class App {
+    private $controller = 'volunteer'; // default controller
+    private $method = 'dashboard'; // default view
+
+    private $params =[];
+
+    public function __construct()
+    {
+       
+        $url = [];
+        if(isset($_GET['url'])) {
+            $url = $this -> parseUrl($_GET['url']);
+        }
+
+        $this -> params = $url;
+
+        // redirect to api or to controller?
+        if (isset($url[0]) && $url[0] == "api") 
+            $this -> executeAPI($url);
+        else
+            $this -> executeController($url);
+
+    }
+
+    private function executeAPI($url) {
+        if(isset($url[1]) && file_exists(__DIR__ . '/../api/' . $url[1] . '.api.php')) {
+            require_once __DIR__ . '/../api/' . $url[1] . '.api.php';
+            $className = $url[1] .'API';
+            $tablesAPI = new $className();
+        }
+    }
+
+    private function executeController($url) {
+        // $url[0] este numele controllerului, primul segment din url de dupa domeniu
+        if(isset($url[0]) && file_exists(__DIR__ . '/../controllers/' . $url[0] . '.php')){
+            $this -> controller = $url[0];
+            $this -> params = array_slice($url, 1); // daca controllerul exista, elimina primul element din tabloul param
+        }
+        else if(isset($url[0]) && $url[0] != ""){
+            require_once __DIR__ . "/../views/not-found.html";
+            return;
+        }
+
+        require_once __DIR__ . '/../controllers/' . $this -> controller . '.php';
+        $controller = new $this->controller();
+
+        // numele metodei, daca este definita in controller
+        if(isset($url[1]) && method_exists($controller, $url[1])){
+            $this -> method = $url[1];
+            $this -> params = array_slice($url, 2);
+        }
+
+        $method = $this->method;
+
+        if (method_exists($controller, $this->method))
+            $controller->$method();
+    }
+
+    private function parseUrl($url) {
+        $trimmedUrl = rtrim($url, '/');
+
+        return explode('/', $url);
+
+    }
+}

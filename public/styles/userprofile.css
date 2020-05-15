@@ -1,0 +1,190 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+
+.leftPanel {
+    position: relative;
+    align-self: left;
+    background: rgb(67, 71, 82);
+    width: 10%;
+    height: auto;
+}
+
+.rightPanel {
+    position: relative;
+    align-self: right;
+    background-color: rgb(255, 0, 200);
+}
+
+.horizontal-split {
+    display: flex;
+    min-height: fit-content;
+    height: 100%;
+}
+
+.vertical-split {
+    display: flex;
+    flex-direction: column;
+}
+
+body > .vertical-split {
+    min-width: fit-content;
+    height: 100%;
+    width:100%;
+}
+
+nav .vertical-split{
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.horizontal-split nav {
+    flex: 0 0 200px;
+    padding: 10px;
+
+}
+
+#full-name {
+    font: 21px "Source Sans Pro";
+    color: whitesmoke;
+    padding: 0.2em;
+}
+
+.crop {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    align-content: center;
+    align-self: center;
+    /* box-shadow: 0 0 8px 8px white inset; */
+}
+
+.crop img {
+    width: 300px;
+    height:  200px;
+    margin: 0 0 0 -30px;
+}
+
+th, td {
+    border: 1px solid black;
+    border-style: dotted;
+    border-color: whitesmoke;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+th {
+    padding: 0 1em;
+    width: auto;
+    color: rgb(251, 255, 255);
+    background-color: rgba(91, 156, 218, 0.836);
+    font: 21px "Varela Round";
+    
+}
+
+td {
+    height: 2em;
+    width: auto;
+    font: 16px "Varela Round";
+}
+
+.info-table {
+    padding: 1em 2em;
+    /* display: block; */
+    width: auto;
+}
+
+.asoc-logo {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 20%;
+    box-shadow: 3px 3px 5px 5px rgb(44, 74, 105);
+    margin: 7px;
+    /* background-size: cover;
+    background-position: center;
+	background-repeat: no-repeat; */
+}
+
+.tabel-asociatii tr td {
+    width:fit-content;
+    border-style: none;
+}
+
+.details-container {
+    width: fit-content;
+    margin: 4px;
+}
+
+.progress-asociatie {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: space-evenly;
+    height: 80%;
+    padding-left: 4px;
+}
+
+.progress-asociatie > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+.progress-asociatie  span {
+
+    padding-left: 0.3em;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.svg-red {
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+.svg-yellow {
+    filter: invert(27%) sepia(91%) saturate(5000%) hue-rotate(45deg) brightness(254%) contrast(97%);
+}
+
+.svg-grey {
+    filter: invert(30%) sepia(4%) saturate(0%) hue-rotate(356deg) brightness(98%) contrast(80%);
+}
+
+.svg-white {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(254%) contrast(97%);
+}
+
+.pack-tight {
+    display: flex;
+}
+
+.ore-lucrate, .aprecieri {
+    font-size: 1.6em;
+    color: rgb(150, 231, 57);
+}
+
+.editable {
+    background: url("http://localhost/fabricadevoluntari/public/images/create-black-24dp.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-position-y: 0px;
+}
+
+.flex-grid-expandable-list {
+    display: flex;
+    max-width: 500px;
+    flex-wrap: wrap;
+}
+
+.flex-grid-expandable {
+    order: 1;
+}
+
+.flex-grid-expandable:active {
+    width: 500px;
+    border: violet 2px solid;
+    order: 0;
+}
