@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/commons.css"?> />
-    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/tooltip.css"?> />
-    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/userprofile.css"?> />
-    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/collapsible.css"?> />
-    <link rel="stylesheet" type="text/css" href=<?= $GLOBALS['URL_HOST'] . "/public/styles/menu.css"?> />
+    <link rel="stylesheet" type="text/css" href="/public/styles/commons.css" />
+    <link rel="stylesheet" type="text/css" href="/public/styles/tooltip.css" />
+    <link rel="stylesheet" type="text/css" href="/public/styles/userprofile.css" />
+    <link rel="stylesheet" type="text/css" href="/public/styles/collapsible.css" />
+    <link rel="stylesheet" type="text/css" href="/public/styles/menu.css" />
     <title>Document</title>
-    <script src=<?= $GLOBALS['URL_HOST'] . "/public/javascript/userprofile.js"?> ></script>
-    <script src=<?= $GLOBALS['URL_HOST'] . "/public/javascript/menu.js"?> ></script>
+    <script src="/public/javascript/userprofile.js" ></script>
+    <script src="/public/javascript/menu.js" ></script>
     
 </head>
 
@@ -24,7 +24,7 @@
             <nav class="leftPanel">
                 <div class="vertical-split">
                     <div class="crop">
-                        <img alt="profile pic" src=<?= $GLOBALS['URL_HOST'] . "/public/images/". $volunteer -> pic; ?>>
+                        <img alt="profile pic" src=/public/images/<?= $volunteer -> pic?> >
                     </div>
                     <div id="full-name">
                         <?php echo $volunteer -> username; ?>
@@ -48,7 +48,7 @@
                 <div class="info-table">
                     <button class="collapsible-container">
                         <div class="collapsible-btn">Detalii personale</div>
-                        <img class="dropdown-btn svg-white" src=<?= $GLOBALS['URL_HOST'] . "/public/images/arrow_drop_down_circle-24px.svg" ?>>
+                        <img class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg">
                     </button>
                     <div class="collapsible-content">
                         <table>
@@ -71,7 +71,7 @@
                 <div class="info-table">
                     <button class="collapsible-container">
                         <div class="collapsible-btn">Aptitudini</div>
-                        <img class="dropdown-btn svg-white" src=<?= $GLOBALS['URL_HOST'] . "/public/images/arrow_drop_down_circle-24px.svg" ?>>
+                        <img class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
                     </button>
                     <div class="collapsible-content">
                         <div class="under-construction">Under construction</div>
@@ -80,7 +80,7 @@
                 <div class="info-table">
                     <button class="collapsible-container">
                         <div class="collapsible-btn">Interese</div>
-                        <img class="dropdown-btn svg-white" src=<?= $GLOBALS['URL_HOST'] . "/public/images/arrow_drop_down_circle-24px.svg" ?>>
+                        <img class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
                     </button>
                     <div class="collapsible-content">
                         <div class="under-construction">Under construction</div>
