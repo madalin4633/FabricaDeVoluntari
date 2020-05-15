@@ -44,18 +44,18 @@ $volunteersRoutes = [
     ],
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedIn", "IsPartOfAssociation"],
         "route" => "volunteers/:voluntId/associations/:assocId/tasks",
         "handler" => "getVolunteerTasks"
     ],
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn"],
+        "middlewares" => ["IsLoggedIn", "IsPartOfAssociation"],
         "route" => "volunteers/:voluntId/associations/:assocId/tasks/:taskId",
         "handler" => "getAssocTask"
     ],
     [
-        "method" => "POST",
+        "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/tasks",
         "handler" => "getVolunteerAllTasks"
@@ -63,23 +63,28 @@ $volunteersRoutes = [
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/tasks/:taskId",
-        "handler" => "getAssocTask"
+        "route" => "volunteers/:voluntId/tasks/:taskId",
+        "handler" => "getVolunteerTask"
     ],
     [
-        "method" => "PATCH",
+        "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/tasks/:taskId",
-        "handler" => "updateTask"
+        "route" => "volunteers/:voluntId/ratings",
+        "handler" => "getFeedback"
     ],
     [
-        "method" => "DELETE",
+        "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
-        "route" => "associations/:assocId/tasks/:taskId",
-        "handler" => "deleteTask"
+        "route" => "volunteers/:voluntId/tasks/:taskId/ratings",
+        "handler" => "getTaskFeedback"
+    ],
+    [
+        "method" => "POST",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "volunteers/:voluntId/tasks/:taskId/ratings",
+        "handler" => "giveTaskFeedback"
     ]
 ];
-//de terminat de adaugat toate rutele........
 
 function IsLoggedIn()
 {
@@ -100,7 +105,7 @@ function IsLoggedIn()
 
 function IsPartOfAssociation($req) //middleware de verificare daca e in asociatie
 {
-    if ($req['params']['teamId'] === 'uaic') {
+    if ($req['params']['assocId'] === 'moldavia') {
         return true;
     }
 
@@ -150,16 +155,20 @@ function getVolunteerAllTasks($req){
     //toate task-urile unui singur voluntar pe toate asociatiile
 }
 
-function getAssocTask($req){
-    //ia un task al asociatiei
+function getVolunteerTask($req){
+    //ia task-ul unui voluntar
 }
 
-function updateTask($req){
-    //da update la un task
+function getFeedback($req){
+    //primeste feedback-urile primite de voluntar/eventual si cele trimise
 }
 
-function deleteTask($req){
-    //da delete la un task
+function getTaskFeedback($req){
+    //primeste feedback-ul pe un task anume
+}
+
+function giveTaskFeedback($req){
+    //da feedback pentru un task anume
 }
 
 
