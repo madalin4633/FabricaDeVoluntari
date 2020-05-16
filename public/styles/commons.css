@@ -23,3 +23,21 @@ body{
     width: 100vw;
 }
 
+.under-construction {
+    background: repeating-linear-gradient(
+  45deg,
+  #ffee0098,
+  #ffee0098 10px,
+  #2005028e 10px,
+  #2005028e 20px);
+    font-size: 3em;
+    font-weight: 900;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(212, 125, 26);
+  }
+
+  .menu-button {
+      padding: 0.4em;
+      
+  }

@@ -1,13 +1,23 @@
 <?php
 
-require_once __DIR__ . '/../models/volunteer.php';
+require_once __DIR__ . '/../models/volunteerModel.php';
 
-class VolunteerDashboard {
+class Volunteer {
     public function index() {
-        echo 'from volunteer dashboard';
+        $this -> dashboard();
+    }
 
-        // signed in volunteer looking at hos dashboard
-        $volunteer = new Volunteer();
+    public function dashboard() {
+        // signed in volunteer looking at his dashboard
+        $volunteer = new VolunteerModel();
 
+        require_once __DIR__ . '/../views/volunteerDashboard.php';
+    }
+
+    public function profile() {
+        // signed in volunteer looking at his dashboard
+        $volunteer = new VolunteerModel();
+
+        require_once __DIR__ . '/../views/volunteerProfile.php';
     }
 }

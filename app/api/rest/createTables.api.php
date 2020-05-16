@@ -1,6 +1,5 @@
 <?php
 /* 
-
 Create tables in the database
 SQL Syntax: postgreSQL
 */
