@@ -4,12 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/public/styles/commons.css">
+    <link rel="stylesheet" type="text/css" href="/public/styles/menu.css">
     <link rel="stylesheet" type="text/css" href="/public/styles/signup_voluntar.css">
     <title>Signup FDV</title>
     <script src="/public/javascript/tabs.js"></script>
+    <script src="/public/javascript/menu.js" ></script>
 </head>
 
 <body>
+    <div class="user-notifications">
+        <?= $GLOBALS['user-notifications']->showNotifications(); ?>
+    </div>
     <p id="aventura">Aventura ta in Fabrica de Voluntari incepe acum. Alege tipul de cont. Completeaza campurile de mai jos, apoi vei
         putea explora oportunitati nelimitate.</p>
     <img src="/public/images/fabrica_logo.png" alt="FDV logo" id="fdv"> <br/>
@@ -159,6 +165,9 @@
     </div>
 
 
+    <script>
+        initMenu();
+    </script>
 </body>
 
 </html>
