@@ -3,6 +3,10 @@
 require_once __DIR__ . '/../models/volunteerModel.php';
 
 class Volunteer {
+    public function index() {
+        $this -> dashboard();
+    }
+
     public function dashboard() {
         // signed in volunteer looking at his dashboard
         $volunteer = new VolunteerModel();

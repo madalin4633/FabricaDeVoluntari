@@ -3,7 +3,7 @@
 
 class App {
     private $controller = 'volunteer'; // default controller
-    private $method = 'dashboard'; // default view
+    private $method = 'index'; // default view
 
     private $params =[];
 

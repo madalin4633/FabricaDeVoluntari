@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="http://localhost/FabricaDeVoluntari/public/styles/signup_voluntar.css">
+    <link rel="stylesheet" type="text/css" href="/public/styles/signup_voluntar.css">
     <title>Signup FDV</title>
-    <script src="http://localhost/FabricaDeVoluntari/public/javascript/tabs.js"></script>
+    <script src="/public/javascript/tabs.js"></script>
 </head>
 
 <body>
     <p id="aventura">Aventura ta in Fabrica de Voluntari incepe acum. Alege tipul de cont. Completeaza campurile de mai jos, apoi vei
         putea explora oportunitati nelimitate.</p>
-    <img src="http://localhost/FabricaDeVoluntari/public/images/fabrica_logo.png" alt="FDV logo" id="fdv"> <br/>
+    <img src="/public/images/fabrica_logo.png" alt="FDV logo" id="fdv"> <br/>
     <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'voluntar')">Cont de voluntar</button>
         <button class="tablinks" onclick="openCity(event, 'asociatie')">Cont de asociatie</button>
@@ -72,7 +72,7 @@
                 </div>
                 <br />
                 <div>
-                    <img src="http://localhost/FabricaDeVoluntari/public/images/fb.png" alt="Facebook logo" id="logo"><br/>
+                    <img src="/public/images/fb.png" alt="Facebook logo" id="logo"><br/>
                     <input required type="url" id="retea" name="retea" placeholder="Link Fb. tau/alta retea"/>
                 </div>
                 <br />
@@ -132,7 +132,7 @@
                 </div>
                 <br />
                 <div>
-                    <img src="http://localhost/FabricaDeVoluntari/public/images/fb.png" alt="Facebook logo" id="logo"><br/>
+                    <img src="/public/images/fb.png" alt="Facebook logo" id="logo"><br/>
                     <input required type="url" id="retea" name="retea" placeholder="Link Fb. ONG/alta retea"/>
                 </div>
                 <br />
