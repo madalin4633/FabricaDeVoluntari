@@ -11,9 +11,9 @@
             </td>
             <td>
                 <div class='progress-asociatie'>
-                    <div class='tooltip'><span class='tooltiptext'>Ore lucrate</span><img class='svg-white'  src='/public/images/query_builder-24px.svg'>
+                    <div class='tooltip'><span class='tooltiptext'>Ore lucrate</span><img class='svg-white' alt='icon' src='/public/images/query_builder-24px.svg'>
                         <span class='ore-lucrate'>" . $assoc['hours_worked'] . "</span></div>
-                    <div class='tooltip'><span class='tooltiptext'>Aprecieri</span><img class='svg-red' src='/public/images/favorite-24px.svg'>
+                    <div class='tooltip'><span class='tooltiptext'>Aprecieri</span><img class='svg-red' alt='icon' src='/public/images/favorite-24px.svg'>
                         <span class='aprecieri'>" . $assoc['bonus_points'] . "</span></div>
                     <div class='nowrap ";
                         if($assoc['rating']>0) 
@@ -24,11 +24,11 @@
                         "; 
                         for ($i = 0; $i < 5; $i++) {
                             if (floor($assoc['rating']) > $i) 
-                                echo "<img src='/public/images/star-24px.svg'>";
+                                echo "<img alt='icon' src='/public/images/star-24px.svg'>";
                             else if (ceil($assoc['rating']) > $i) 
-                                echo "<img src='/public/images/star_half-24px.svg'>";
+                                echo "<img alt='icon' src='/public/images/star_half-24px.svg'>";
                             else
-                                echo "<img src='/public/images/star_border-24px.svg'>"; 
+                                echo "<img alt='icon' src='/public/images/star_border-24px.svg'>"; 
                         }
 
                         echo "
