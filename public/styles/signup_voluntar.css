@@ -10,6 +10,7 @@ form{
 }
 div {
 	margin: 0 auto;
+	font-size: 1.25vw;
  }
 
  .tab:nth-child(1) { 
@@ -21,7 +22,7 @@ body{
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
-	font: bold 20px/1.5 "Garamond";
+	font: bold 2vw "Garamond";
 	color: #fff;
 	text-align: center;
 }
@@ -32,12 +33,21 @@ body{
 }
 
 #fdv{
-	height: 10%;
-	width: 10%;
+	height: 10vmin;
+	width: 10vmin;
 	display: block;
   	margin-left: auto;
   	margin-right: auto;
 }
+
+@media only screen and (max-width: 900px) {
+	#GDPR {
+	font-size:2vw;
+	}
+	body {
+		font: bold 4vw "Garamond";
+	}
+  }
 
 .img{
 	display: flex;

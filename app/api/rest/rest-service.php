@@ -118,7 +118,7 @@ function routeExpToRegExp($route)
     $parts = explode('/', $route);
 
     foreach ($parts as $p) {
-        $regExpString .= '\/';
+        $regExpString .= '\/'; //.= concatenare
 
         if ($p[0] === ':') {
             $regExpString .= '([a-zA-Z0-9]+)';

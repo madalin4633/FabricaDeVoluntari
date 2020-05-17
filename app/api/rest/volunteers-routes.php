@@ -17,6 +17,12 @@ $volunteersRoutes = [
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers",
         "handler" => "getVolunteers"
+    ],
+    [
+        "method" => "POST",
+        //"middlewares" => ["IsLoggedIn"] --abia iti faci cont de voluntar, nu tre sa fii logat
+        "route" => "volunteers",
+        "handler" => "addVolunteer"
     ],   
     [
         "method" => "GET",
@@ -25,10 +31,16 @@ $volunteersRoutes = [
         "handler" => "getVolunteer"
     ],
     [
-        "method" => "PATCH",
+        "method" => "PUT",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId",
         "handler" => "updateVolunteer"
+    ],
+    [
+        "method" => "DELETE",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "volunteers/:voluntId",
+        "handler" => "deleteVolunteer"
     ],
     [
         "method" => "GET",
@@ -39,8 +51,14 @@ $volunteersRoutes = [
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
-        "route" => "volunteers/:voluntId/associations/LassocId",
+        "route" => "volunteers/:voluntId/associations/:assocId",
         "handler" => "getAssocActivity"
+    ],
+    [
+        "method" => "DELETE",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "volunteers/:voluntId/associations/:assocId",
+        "handler" => "removeVolunteerFromAssoc"
     ],
     [
         "method" => "GET",
@@ -135,12 +153,20 @@ function updateVolunteer($req){
     // de updatat info despre voluntar
 }
 
+function deleteVolunteer($req){
+    //sterge contul de voluntar practic
+}
+
 function getVoluntAssociations($req){
     //asociatiile unui voluntar
 }
 
 function getAssocActivity($req){
     //activitatea unui voluntar dintr-o asociatie
+}
+
+function removeVolunteerFromAssoc($req){
+    //sterge un voluntar dintr-o asociatie
 }
 
 function getVolunteerTasks($req){
@@ -199,7 +225,8 @@ function getTeam($req) {
         // echo json_encode($payload);
 }
 
-function addTeam($req) {
+
+function addVolunteer($req) {
     $modifiedPayload = $req['payload'];
     $modifiedPayload -> id = uniqid();
     
