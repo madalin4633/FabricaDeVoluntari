@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="Description" content="Volunteer's profile showing personal details">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/public/styles/commons.css" />
     <link rel="stylesheet" type="text/css" href="/public/styles/tooltip.css" />
@@ -47,20 +48,20 @@
 
             <div class="details-container">
                 <div class="info-table">
-                    <button class="collapsible-container">
+                    <div class="collapsible-container">
                         <div class="collapsible-btn">Detalii personale</div>
-                        <img class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg">
-                    </button>
+                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg">
+                    </div>
                     <div class="collapsible-content">
                         <table>
                             <?php 
                                 foreach($volunteer -> personalDetails as $key => $detail) {
                                     if (strpos($key, '_ignore_') === false) {
                                     echo "<tr>
-                                        <th nowrap>
+                                        <th style='white-space:nowrap'>
                                             " . str_replace('_noedit_', '', $key) . "
                                         </th>
-                                        <td "; if (strpos($key, '_noedit_') !== false) echo " noedit='true'"; echo ">
+                                        <td "; if (strpos($key, '_noedit_') !== false) echo " contenteditable='true'"; echo ">
                                             " . $detail . ' ' . "
                                         </td>
                                     </tr>";}
@@ -70,19 +71,19 @@
                     </div>
                 </div>
                 <div class="info-table">
-                    <button class="collapsible-container">
+                    <div class="collapsible-container">
                         <div class="collapsible-btn">Aptitudini</div>
-                        <img class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
-                    </button>
+                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
+                    </div>
                     <div class="collapsible-content">
                         <div class="under-construction">Under construction</div>
                     </div>
                 </div>
                 <div class="info-table">
-                    <button class="collapsible-container">
+                    <div class="collapsible-container">
                         <div class="collapsible-btn">Interese</div>
-                        <img class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
-                    </button>
+                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
+                    </div>
                     <div class="collapsible-content">
                         <div class="under-construction">Under construction</div>
                     </div>
