@@ -78,8 +78,11 @@ class VolunteerModel {
         $conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($conn)) {
-            pg_send_prepare($conn, 'get_suggested_associations', 'SELECT DISTINCT assoc_id, nume, logo FROM vVolunteerDashboard
-            WHERE vol_id <> $1');
+            pg_send_prepare($conn, 'get_suggested_associations', 'SELECT DISTINCT assoc_id, nume, logo 
+            FROM vvolunteerdashboard 
+            where assoc_id not in 
+            (select distinct assoc_id from vvolunteerdashboard where vol_id = $1)
+                ');
 
             $res = pg_get_result($conn);
         }

@@ -20,6 +20,7 @@
 // how many to generate?
 define("HOW_MANY_ASSOC", 12);
 define("HOW_MANY_VOL", 12);
+define("HOW_MANY_TASKS",5); // MAX TASKS
 
 // ratings
 define ("METRIC1","harnic");
@@ -34,12 +35,14 @@ require_once __DIR__ . "/generateFillTables/tblAssociations.php";
 require_once __DIR__ . "/generateFillTables/tblVolunteers.php";
 require_once __DIR__ . "/generateFillTables/tblFeedback.php";
 require_once __DIR__ . "/generateFillTables/viewVolunteerDashboard.php";
+require_once __DIR__ . "/generateFillTables/tblTasks.php";
 
 /**
  * called from api/createTables (admin only)
  */
 function createTables($conn)
 {
+    dropTableTasks($conn);
     dropViewVolunteerDashboard($conn);
     dropTableFeedback($conn);
     dropTableVolAssoc($conn);
@@ -51,7 +54,7 @@ function createTables($conn)
     createTableVolAssoc($conn);
     createTableFeedback($conn);
     createViewVolunteerDashboard($conn);
-
+    createTableTasks($conn);
 
 }
 
@@ -60,5 +63,5 @@ function insertDataAll($conn) {
     insertDataVolunteers($conn);
     insertDataVolAssoc($conn);
     insertDataFeedback($conn);
-
+    insertDataTasks($conn);
 }
