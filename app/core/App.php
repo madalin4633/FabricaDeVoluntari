@@ -58,5 +58,16 @@ class App {
 
         return explode('/', $url);
     }
+
+    // Load view
+    public function view($view, $data = []){
+        // Check for view file
+        if(file_exists(__DIR__ .'/../views/' . $view . '.php')){
+          require_once __DIR__ .'/../views/' . $view . '.php';
+        } else {
+          // View does not exist
+          die('View does not exist');
+        }
+      }
 }
 ?>
