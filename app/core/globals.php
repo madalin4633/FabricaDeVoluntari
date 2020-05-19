@@ -9,5 +9,5 @@ $GLOBALS['user-notifications']->addNotification( "<a href='https://validator.w3.
     <p>https://fabrica-de-voluntari.herokuapp.com/</p>" );
 
 // store user id globally
-$GLOBALS['user_id'] = "4";
+$GLOBALS['user_id'] = "11";
 

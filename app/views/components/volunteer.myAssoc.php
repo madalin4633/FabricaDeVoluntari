@@ -14,7 +14,7 @@
                     <div class='tooltip'><span class='tooltiptext'>Ore lucrate</span><img class='svg-white' alt='icon' src='/public/images/query_builder-24px.svg'>
                         <span class='ore-lucrate'>" . $assoc['hours_worked'] . "</span></div>
                     <div class='tooltip'><span class='tooltiptext'>Aprecieri</span><img class='svg-red' alt='icon' src='/public/images/favorite-24px.svg'>
-                        <span class='aprecieri'>" . $assoc['bonus_points'] . "</span></div>
+                        <span class='aprecieri'>" . $assoc['bonus'] . "</span></div>
                     <div class='nowrap ";
                         if($assoc['rating']>0) 
                         echo "svg-yellow"; 

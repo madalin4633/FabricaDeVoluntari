@@ -24,6 +24,7 @@ function createTableAssociations($conn)
         adresa VARCHAR(50),
         logo VARCHAR(64),
         email VARCHAR (355) UNIQUE NOT NULL,
+        pass_hash VARCHAR(128) NOT NULL, /*sha512*/
         created_on TIMESTAMP NOT NULL,
         updated_on TIMESTAMP NOT NULL,
         last_login TIMESTAMP
@@ -71,8 +72,13 @@ function insertDataAssociations($conn)
 function insert_Assoc($conn, $nume, $adresa, $email, $logo)
 {
     $query  ='INSERT INTO tblAssociations 
-    (nume, adresa, email, logo, created_on, updated_on) VALUES 
-    (' . pg_escape_literal($nume) . ',' . pg_escape_literal($adresa) . ',' . pg_escape_literal($email) . ',' . $logo . ', current_timestamp, current_timestamp)';
+    (nume, adresa, email, logo, pass_hash, created_on, updated_on) VALUES 
+    (' . pg_escape_literal($nume) . ',' . 
+    pg_escape_literal($adresa) . ',' . 
+    pg_escape_literal($email) . ',' . 
+    $logo . ',' . 
+    pg_escape_literal("somepassword") . ',
+    current_timestamp, current_timestamp)';
 
     echo $query . '<br>';
 

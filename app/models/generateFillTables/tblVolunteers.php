@@ -28,6 +28,7 @@ function createTableVolunteers($conn)
         gen VARCHAR(10),
         nationalitate VARCHAR(20),
         email VARCHAR (355) UNIQUE NOT NULL,
+        pass_hash VARCHAR(128) NOT NULL, /*sha512*/
         profile_pic VARCHAR(64),
         created_on TIMESTAMP NOT NULL,
         updated_on TIMESTAMP NOT NULL,
@@ -77,10 +78,17 @@ function insertDataVolunteers($conn)
 function insert_Volunteers($conn, $nume, $prenume, $gender, $nat, $dob, $email, $pic)
 {
     $query  ='INSERT INTO tblVolunteers 
-    (nume, prenume, username, email, gen, nationalitate, data_nasterii, profile_pic, created_on, updated_on) VALUES 
-    (' . pg_escape_literal($nume) . ',' . pg_escape_literal($prenume) . ',' . pg_escape_literal($prenume .  $nume) . 
-     ',' . pg_escape_literal($email) . ',' . pg_escape_literal($gender) . ',' . pg_escape_literal($nat) . 
-     ',' . pg_escape_literal($dob) . ',' . pg_escape_literal($pic) . ', current_timestamp, current_timestamp)';
+    (nume, prenume, username, email, gen, nationalitate, data_nasterii, profile_pic, pass_hash, created_on, updated_on) VALUES 
+    (' . pg_escape_literal($nume) . ',' . 
+    pg_escape_literal($prenume) . ',' . 
+    pg_escape_literal($prenume .  $nume) . ',' . 
+    pg_escape_literal($email) . ',' . 
+    pg_escape_literal($gender) . ',' . 
+    pg_escape_literal($nat) . ',' . 
+    pg_escape_literal($dob) . ',' . 
+    pg_escape_literal($pic) . ', ' . 
+    pg_escape_literal("somepassword") . ',
+    current_timestamp, current_timestamp)';
 
     echo $query . '<br>';
 

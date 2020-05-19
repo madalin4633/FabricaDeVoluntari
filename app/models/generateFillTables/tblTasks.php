@@ -20,10 +20,11 @@ function createTableTasks($conn)
 {
     if (pg_query($conn, 'CREATE TABLE tblTasks(
         id serial PRIMARY KEY,
-        assoc_id INTEGER NOT NULL,
+        assoc_id INTEGER NOT NULL, /*fkey*/
         title VARCHAR(200) NOT NULL,
         descr TEXT NOT NULL,
         obs TEXT,
+        max_volunteers INTEGER DEFAULT 3,
         active BOOLEAN DEFAULT TRUE,
         done BOOLEAN DEFAULT FALSE,
         created_on TIMESTAMP NOT NULL,
@@ -49,7 +50,7 @@ function insertDataTasks($conn)
     curl_setopt($curl, CURLOPT_URL, "http://taco-randomizer.herokuapp.com/random/?full-taco=true");
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     
-    for ($xi = 0; $xi < HOW_MANY_ASSOC; $xi++) 
+    for ($xi = 0; $xi < HOW_MANY_ASSOC; $xi++) {
         for ($task = 0; $task < HOW_MANY_TASKS; $task++) {
             $response = curl_exec($curl);
             $err = curl_error($curl);
@@ -59,11 +60,11 @@ function insertDataTasks($conn)
                 $conn,
                 $xi + 1, /* assoc_id */
                 $data['name'], /*title*/
-                $data['condiment']['recipe'], /*obs*/
+                array_key_exists('condiment', $data) ? $data['condiment']['recipe'] : null, /*obs*/
                 $data['base_layer']['recipe'], /*desc*/
-                
             );
         }
+    }
     
     curl_close($curl);
 }
@@ -84,9 +85,12 @@ function insert_Task($conn, $assoc_id, $title, $obs, $desc)
 
         echo $query . '<br>';
 
-        if (pg_query($conn, $query)) {
-            echo "Record added in tblTasks";
+        try {
+            if (pg_query($conn, $query)) {
+                echo "Record added in tblTasks";
+            }
+        } catch (Exception $e) {
+            // echo $e->getMessage();
         }
     }
 }
-
