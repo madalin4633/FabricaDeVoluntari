@@ -6,6 +6,7 @@ class VolunteerModel {
     public $personalDetails = [];
     public $username = "_username_";
     public $pic = "no-photo.jpg";
+    public $rating = 0;
 
     public function __construct()
     {
@@ -67,9 +68,17 @@ class VolunteerModel {
             $result = pg_get_result($conn);
         }
             
+        $rating = 0;
+        $ratings = 0;
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $assoc = pg_fetch_assoc($result);
             $this -> associations[] = $assoc;
+
+            if ($assoc['rating']) {
+                $rating += $assoc['rating'];
+                $ratings++;
+            }
+            if ($ratings>0) $this->rating = $rating/$ratings;
         }
     }
 
@@ -78,9 +87,9 @@ class VolunteerModel {
         $conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($conn)) {
-            pg_send_prepare($conn, 'get_suggested_associations', 'SELECT DISTINCT assoc_id, nume, logo 
-            FROM vvolunteerdashboard 
-            where assoc_id not in 
+            pg_send_prepare($conn, 'get_suggested_associations', 'SELECT DISTINCT id, nume, logo 
+            FROM tblAssociations 
+            where id not in 
             (select distinct assoc_id from vvolunteerdashboard where vol_id = $1)
                 ');
 
