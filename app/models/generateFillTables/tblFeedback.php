@@ -64,7 +64,7 @@ function insertDataFeedback($conn)
 function insert_Feedback($conn, $task, $volassoc)
 {
     for ($i = 1; $i < 5; $i++) {
-        if (rand(0, 100) < 9) {                     /* % probabilitate ca voluntarul sa aiba feedback */
+        if (rand(0, 100) < 29) {                     /* % probabilitate ca voluntarul sa aiba feedback */
             $query  ='INSERT INTO tblFeedback 
         (id, task_id, volassoc_id , ' . METRIC1 .',  ' . METRIC2 .',  ' . METRIC3 .',  ' . METRIC4 .',  ' . METRIC5 .', created_on, updated_on) VALUES 
         (' . $task . ',' . $task . ',' . $volassoc . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) .', current_timestamp, current_timestamp)';

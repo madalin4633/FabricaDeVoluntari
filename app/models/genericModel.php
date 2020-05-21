@@ -43,9 +43,9 @@ require_once __DIR__ . "/generateFillTables/tblActivity.php";
  */
 function createTables($conn)
 {
-    dropTableActivity($conn);
     dropViewVolunteerDashboard($conn);
-    dropTableFeedback($conn);
+    // dropTableActivity($conn);
+    // dropTableFeedback($conn);
     dropTableTasks($conn);
     dropTableVolAssoc($conn);
     dropTableVolunteers($conn);
@@ -55,8 +55,8 @@ function createTables($conn)
     createTableAssociations($conn);
     createTableVolAssoc($conn);
     createTableTasks($conn);
-    createTableFeedback($conn);
-    createTableActivity($conn);
+    // createTableFeedback($conn);
+    // createTableActivity($conn);
     createViewVolunteerDashboard($conn);
 }
 
@@ -72,6 +72,6 @@ function insertDataAll($conn) {
     insertDataVolunteers($conn);
     insertDataVolAssoc($conn);
     insertDataTasks($conn);
-    insertDataActivity($conn);
-    insertDataFeedback($conn);
+    // insertDataActivity($conn);
+    // insertDataFeedback($conn);
 }

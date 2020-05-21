@@ -35,5 +35,6 @@ body{
     -webkit-text-fill-color: white;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: rgb(212, 125, 26);
+    align-self: center;
   }
 

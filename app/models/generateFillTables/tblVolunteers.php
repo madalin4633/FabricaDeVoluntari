@@ -27,7 +27,12 @@ function createTableVolunteers($conn)
         data_nasterii DATE,
         gen VARCHAR(10),
         nationalitate VARCHAR(20),
+        ocupatie VARCHAR(20), 
+        studies VARCHAR(40),
+        reason TEXT,
         email VARCHAR (355) UNIQUE NOT NULL,
+        phone_no VARCHAR(16) NOT NULL,
+        link_facebook VARCHAR(200),
         pass_hash VARCHAR(128) NOT NULL, /*sha512*/
         profile_pic VARCHAR(64),
         created_on TIMESTAMP NOT NULL,
@@ -58,6 +63,7 @@ function insertDataVolunteers($conn)
 
         insert_Volunteers(
             $conn,
+            $data['results'][0]['phone'] ,
             $data['results'][0]['name']['last'] ,
             $data['results'][0]['name']['first'],
             $data['results'][0]['gender'],
@@ -75,12 +81,13 @@ function insertDataVolunteers($conn)
 /**
  * Insert test data in tblVolunteers
  */
-function insert_Volunteers($conn, $nume, $prenume, $gender, $nat, $dob, $email, $pic)
+function insert_Volunteers($conn, $phone_no, $nume, $prenume, $gender, $nat, $dob, $email, $pic)
 {
     $query  ='INSERT INTO tblVolunteers 
-    (nume, prenume, username, email, gen, nationalitate, data_nasterii, profile_pic, pass_hash, created_on, updated_on) VALUES 
+    (nume, prenume, phone_no, username, email, gen, nationalitate, data_nasterii, profile_pic, pass_hash, created_on, updated_on) VALUES 
     (' . pg_escape_literal($nume) . ',' . 
     pg_escape_literal($prenume) . ',' . 
+    pg_escape_literal($phone_no) . ',' . 
     pg_escape_literal($prenume .  $nume) . ',' . 
     pg_escape_literal($email) . ',' . 
     pg_escape_literal($gender) . ',' . 

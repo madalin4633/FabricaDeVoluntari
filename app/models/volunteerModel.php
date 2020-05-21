@@ -6,6 +6,7 @@ class VolunteerModel {
     public $personalDetails = [];
     public $username = "_username_";
     public $pic = "no-photo.jpg";
+    public $rating = 0;
 
     public function __construct()
     {
@@ -67,9 +68,17 @@ class VolunteerModel {
             $result = pg_get_result($conn);
         }
             
+        $rating = 0;
+        $ratings = 0;
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $assoc = pg_fetch_assoc($result);
             $this -> associations[] = $assoc;
+
+            if ($assoc['rating']) {
+                $rating += $assoc['rating'];
+                $ratings++;
+            }
+            if ($ratings>0) $this->rating = $rating/$ratings;
         }
     }
 
