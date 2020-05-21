@@ -8,10 +8,28 @@ $associationsRoutes = [
         "handler" => "getAssociations"
     ],
     [
+        "method" => "POST",
+        //"middlewares" => ["IsLoggedInHere"] -- abia iti faci cont de asociatie, nu tre sa fii logat
+        "route" => "associations",
+        "handler" => "addAssociation"
+    ],
+    [
         "method" => "GET",
         "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId",
         "handler" => "getAssociation"
+    ],
+    [
+        "method" => "DELETE",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "associations/:assocId",
+        "handler" => "deleteAssociation"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "associations/:assocId",
+        "handler" => "updateAssociation"
     ],   
     [
         "method" => "GET",
@@ -44,6 +62,12 @@ $associationsRoutes = [
         "handler" => "getVolunteerTaskHere"
     ],
     [
+        "method" => "PUT",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "associations/:assocId/volunteers/:voluntId/tasks/:taskId",
+        "handler" => "doneVolunteerTaskHere"
+    ],
+    [
         "method" => "GET",
         "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/tasks",
@@ -62,7 +86,7 @@ $associationsRoutes = [
         "handler" => "getAssocTaskHere"
     ],
     [
-        "method" => "PATCH",
+        "method" => "PUT",
         "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/tasks/:taskId",
         "handler" => "updateTask"
@@ -72,6 +96,24 @@ $associationsRoutes = [
         "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId/tasks/:taskId",
         "handler" => "deleteTask"
+    ],
+    [
+        "method" => "GET",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "associations/:assocId/ratings",
+        "handler" => "getFeedback"
+    ],
+    [
+        "method" => "GET",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "associations/:assocId/tasks/:taskId/ratings",
+        "handler" => "getTaskFeedback"
+    ],
+    [
+        "method" => "POST",
+        "middlewares" => ["IsLoggedIn"],
+        "route" => "associations/:assocId/tasks/:taskId/ratings",
+        "handler" => "giveTaskFeedback"
     ]
 ];
 //de discutat daca metodele alese sunt ok
@@ -91,6 +133,14 @@ function IsLoggedInHere()
     ]);
 
     return false;
+}
+
+function updateAssociation($req) {
+ //updateaza datele de la o asociatie
+}
+
+function deleteAssociation($req) {
+    //sterge o asociatie din bd
 }
 
 function getAssociation($req) {
@@ -122,6 +172,10 @@ function getVolunteerTasksHere($req){
 
 function getVolunteerTaskHere($req){
     //ia din task-urile voluntarului doar un task anume
+}
+
+function doneVolunteerTaskHere($req) {
+    //poate modifica task, inclusiv sa il bifeze ca facut !!!!!!!! NUMAI DACA E TASK_UL DIN ACEA ASOCIATIE
 }
 
 function getAssocTasks($req){
@@ -172,7 +226,7 @@ function getTeamHere($req) {
         // echo json_encode($payload);
 }
 
-function addTeamHere($req) {
+function addAssociation($req) {
     $modifiedPayload = $req['payload'];
     $modifiedPayload -> id = uniqid();
     
