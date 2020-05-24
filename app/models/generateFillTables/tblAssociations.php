@@ -21,9 +21,16 @@ function createTableAssociations($conn)
     if (pg_query($conn, 'CREATE TABLE tblAssociations(
         id serial PRIMARY KEY,
         nume VARCHAR(50) NOT NULL,
+        reprezentant VARCHAR(100) NOT NULL,
+        nr_inreg VARCHAR(20) NOT NULL,
+        data_infiintare DATE NOT NULL,
+        descriere TEXT,
         adresa VARCHAR(50),
         logo VARCHAR(64),
         email VARCHAR (355) UNIQUE NOT NULL,
+        phone_no VARCHAR(16) NOT NULL,
+        link_facebook VARCHAR(200),
+        pass_hash VARCHAR(128) NOT NULL, /*sha512*/
         created_on TIMESTAMP NOT NULL,
         updated_on TIMESTAMP NOT NULL,
         last_login TIMESTAMP
@@ -71,8 +78,13 @@ function insertDataAssociations($conn)
 function insert_Assoc($conn, $nume, $adresa, $email, $logo)
 {
     $query  ='INSERT INTO tblAssociations 
-    (nume, adresa, email, logo, created_on, updated_on) VALUES 
-    (' . pg_escape_literal($nume) . ',' . pg_escape_literal($adresa) . ',' . pg_escape_literal($email) . ',' . $logo . ', current_timestamp, current_timestamp)';
+    (reprezentant, nr_inreg, phone_no, nume, adresa, email, logo, pass_hash, data_infiintare, created_on, updated_on) VALUES 
+    (\'Xulescu\',\'abc123\',\'0777443322\',' . pg_escape_literal($nume) . ',' . 
+    pg_escape_literal($adresa) . ',' . 
+    pg_escape_literal($email) . ',' . 
+    $logo . ',' . 
+    pg_escape_literal("somepassword") . ',
+    current_timestamp, current_timestamp, current_timestamp)';
 
     echo $query . '<br>';
 

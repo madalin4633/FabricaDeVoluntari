@@ -29,7 +29,7 @@
                         <img alt="profile pic" src=/public/images/<?= $volunteer -> pic?> >
                     </div>
                     <div id="full-name">
-                        <?php echo $volunteer -> username; ?>
+                        <?php echo $volunteer -> username; showFeedbackStars($volunteer->rating);?>
                     </div>
                 </div>
                 <div>

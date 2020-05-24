@@ -36,15 +36,17 @@ require_once __DIR__ . "/generateFillTables/tblVolunteers.php";
 require_once __DIR__ . "/generateFillTables/tblFeedback.php";
 require_once __DIR__ . "/generateFillTables/viewVolunteerDashboard.php";
 require_once __DIR__ . "/generateFillTables/tblTasks.php";
+require_once __DIR__ . "/generateFillTables/tblActivity.php";
 
 /**
  * called from api/createTables (admin only)
  */
 function createTables($conn)
 {
-    dropTableTasks($conn);
     dropViewVolunteerDashboard($conn);
-    dropTableFeedback($conn);
+    // dropTableActivity($conn);
+    // dropTableFeedback($conn);
+    dropTableTasks($conn);
     dropTableVolAssoc($conn);
     dropTableVolunteers($conn);
     dropTableAssociations($conn);
@@ -52,16 +54,24 @@ function createTables($conn)
     createTableVolunteers($conn);
     createTableAssociations($conn);
     createTableVolAssoc($conn);
-    createTableFeedback($conn);
-    createViewVolunteerDashboard($conn);
     createTableTasks($conn);
+    // createTableFeedback($conn);
+    // createTableActivity($conn);
+    createViewVolunteerDashboard($conn);
+}
 
+function createViews($conn)
+{
+    dropViewVolunteerDashboard($conn);
+
+    createViewVolunteerDashboard($conn);
 }
 
 function insertDataAll($conn) {
     insertDataAssociations($conn);
     insertDataVolunteers($conn);
     insertDataVolAssoc($conn);
-    insertDataFeedback($conn);
     insertDataTasks($conn);
+    // insertDataActivity($conn);
+    // insertDataFeedback($conn);
 }

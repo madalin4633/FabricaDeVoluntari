@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
 Create tables in the database
 SQL Syntax: postgreSQL
 */
@@ -10,8 +10,8 @@ require_once __DIR__ . '/../genericAPI.php';
 
 header("Content-type: application/json");
 
-class createTablesAPI extends GenericAPI {
-
+class createTablesAPI extends GenericAPI
+{
     public function __construct()
     {
         require_once __DIR__ . "/../../models/genericModel.php";
@@ -51,14 +51,13 @@ class createTablesAPI extends GenericAPI {
                     } elseif (preg_match('/api\/createTables\/VolAssoc(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
                         $this -> middlewares([['insertDataVolAssoc', [$GLOBALS['db']]]]);
 
-                     // api/createTables/Feedback
+                    // api/createTables/Feedback
                     } elseif (preg_match('/api\/createTables\/Feedback(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
                         $this -> middlewares([['insertDataFeedback', [$GLOBALS['db']]]]);
                         
-                     // api/createTables
+                    // api/createTables
                     } elseif (preg_match('/api\/createTables(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
                         $this -> middlewares([['insertDataAll', [$GLOBALS['db']]]]);
-                        
                     } else {
                         http_response_code(400);
                         echo '{"status":400, "response":"Bad request!"}';
@@ -79,8 +78,12 @@ class createTablesAPI extends GenericAPI {
                         
                 // api/createTables/Feedback
                 } elseif (preg_match('/api\/createTables\/Feedback(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
-                $this -> middlewares([['createTableFeedback', [$GLOBALS['db']]]]);
+                    $this -> middlewares([['createTableFeedback', [$GLOBALS['db']]]]);
                     
+                // api/createTables/views
+                } elseif (preg_match('/api\/createTables\/views(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
+                    $this -> middlewares([['createViews', [$GLOBALS['db']]]]);
+
                 // api/createTables
                 } elseif (preg_match('/api\/createTables(\/)?$/i', $_SERVER['REQUEST_URI'], $matches)) {
                     $this -> middlewares([['createTables', [$GLOBALS['db']]]]);
@@ -107,5 +110,3 @@ class createTablesAPI extends GenericAPI {
     //     //createTables($GLOBALS['db']);
     // }
 }
-
-
