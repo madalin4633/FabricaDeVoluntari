@@ -9,6 +9,7 @@ body{
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
+	text-align: center;
 }
 
 input{
@@ -16,25 +17,29 @@ input{
 }
 
 .container{
-    width: 100vw;
+	margin: auto;
+    width: 95vw;
     height: 100vh;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap :7rem;
-    padding: 0 2rem;
+	grid-gap: 0rem;
 }
+
 
 .img{
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: center;
 }
 
 .login-content{
-	display: flex;
-	justify-content: flex-start;
+	margin : auto;
+	display: block;
+	justify-content: center;
 	align-items: center;
+	/* border: 1px solid #ccc; */
 	text-align: center;
+	justify-items: center;
 }
 
 .img img{
@@ -81,15 +86,56 @@ form{
 	text-transform: uppercase;
 	margin: 1rem 0;
 	cursor: pointer;
-	transition: .5s;/*
-	padding-left: 1.5rem;
-	padding-right: 1.5rem;*/
+	transition: .5s;
+	text-decoration: none;
+}
+
+.btn_switch{
+	display: block;
+	width: 100%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+	background-size: 200%;
+	font-size: 1.2rem;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+	transition: .5s;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#accout-type{
+	width: 20%;
+	place-items: center;
 }
 
 .avatar{
 	align-items: center;
 	padding-bottom: 15px;
 }
+
+.tab_content {
+	/* margin: auto;
+	display: none;
+	padding: 6px 12px;
+	/* border: 1px solid #ccc; */
+	/* border-top: none;
+	animation: fadeEffect 1s;
+	justify-items: center; */ 
+
+	position: relative;
+	margin: auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+  }
 
 @media screen and (max-width: 1050px){
 	.container{
@@ -121,10 +167,6 @@ form{
 		display: none;
 	}
 
-	.wave{
-		display: none;
-	}
-
 	.login-content{
 		justify-content: center;
 	}
@@ -132,7 +174,7 @@ form{
 
 .form__input {
   color: #333;
-  font-size: 1.0rem;
+  font-size: 0.9rem;
   margin: 0 auto;
   padding: 1.0rem 1.0rem;
   border-radius: 0.1rem;
@@ -142,6 +184,7 @@ form{
   display: block;
   border-bottom: 0.1rem solid transparent;
   transition: all 0.3s;
+  text-align: center;
 }
 
 .form__group {

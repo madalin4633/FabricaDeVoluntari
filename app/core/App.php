@@ -69,5 +69,12 @@ class App {
           die('View does not exist');
         }
       }
+
+      public function model($model){
+        
+        require_once __DIR__.'/../models/' . $model . '.php';
+       
+        return new $model();
+      }
 }
 ?>

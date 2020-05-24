@@ -108,7 +108,7 @@ function IsLoggedIn()
 {
     $allHeaders = getallheaders();
 
-    if (isset($allHeaders['Authorization'])) {
+    if(isset($_SESSION['user_id'])){
         return true;
     }
 
