@@ -13,7 +13,7 @@
 		<div class="login-content">
 			<form method="POST" action="/user/login">
 				<img class="avatar" src="/public/images/fabrica_logo.png" alt="logo">
-				
+				<p id="text_error"><?php echo($data['error']);?></p>
 				<div class="form__group">
   					<input type="text" class="form__input" name="email" placeholder="Email" required="" />
 				</div>

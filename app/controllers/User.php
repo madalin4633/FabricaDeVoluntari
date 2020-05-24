@@ -13,10 +13,6 @@
             
                 // Sanitize POST data
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                
-                if(isset($_POST['as_name'])){
-                    die("este o asociatie");
-                }
 
                 // Init data
                 $data =[
@@ -40,7 +36,8 @@
                     'status_err' => '',
                     'password_err' => '',
                     'confirm_password_err' => '',
-                    'accord_err' => ''
+                    'accord_err' => '',
+            
                 ];
                 
                 $err_fields = 0;
@@ -154,6 +151,137 @@
                 $this->view('signup', $data);
             }
           }
+
+          public function register_asociatie(){
+
+            // Check for POST
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                // Process form
+            
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                // Init data
+                $data =[
+                    'as_name' => trim($_POST['as_name']),
+                    'owner' => trim($_POST['owner']),
+                    'registrery' => trim($_POST['registrery']),
+                    'birthday' => trim($_POST['birthday']),
+                    'phone' => trim($_POST['phone']),
+                    'email' => trim($_POST['email']),
+                    'password' => trim($_POST['password']),
+                    'confirm_password' => trim($_POST['confirm_password']),
+                    'accord' => trim($_POST['accord']),
+                    'as_err' => '',
+                    'owner_err' => '',
+                    'registrery_err' => '',
+                    'phone_err' => '',
+                    'password_err' => '',
+                    'confirm_password_err' => '',
+                    'accord_err' => '',
+                    'error' => '',
+            
+                ];
+                
+                $err_fields = 0;
+
+                // Validate Name
+                if(empty($data['as_name'])){
+                    $data['as_name_err'] = 'Please enter name';
+                    $err_fields++;
+                }
+                
+                // Validate owner
+                if(empty($data['owner'])){
+                    $data['owner_err'] = 'Please enter surname';
+                    $err_fields++;
+                }
+
+                // Validate Registrery
+                if(empty($data['registrery'])){
+                    $data['registrery_err'] = 'Please enter birthday';
+                    $err_fields++;
+                }
+
+                // Validate Birthday
+                if(empty($data['birthday'])){
+                    $data['birthday_err'] = 'Please enter phone';
+                    $err_fields++;
+                }
+
+                // Validate Phone
+                if(empty($data['phone'])){
+                    $data['phone_err'] = 'Please enter email';
+                    $err_fields++;
+                }
+
+                // Validate Email
+                if(empty($data['email'])){
+                    $data['email_err'] = 'Please select gender';
+                    $err_fields++;
+                }
+
+                // Validate Password
+                if(empty($data['password'])){
+                    $data['password_err'] = 'Please enter password';
+                    $err_fields++;
+                } elseif(strlen($data['password']) < 6){
+                    $data['password_err'] = 'Password must be at least 6 characters';
+                    $err_fields++;
+                }
+        
+                // Validate Confirm Password
+                if(empty($data['confirm_password'])){
+                    $data['confirm_password_err'] = 'Please confirm password';
+                    $err_fields++;
+                } else {
+                    if($data['password'] != $data['confirm_password']){
+                    $data['confirm_password_err'] = 'Passwords do not match';
+                    $err_fields++;
+                    }
+                }
+
+                // Check accord
+                if($data['accord'] <> "yes"){
+                    $data['accord_err'] = 'Please sign accord';
+                    $err_fields++;
+                }
+        
+                // Make sure errors are empty
+                if($err_fields == 0){
+                    // SUCCESS - Proceed to insert
+                    
+                    if($this->userModel->register_asoc($data)){
+                        flash('register_success', 'You are now registered and can log in');
+                        redirect('/user/login');
+                    }
+                    else{
+                        die('Something went wrong');
+                    }
+                    
+                } else {
+                    // Load view with errors
+                    print_r($data);
+                    die('Something went wrong');
+                }
+      
+            } else {
+              // Init data -- NOT A POST REQUEST
+                $data =[
+                    'name' => '',
+                    'email' => '',
+                    'password' => '',
+                    'confirm_password' => '',
+                    'name_err' => '',
+                    'email_err' => '',
+                    'password_err' => '',
+                    'confirm_password_err' => ''
+                ];
+        
+                // Load view
+                $this->view('signup', $data);
+            }
+          }
       
           public function login(){
 
@@ -172,7 +300,8 @@
                     'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
                     'email_err' => '',
-                    'password_err' => '',      
+                    'password_err' => '',  
+                    'error' => '',  
                 ];
 
                 $err_fields = 0;
@@ -194,13 +323,14 @@
                     // Validated
                     
                     $loggedInUser = $this->userModel->login($data['email'], $data['password']);
-                
+
+
                     if($loggedInUser){
                         //User Authentificated
                         $this->createUserSession($loggedInUser);
                     }
                     else{
-                        $data['password_err'] = 'Password incorrect';
+                        $data['error'] = 'Email sau parola incorecta';
                         $this->view('login', $data);
                     }
 
@@ -216,7 +346,8 @@
                     'email' => '',
                     'password' => '',
                     'email_err' => '',
-                    'password_err' => '',        
+                    'password_err' => '', 
+                    'error' => '',      
                 ];
         
                 // Load view

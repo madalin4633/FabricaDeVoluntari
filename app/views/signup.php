@@ -133,7 +133,7 @@
         
         <div id="asociation_accout" class = "tab_content" style="display: none">
             <div class = "login-content">
-                <form method="POST" action="/signup_page.php">
+                <form method="POST" action="/user/register_asociatie">
                         
                     <br/>
                     <img class="avatar" src="/public/images/fabrica_logo.png" alt="logo">
@@ -179,7 +179,7 @@
                     </div> -->
 
                     <div class="form__group">
-                        <input type="text" class="form__input" name="telephone" placeholder="Telefon" required="" />
+                        <input type="text" class="form__input" name="phone" placeholder="Telefon" required="" />
                     </div>
                     
                     <!-- <div>
@@ -195,7 +195,7 @@
                     </div>
                     
                     <div class="form__group">
-                        <input type="password" class="form__input" name="password_confirm" placeholder="Confirmare parola" required="" />
+                        <input type="password" class="form__input" name="confirm_password" placeholder="Confirmare parola" required="" />
                     </div>
                     
                     <!-- <div>
@@ -228,7 +228,7 @@
                             diseminarea rezultatelor, fara a afecta, insa, imaginea mea (cu exceptia cazurilor justificate,
                             in care voi solicita expres sa nu apar in aceste materiale). Sunt de acord să fiu contactat(a)
                             prin e-mail sau telefon de catre asociatii in scopul inscrierii in ele.</p>
-                        <label for="da"> Sunteti de acord? </label><br/>
+                        <<label for="da"> Esti de acord? </><br/>
                         <label>Da</label>
                         <input type="radio" id="da" name="accord" value="yes"/>
                         <br/>
