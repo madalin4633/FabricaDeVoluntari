@@ -6,7 +6,9 @@
         "<tr>
             <td  style='background: url(/public/images/logo/no-logo-png-4.png); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                 <div class='tooltip'><span class='tooltiptext'>" . $assoc['nume'] . "</span>
-                <div class='asoc-logo' style='background: url(/public/images/logo/" . $assoc['logo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
+                <div class='asoc-logo' style='background: url(/public/images/logo/" . $assoc['logo'] . "); 
+                background-size: cover; background-position: center; background-repeat: no-repeat;'
+                onclick='location.href=\"/volunteer/activity/".$assoc['assoc_id']."\"'>
                 </div></div>
             </td>
             <td>

@@ -1,0 +1,59 @@
+.current-activity {
+}
+
+.activity-task {
+    display: grid;
+    grid: 'title title '
+    'desc notes';
+
+    grid-auto-flow: row;
+    margin: 15px;
+    background-color: honeydew;
+    padding: 14px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.activity-title {
+    padding: 4px;
+    grid-area: title;
+    font-size: 30px;
+    color: indigo;
+}
+
+.activity-desc {
+    padding: 8px;
+    grid-area: desc;
+    border: lavender 1px dashed;
+}
+
+.activity-notes {
+    padding: 8px;
+    grid-area: notes;
+}
+
+.assoc-icon {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 20%;
+    margin: 7px;
+}
+
+.task-panel {
+    position: absolute;
+    top: -15px;
+    right: 15px;
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+}
+
+.activity-duedate {
+    padding: 4px;
+    font-size: 20px;
+    color: red;
+    bottom: 0px;
+    align-self: flex-end;
+}
+

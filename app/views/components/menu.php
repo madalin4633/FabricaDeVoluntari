@@ -2,6 +2,7 @@
     <img class="company-logo" alt="company logo" src="/public/images/fabrica_logo.png" >
     <button type="button" class="menu-button" onclick="location.href='/volunteer/dashboard'">Dashboard </button>
     <button type="button" class="menu-button" onclick="location.href='/volunteer/profile'">Profile </button>
+    <button type="button" class="menu-button" onclick="location.href='/volunteer/activity'">Activity (vol) </button>
     <button type="button" class="menu-button" onclick="location.href='/association/reports'">Reports </button>
 
     <button class="messages-button">
