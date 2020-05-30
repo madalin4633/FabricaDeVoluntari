@@ -28,7 +28,7 @@
     /* display: none; */
     max-height: 0;
     overflow: hidden;
-    width: fit-content;
+    /* width: fit-content; */
     transition: max-height 0.2s ease-out;
 }
 

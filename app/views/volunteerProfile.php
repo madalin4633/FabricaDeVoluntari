@@ -33,12 +33,6 @@
                     </div>
                 </div>
                 <div>
-                    Profil
-                </div>
-                <div>
-                    Deconectare
-                </div>
-                <div>
                     badge-uri
                 </div>
                 <div>
@@ -53,21 +47,21 @@
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg">
                     </div>
                     <div class="collapsible-content">
-                        <table>
+                        <div class='tableElement'>
                             <?php 
                                 foreach($volunteer -> personalDetails as $key => $detail) {
                                     if (strpos($key, '_ignore_') === false) {
-                                    echo "<tr>
-                                        <th style='white-space:nowrap'>
+                                    echo "<div class='tableRow'>
+                                        <div class='tableHeader' style='white-space:nowrap'>
                                             " . str_replace('_noedit_', '', $key) . "
-                                        </th>
-                                        <td "; if (strpos($key, '_noedit_') !== false) echo " contenteditable='true'"; echo ">
+                                        </div>
+                                        <div class='tableCell' "; if (strpos($key, '_noedit_') !== false) echo " contenteditable='true'"; echo ">
                                             " . $detail . ' ' . "
-                                        </td>
-                                    </tr>";}
+                                        </div>
+                                    </div>";}
                                 };
                             ?>
-                        </table>
+                        </div>
                     </div>
                 </div>
                 <div class="info-table">

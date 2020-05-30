@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="/public/styles/menu.css" />
     <link rel="icon" href="/public/images/fdv_logo.png" />
     <title>Fabrica de Voluntari</title>
-    <script src="/public/javascript/menu.js" ></script>
 </head>
 
 <body>
@@ -39,6 +38,7 @@
         </div>
     </div>
 
+    <script src="/public/javascript/menu.js"></script>
     <script>
         initCollapsible();
         initMenu();
