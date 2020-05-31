@@ -21,6 +21,16 @@
   margin: 5px;
 }
 
+.menu .assoc-icon {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 20%;
+  align-content: center;
+  align-self: center;
+  margin: 5px;
+}
+
 .menu .crop img {
   width: 75px;
   height: 50px;
