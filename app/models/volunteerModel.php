@@ -8,6 +8,7 @@ class VolunteerModel {
     public $username = "_username_";
     public $pic = "no-photo.jpg";
     public $rating = 0;
+    public $activity = [];
 
     public function __construct()
     {
@@ -20,7 +21,41 @@ class VolunteerModel {
         // $this -> readPersonalDetails($this->id);
     }
 
+    public function readActivity($assoc_id) {
+        $conn = $GLOBALS['db'];
 
+        if (!pg_connection_busy($conn)) {
+            $query = "SELECT 
+            title,
+            logo as assoclogo,
+            descr,
+            obs,
+            due_date 
+            FROM vVolunteerActivity 
+            WHERE vol_id=$1 ";
+            if (isset($assoc_id)) $query.= "AND assoc_id=$2";
+
+            pg_send_prepare($conn, 'get_activity',  $query);
+            
+            $res = pg_get_result($conn);
+        }
+
+        if (!pg_connection_busy($conn)) {
+            $params=[];
+            $params[] = $GLOBALS['user_id'];
+            if (isset($assoc_id)) $params[] = $assoc_id;
+            pg_send_execute($conn, 'get_activity', $params);
+            $result = pg_get_result($conn);
+        }
+
+        for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
+            $this -> activity[] = pg_fetch_assoc($result);
+        }
+    }
+
+    /**
+     * retrieve personal data
+     */
     function readPersonalDetails($vol_id) {
         $conn = $GLOBALS['db'];
 

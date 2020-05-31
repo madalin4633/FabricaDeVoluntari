@@ -29,9 +29,9 @@
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
                     </div>
                     <div class="collapsible-content" style="max-height: fit-content;">
-                        <table class="tabel-asociatii">
+                        <div class="flex-grid-expandable-list">
                             <?php require_once __DIR__ . "/components/volunteer.myAssoc.php" ?>
-                        </table>
+                        </div>
                     </div>
                 </div>
                 <div class="info-table">
