@@ -327,6 +327,7 @@
 
                     if($loggedInUser){
                         //User Authentificated
+                        $GLOBALS['vol_logged_in'] = true;
                         $this->createUserSession($loggedInUser);
                     }
                     else{
