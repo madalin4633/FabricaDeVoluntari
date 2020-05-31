@@ -153,6 +153,36 @@ class VolunteerModel {
         return $all_volunteers;
     }
 
+    function update_volunteer_by_id($volunteer_id, $payload){
+        
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'UPDATE tblvolunteers SET nume = ' . pg_escape_literal($payload->nume) . ', prenume = ' . pg_escape_literal($payload->prenume) . ', username = ' . pg_escape_literal($payload->username) . ', data_nasterii = ' . pg_escape_literal($payload->data_nasterii) . ', gen = ' . pg_escape_literal($payload->gen) . ', nationalitate = ' . pg_escape_literal($payload->nationalitate) . ', ocupatie = ' . pg_escape_literal($payload->ocupatie) . ', studies = ' . pg_escape_literal($payload->studies) . ', reason = ' . pg_escape_literal($payload->reason) . ', phone_no = ' . pg_escape_literal($payload->phone_no) . ', email = ' . pg_escape_literal($payload->email) . ', link_facebook = ' . pg_escape_literal($payload->link_facebook) . ', pass_hash = ' . pg_escape_literal('' . hash('sha256', $payload->pass_hash)) . ', profile_pic = ' . pg_escape_literal($payload->profile_pic) . ', updated_on = current_timestamp WHERE id = ' . $volunteer_id;
+        
+        // print_r($query);
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'delete_volunteer_from_assoc', $query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'delete_volunteer_from_assoc', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
+
+    
+    }
+
     function delete_volunteer_by_id($id) {
         $db_conn = $GLOBALS['db'];
 
@@ -227,9 +257,7 @@ class VolunteerModel {
     function remove_volunteer_from_association($volunteer_id, $association_id){
         $db_conn = $GLOBALS['db'];
 
-        $query = 'DELETE FROM tblvolassoc WHERE vol_id =' . $volunteer_id . 'AND assoc_id=' . $association_id;
-
-        print_r($query);
+        $query = 'DELETE FROM tblvolassoc WHERE vol_id = ' . $volunteer_id . ' AND assoc_id = ' . $association_id;
 
         if (!pg_connection_busy($db_conn)) {
             pg_send_prepare($db_conn, 'delete_volunteer_from_assoc', $query);
@@ -386,5 +414,57 @@ class VolunteerModel {
         pg_close();
         
         return $review;
+    }
+
+    function give_feedback($volunteer_id, $task_id, $payload){ //TEORETIC MERGE, PRACTIC NU (mici buguri, de vazut cu constrangerile)
+        $db_conn = $GLOBALS['db'];
+
+        // print_r($task_id.'   '.$volunteer_id);
+
+        $first_query = 'SELECT volassoc.id FROM tblvolassoc volassoc JOIN tbltasks tsk ON tsk.assoc_id = volassoc.assoc_id JOIN vvolunteeractivity vact ON vact.task_id = tsk.id WHERE tsk.id = ' . $task_id . ' AND volassoc.vol_id = ' . $volunteer_id;
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'retrive_data', $first_query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'retrive_data', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $value = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+
+        if(isset($value)){
+            return false;
+        }
+
+        $val = $value['id'];
+
+        // print_r($val);
+
+        $query = 'INSERT INTO tblfeedback (id, task_id, volassoc_id, harnic, comunicativ, disponibil, punctual, serios, descriere, for_volunteer, created_on, updated_on) VALUES (' . $payload->id .','. $task_id.',' . $val .','. $payload->harnic .','. $payload->comunicativ.','. $payload->disponibil. ','. $payload->punctual .','. $payload->serios .','. pg_escape_literal($payload->descriere) .','. $payload->for_volunteer .', current_timestamp, current_timestamp)';
+        
+        print_r($query);
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'give_feedback', $query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'give_feedback', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
     }
 }

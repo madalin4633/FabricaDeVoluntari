@@ -35,7 +35,7 @@ $volunteersRoutes = [
         "method" => "PUT",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId",
-        "handler" => "updateVolunteer"  //DE FACUT 
+        "handler" => "updateVolunteer" 
     ],
     [
         "method" => "DELETE",
@@ -59,7 +59,7 @@ $volunteersRoutes = [
         "method" => "DELETE",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/associations/:assocId",
-        "handler" => "removeVolunteerFromAssoc" //DE VERIFICAT
+        "handler" => "removeVolunteerFromAssoc" 
     ],
     [
         "method" => "GET",
@@ -98,21 +98,20 @@ $volunteersRoutes = [
         "handler" => "getTaskFeedback" 
     ],
     [
-        "method" => "POST",
+        "method" => "PUT",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/tasks/:taskId/ratings",
-        "handler" => "giveTaskFeedback"  //DE FACUT
+        "handler" => "giveTaskFeedback"  //MICI BUGURI, POSIBIL DE LA CONSTRANGERI - DE VERIFICAT PE FINAL
     ]
 ];
 
-function IsLoggedIn()
-{
+function IsLoggedIn(){
     $allHeaders = getallheaders();
 
     if(isset($_SESSION['user_id'])){
         return true;
     }
-
+    print_r('sunt aici');
     Response::status(401);
     Response::json([
         "status" => 401,
@@ -162,6 +161,24 @@ function getVolunteer($req) {
 
 function updateVolunteer($req){
     // de updatat info despre voluntar
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    $result = $volunteer->update_volunteer_by_id($req['params']['voluntId'], $req['payload']);
+
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
 }
 
 function deleteVolunteer($req){
@@ -196,7 +213,7 @@ function getAssocActivity($req){
     
 }
 
-function removeVolunteerFromAssoc($req){   //  DE VERIFICAAAAAAAAAAAAT
+function removeVolunteerFromAssoc($req){   
 
     // "volunteers/:voluntId/associations/:assocId"
 
@@ -204,11 +221,19 @@ function removeVolunteerFromAssoc($req){   //  DE VERIFICAAAAAAAAAAAAT
 
     $volunteer = new volunteerModel();
 
-    print_r(req['params']['voluntId'].'  ');
+    $result = $volunteer->remove_volunteer_from_association($req['params']['voluntId'], $req['params']['assocId']);
 
-    print_r(req['params']['assocId'].'  ');
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
     Response::status(200);
-    Response::json($volunteer->remove_volunteer_from_association($req['params']['voluntId'], $req['params']['assocId']));
+    Response::json($output);
 
 }
 
@@ -284,6 +309,24 @@ function getTaskFeedback($req){
 
 function giveTaskFeedback($req){
     //da feedback pentru un task anume
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    $result = $volunteer->give_feedback($req['params']['voluntId'], $req['params']['taskId'], $req['payload']);
+
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
 }
 
 
