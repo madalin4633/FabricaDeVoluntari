@@ -12,7 +12,7 @@ class VolunteerModel {
 
     public function __construct()
     {
-        $this -> id = $_SESSION['user_id'];
+        //$this -> id = $_SESSION['user_id'];
 
         // $this -> readAssociations($this->id);
 

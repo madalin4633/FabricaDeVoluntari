@@ -14,16 +14,17 @@
     <title>Fabrica de Voluntari</title>
     <script src="/public/javascript/userprofile.js" ></script>
     <script src="/public/javascript/menu.js" ></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" type="text/javascript"></script>
 </head>
 
 <body>
     <div class="vertical-split">
-
         <?php require_once __DIR__ . "/components/menu.php" ?>
-        
-        <h1>Rapoarte despre voluntari afisate pe pagina asociatiei</h1>
-        <div class="under-construction">Under construction</div>
+
+        <canvas id="activityChart" aria-label="Hello ARIA World" role="img">
+        <p>Graficele nu s-au generat</p>
+        </canvas>
+        <script src="/public/javascript/chart.js"></script>
     </div>
 
     <script>initCollapsible();initMenu()</script>

@@ -108,10 +108,10 @@ $volunteersRoutes = [
 function IsLoggedIn(){
     $allHeaders = getallheaders();
 
-    if(isset($_SESSION['user_id'])){
+    if($_SESSION['is_volunteer'] || $_SESSION['is_association']){
         return true;
     }
-    print_r('sunt aici');
+    //print_r('sunt aici');
     Response::status(401);
     Response::json([
         "status" => 401,
