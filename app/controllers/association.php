@@ -1,7 +1,7 @@
 <?php
 
 // TODO change to associationModel in all places, after it's done
-require_once __DIR__ . '/../models/volunteerModel.php';
+require_once __DIR__ . '/../models/associationModel.php';
 
 class Association {
     public function index() {
@@ -9,16 +9,18 @@ class Association {
     }
 
     public function reports() {
-        // signed in volunteer looking at his dashboard
-        $volunteer = new VolunteerModel();
+        // signed in association looking at his dashboard
+        $association = new AssociationModel();
 
         require_once __DIR__ . '/../views/assocReports.php';
     }
 
-    // public function profile() {
-    //     // signed in volunteer looking at his dashboard
-    //     $volunteer = new VolunteerModel();
+    public function activity() {
+        // signed in association looking at his dashboard
+        $association = new AssociationModel();
+        $association->readActivity(null);
+        $association->readPersonalDetails($GLOBALS['user_id']);
 
-    //     require_once __DIR__ . '/../views/assocProfile.php';
-    // }
+        require_once __DIR__ . '/../views/associationActivity.php';
+    }
 }

@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+
 * {
     /* border: red thin dashed; */
     font-family: "Source Sans Pro";
@@ -37,4 +40,24 @@ body{
     -webkit-text-stroke-color: rgb(212, 125, 26);
     align-self: center;
   }
+
+  .svg-red {
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+.svg-yellow {
+    filter: invert(27%) sepia(91%) saturate(5000%) hue-rotate(45deg) brightness(254%) contrast(97%);
+}
+
+.svg-grey {
+    filter: invert(30%) sepia(4%) saturate(0%) hue-rotate(356deg) brightness(98%) contrast(80%);
+}
+
+.svg-white {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(254%) contrast(97%);
+}
+
+.pack-tight {
+    display: flex;
+}
 

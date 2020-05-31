@@ -35,6 +35,8 @@ require_once __DIR__ . "/generateFillTables/tblAssociations.php";
 require_once __DIR__ . "/generateFillTables/tblVolunteers.php";
 require_once __DIR__ . "/generateFillTables/tblFeedback.php";
 require_once __DIR__ . "/generateFillTables/viewVolunteerDashboard.php";
+require_once __DIR__ . "/generateFillTables/viewVolunteerActivity.php";
+require_once __DIR__ . "/generateFillTables/viewAssociationActivity.php";
 require_once __DIR__ . "/generateFillTables/tblTasks.php";
 require_once __DIR__ . "/generateFillTables/tblActivity.php";
 
@@ -63,8 +65,14 @@ function createTables($conn)
 function createViews($conn)
 {
     dropViewVolunteerDashboard($conn);
+    dropViewVolunteerActivity($conn);
+    dropViewAssociationActivity($conn);
+    dropViewActivityEnrolledVolunteers($conn);
 
     createViewVolunteerDashboard($conn);
+    createViewVolunteerActivity($conn);
+    createViewAssociationActivity($conn);
+    createViewActivityEnrolledVolunteers($conn);
 }
 
 function insertDataAll($conn) {

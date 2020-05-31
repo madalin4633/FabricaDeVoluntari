@@ -15,9 +15,22 @@ class Volunteer {
     }
 
     public function profile() {
-        // signed in volunteer looking at his dashboard
+        // signed in volunteer looking at his profile
         $volunteer = new VolunteerModel();
 
         require_once __DIR__ . '/../views/volunteerProfile.php';
     }
+
+    public function activity($params) {
+        // signed in volunteer looking at his activity in an assoc
+        $volunteer = new VolunteerModel();
+        if (isset($params[0]) && $params[0]!="")
+            $volunteer->readActivity($params[0]);
+        else
+            $volunteer->readActivity(null);
+
+        require_once __DIR__ . '/../views/volunteerActivity.php';
+    }
+
+    
 }

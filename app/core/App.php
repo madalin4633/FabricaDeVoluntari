@@ -25,6 +25,9 @@ class App {
         }
         else
             $this -> executeController($url);
+
+
+        pg_close($GLOBALS['db']);
     }
 
     private function executeController($url) {
@@ -50,7 +53,7 @@ class App {
         $method = $this->method;
 
         if (method_exists($controller, $this->method))
-            $controller->$method();
+            $controller->$method($this -> params);
     }
 
     private function parseUrl($url) {
