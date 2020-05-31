@@ -1,6 +1,7 @@
 <?php
 
 class Response {
+
     static function status($code) {
         http_response_code($code);
     }
@@ -16,37 +17,37 @@ $volunteersRoutes = [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers",
-        "handler" => "getVolunteers"
+        "handler" => "getVolunteers" 
     ],
     [
         "method" => "POST",
         //"middlewares" => ["IsLoggedIn"] --abia iti faci cont de voluntar, nu tre sa fii logat
         "route" => "volunteers",
-        "handler" => "addVolunteer"
+        "handler" => "addVolunteer"   //DE FACUT 
     ],   
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId",
-        "handler" => "getVolunteer"
+        "handler" => "getVolunteer"  
     ],
     [
         "method" => "PUT",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId",
-        "handler" => "updateVolunteer"
+        "handler" => "updateVolunteer"  //DE FACUT 
     ],
     [
         "method" => "DELETE",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId",
-        "handler" => "deleteVolunteer"
+        "handler" => "deleteVolunteer" 
     ],
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/associations",
-        "handler" => "getVoluntAssociations"
+        "handler" => "getVoluntAssociations" 
     ],   
     [
         "method" => "GET",
@@ -58,17 +59,17 @@ $volunteersRoutes = [
         "method" => "DELETE",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/associations/:assocId",
-        "handler" => "removeVolunteerFromAssoc"
+        "handler" => "removeVolunteerFromAssoc" //DE VERIFICAT
     ],
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn", "IsPartOfAssociation"],
+        "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/associations/:assocId/tasks",
         "handler" => "getVolunteerTasks"
     ],
     [
         "method" => "GET",
-        "middlewares" => ["IsLoggedIn", "IsPartOfAssociation"],
+        "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/associations/:assocId/tasks/:taskId",
         "handler" => "getAssocTask"
     ],
@@ -76,31 +77,31 @@ $volunteersRoutes = [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/tasks",
-        "handler" => "getVolunteerAllTasks"
+        "handler" => "getVolunteerAllTasks" 
     ],
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/tasks/:taskId",
-        "handler" => "getVolunteerTask"
+        "handler" => "getVolunteerTask"  
     ],
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/ratings",
-        "handler" => "getFeedback"
+        "handler" => "getFeedback"   
     ],
     [
         "method" => "GET",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/tasks/:taskId/ratings",
-        "handler" => "getTaskFeedback"
+        "handler" => "getTaskFeedback" 
     ],
     [
         "method" => "POST",
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/tasks/:taskId/ratings",
-        "handler" => "giveTaskFeedback"
+        "handler" => "giveTaskFeedback"  //DE FACUT
     ]
 ];
 
@@ -138,15 +139,25 @@ function IsPartOfAssociation($req) //middleware de verificare daca e in asociati
 
 
 function getVolunteers($req) {
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
     Response::status(200);
-    echo "GET ALL TEAMS" . $req['payload'];
-    //un select din baza de date cu asociatii
+    Response::json($volunteer->get_all_volunteers());
+    
 }
 
 function getVolunteer($req) {
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
     Response::status(200);
-    echo "GET A VOLUTNEER from a specific association." . $req['payload'];
-    //un select din baza de date cu voluntari, avand where la asociatie setat.
+    Response::json($volunteer->get_volunteer_by_id($req['params']['voluntId']));
+
 }
 
 function updateVolunteer($req){
@@ -154,43 +165,121 @@ function updateVolunteer($req){
 }
 
 function deleteVolunteer($req){
-    //sterge contul de voluntar practic
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    Response::status(200);
+    Response::json($volunteer->delete_volunteer_by_id($req['params']['voluntId']));
+
 }
 
 function getVoluntAssociations($req){
-    //asociatiile unui voluntar
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    Response::status(200);
+    Response::json($volunteer->get_associations_of_volunteer_by_id($req['params']['voluntId']));
 }
 
 function getAssocActivity($req){
-    //activitatea unui voluntar dintr-o asociatie
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    Response::status(200);
+    Response::json($volunteer->get_volunteer_activity_from_association($req['params']['voluntId'], $req['params']['assocId']));
+    
 }
 
-function removeVolunteerFromAssoc($req){
-    //sterge un voluntar dintr-o asociatie
+function removeVolunteerFromAssoc($req){   //  DE VERIFICAAAAAAAAAAAAT
+
+    // "volunteers/:voluntId/associations/:assocId"
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    print_r(req['params']['voluntId'].'  ');
+
+    print_r(req['params']['assocId'].'  ');
+    Response::status(200);
+    Response::json($volunteer->remove_volunteer_from_association($req['params']['voluntId'], $req['params']['assocId']));
+
 }
 
 function getVolunteerTasks($req){
     //ia din task-urile voluntarului in acea asociatie -- 
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    Response::status(200);
+    Response::json($volunteer->get_volunteer_tasks_from_association($req['params']['voluntId'], $req['params']['assocId']));
 }
 
 function getAssocTask($req){
     //ia un task dintr-o asociatie
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    Response::status(200);
+    Response::json($volunteer->get_volunteer_task_by_id_from_association($req['params']['voluntId'], $req['params']['assocId'], $req['params']['taskId']));
+
 }
 
 function getVolunteerAllTasks($req){
     //toate task-urile unui singur voluntar pe toate asociatiile
+    
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    Response::status(200);
+    Response::json($volunteer->get_volunteer_all_tasks($req['params']['voluntId']));
+
 }
 
 function getVolunteerTask($req){
     //ia task-ul unui voluntar
+    
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    Response::status(200);
+    Response::json($volunteer->get_volunteer_task_by_id($req['params']['voluntId'], $req['params']['taskId']));
+
 }
 
 function getFeedback($req){
     //primeste feedback-urile primite de voluntar/eventual si cele trimise
+
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    Response::status(200);
+    Response::json($volunteer->get_volunteer_review_by_id($req['params']['voluntId']));
+
 }
 
 function getTaskFeedback($req){
     //primeste feedback-ul pe un task anume
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    Response::status(200);
+    Response::json($volunteer->get_volunteer_review_specific_task($req['params']['voluntId'], $req['params']['taskId']));
+
 }
 
 function giveTaskFeedback($req){
@@ -233,5 +322,3 @@ function addVolunteer($req) {
     Response::status(200);
     Response::json($modifiedPayload);
 }
-
-
