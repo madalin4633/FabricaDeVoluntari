@@ -14,7 +14,7 @@
         <?= $GLOBALS['vol_logged_in']?'':"<button type='button' class='menu-button' onclick='location.href=\"/association/reports\"'>Reports </button>" ?>
 
         <!-- common menu -->
-        <button type="button" id="logout-btn" class="menu-button" >Logout </button>
+        <button type="button" id="logout-btn" class="menu-button" onclick="location.href='/user/logout'">Logout </button>
     </div>
 
     <button type="button" class="messages-button">
@@ -22,7 +22,7 @@
     </button>
 
     <div class='assoc-icon'
-        style='background: url("/public/images/<?= $GLOBALS['vol_logged_in']?$volunteer -> pic:$association->pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
+        style='background: url("/public/images/<?= $GLOBALS['vol_logged_in']?'/profile-pics/'.$volunteer -> pic:$association->pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
     </div>
 </nav>
 <div class="user-notifications">

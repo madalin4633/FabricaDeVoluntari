@@ -126,7 +126,7 @@
                         <input type="radio" id="da" name="accord" value="no" checked="checked"/>
                     </div>
                     <button type="submit" class="btn">Creare cont</button>
-                    <a href="http://localhost:8888/user/register" id="reg_link"><button type="button" class="btn">Inapoi</button></a>
+                    <a href="/user/register" id="reg_link"><button type="button" class="btn">Inapoi</button></a>
                 </form>
             </div>
         </div>
@@ -236,7 +236,7 @@
                         <input type="radio" id="da" name="accord" value="no" checked="checked"/>
                     </div>
                     <button type="submit" class="btn">Creare cont</button>
-                    <a href="http://localhost:8888/user/register" id="back_link"><button type="button" class="btn">Inapoi</button></a>
+                    <a href="/user/register" id="back_link"><button type="button" class="btn">Inapoi</button></a>
                 </form>
             </div>
         </div>

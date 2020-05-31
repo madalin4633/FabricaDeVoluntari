@@ -85,7 +85,6 @@ class VolunteerModel {
             $this -> username = $this -> personalDetails['_ignore_username'];
             if ($this -> personalDetails['_ignore_pic']) 
                 $this -> pic = $this -> personalDetails['_ignore_pic'];
-                $this-> pic = "joshua-reddekopp-rTpR03TCFGQ-unsplash.jpg";
         }
     }
 

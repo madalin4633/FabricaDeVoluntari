@@ -24,7 +24,7 @@
 				
 				<input type="submit" class="btn" value="Login">
 				
-				<a href="http://localhost:8888/user/register" id="reg_link"><button type="button" class="btn">Register</button></a>
+				<a href="/user/register" id="reg_link"><button type="button" class="btn">Register</button></a>
 				
 				<img id="fb_button" src="/public/images/fb_login.png" alt="Login with fb">
 			

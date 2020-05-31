@@ -359,7 +359,7 @@
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_email'] = $user['email']; 
             $_SESSION['user_name'] = $user['username'];
-            redirect('http://localhost:8888/volunteer/dashboard');
+            redirect('/volunteer/dashboard');
           }
 
           public function logout(){

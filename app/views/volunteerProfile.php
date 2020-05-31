@@ -26,7 +26,7 @@
             <nav class="leftPanel">
                 <div class="vertical-split">
                     <div class="crop">
-                        <img alt="profile pic" src=/public/images/<?= $volunteer -> pic?> >
+                        <img alt="profile pic" src=/public/images/profile-pics/<?= $volunteer -> pic?> >
                     </div>
                     <div id="full-name">
                         <?php echo $volunteer -> username; showFeedbackStars($volunteer->rating);?>
