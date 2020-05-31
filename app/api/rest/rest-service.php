@@ -18,6 +18,7 @@ public function __construct()
     ];
 
     foreach ($allRoutes as $routeConfig) {
+       
         if ($this -> parseRequest($routeConfig)) {
             exit;
         }
@@ -28,6 +29,9 @@ public function __construct()
     //handle404(); //included in createtablesapi, so it wont appear here
 }
 
+function myRoute(){
+    return substr($_SERVER['REQUEST_URI'], -4, 0);
+}
 
 function parseRequest($routeConfig)
 {
@@ -114,7 +118,7 @@ function handle404()
 
 function routeExpToRegExp($route)
 {
-    $regExpString = "";
+    $regExpString = "\/api";
     $parts = explode('/', $route);
 
     foreach ($parts as $p) {
@@ -130,7 +134,6 @@ function routeExpToRegExp($route)
 
     return $regExpString;
 }
-
 
 // if (
 //     $_SERVER['REQUEST_METHOD'] !== 'OPTIONS' &&

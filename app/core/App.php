@@ -26,7 +26,6 @@ class App {
         else
             $this -> executeController($url);
 
-
         pg_close($GLOBALS['db']);
     }
 

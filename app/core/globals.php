@@ -9,10 +9,10 @@ $GLOBALS['user-notifications']->addNotification("<div><a href='https://validator
     <p>https://fabrica-de-voluntari.herokuapp.com/</p></div>");
 
 // store user id globally
-$GLOBALS['user_id'] = "10";
+$GLOBALS['user_id'] = "4";
 
 // true if volunteer is using the website, false if association is using the website
-$GLOBALS['vol_logged_in']=false;
+$GLOBALS['vol_logged_in']=true;
 
 /**
  * insert html code for feedback stars
