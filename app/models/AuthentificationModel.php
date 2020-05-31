@@ -27,11 +27,15 @@
         return pg_query($this->db_conn, $query);
       }
 
-      public function login($email, $password){
+      public function login_as_volunteer($email, $password){
         
+        $res = '';
+        $result = '';
+
+        $query = 'SELECT * FROM tblvolunteers WHERE email = $1';
+
         if (!pg_connection_busy($this->db_conn)) {
-          pg_send_prepare($this->db_conn, 'get_user_row', 'SELECT * FROM tblVolunteers
-          WHERE email = $1');
+          pg_send_prepare($this->db_conn, 'get_user_row', $query);
 
           $res = pg_get_result($this->db_conn);
         }
@@ -54,4 +58,33 @@
         }
         return false;
       }
+
+      public function login_as_association($email, $password){
+
+        $res = '';
+        $result = '';
+        if (!pg_connection_busy($this->db_conn)) {
+          pg_send_prepare($this->db_conn, 'get_association_row', 'SELECT * FROM tblassociations WHERE email = $1');
+
+          $res = pg_get_result($this->db_conn);
+        }
+        
+        if (!pg_connection_busy($this->db_conn)) {
+          pg_send_execute($this->db_conn, 'get_association_row', array($email));
+          $result = pg_get_result($this->db_conn);
+        }
+
+        $row = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+        
+        if(empty($row)){
+          return false;
+        }
+
+        $pass_hash = hash('sha256', $password);
+
+        if ($row['pass_hash'] == $pass_hash){
+          return $row;
+        }
+        return false;
+    }
     }

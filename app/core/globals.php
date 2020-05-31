@@ -11,9 +11,6 @@ $GLOBALS['user-notifications']->addNotification("<div><a href='https://validator
 // store user id globally
 $GLOBALS['user_id'] = "4";
 
-// true if volunteer is using the website, false if association is using the website
-$GLOBALS['vol_logged_in']=false;
-
 /**
  * insert html code for feedback stars
  */

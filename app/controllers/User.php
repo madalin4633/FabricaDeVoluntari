@@ -152,7 +152,7 @@
             }
           }
 
-          public function register_asociatie(){
+        public function register_asociatie(){
 
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -281,9 +281,9 @@
                 // Load view
                 $this->view('signup', $data);
             }
-          }
+        }
       
-          public function login(){
+        public function login(){
 
             if ($this->isLoggedIn()){
                 redirect('/../volunteer/dashboard');
@@ -322,15 +322,26 @@
                 if($err_fields == 0){
                     // Validated
                     
-                    $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+                    $logged = false;
+                    
 
+                    $association_data = $this->userModel->login_as_association($data['email'], $data['password']);
 
-                    if($loggedInUser){
-                        //User Authentificated
-                        $GLOBALS['vol_logged_in'] = true;
-                        $this->createUserSession($loggedInUser);
+                    if($association_data){
+                        $this->createUserSession($association_data, 'association');
+                        $logged = true;
                     }
-                    else{
+                    
+                    if (!$logged){
+                        $volunteer_data = $this->userModel->login_as_volunteer($data['email'], $data['password']);
+
+                        if($volunteer_data){
+                            $this->createUserSession($volunteer_data, 'volunteer');
+                            $logged = true;
+                        }
+                    }
+                
+                    if(!$logged){
                         $data['error'] = 'Email sau parola incorecta';
                         $this->view('login', $data);
                     }
@@ -354,14 +365,29 @@
                 // Load view
                 $this->view('login', $data);
                 }
-          }
+        }
 
-          public function createUserSession($user){
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_email'] = $user['email']; 
-            $_SESSION['user_name'] = $user['username'];
-            redirect('/volunteer/dashboard');
-          }
+        public function createUserSession($user, $entity){
+
+            if ($entity == 'volunteer'){
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_email'] = $user['email']; 
+                $_SESSION['user_name'] = $user['username'];
+                $_SESSION['is_volunteer'] = true;
+                $_SESSION['is_association'] = false;
+                redirect('/volunteer/dashboard');
+            }
+
+            if ($entity == 'association'){
+                $_SESSION['assoc_id'] = $user['id'];
+                $_SESSION['assoc_email'] = $user['email'];
+                $_SESSION['entity'] = 'volunteer';
+                $_SESSION['is_volunteer'] = false;
+                $_SESSION['is_association'] = true;
+                redirect('/association/activity');
+            }
+            
+        }
 
           public function logout(){
             unset($_SESSION['user_id']);
