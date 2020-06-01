@@ -19,7 +19,7 @@ class Association {
         // signed in association looking at his dashboard
         $association = new AssociationModel();
         $association->readActivity(null);
-        $association->readPersonalDetails($GLOBALS['user_id']);
+        $association->readPersonalDetails($_SESSION['id']);
 
         require_once __DIR__ . '/../views/associationActivity.php';
     }

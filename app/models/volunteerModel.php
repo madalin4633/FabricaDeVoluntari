@@ -12,7 +12,7 @@ class VolunteerModel {
 
     public function __construct()
     {
-        $this -> id = $_SESSION['user_id'];
+        $this -> id = $_SESSION['id'];
 
         // $this -> readAssociations($this->id);
 
@@ -42,7 +42,7 @@ class VolunteerModel {
 
         if (!pg_connection_busy($conn)) {
             $params=[];
-            $params[] = $GLOBALS['user_id'];
+            $params[] = $_SESSION['id'];
             if (isset($assoc_id)) $params[] = $assoc_id;
             pg_send_execute($conn, 'get_activity', $params);
             $result = pg_get_result($conn);
@@ -246,13 +246,13 @@ class VolunteerModel {
         $db_conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'get_asoc_of_vol', 'SELECT nume from vvolunteerdashboard WHERE vol_id='.$id);
+            pg_send_prepare($db_conn, 'get_assoc_of_vol_by_id', 'SELECT nume from vvolunteerdashboard WHERE vol_id='.$id);
 
             $res = pg_get_result($db_conn);
         }
         
         if (!pg_connection_busy($db_conn)) {
-            pg_send_execute($db_conn, 'get_asoc_of_vol', array());
+            pg_send_execute($db_conn, 'get_assoc_of_vol_by_id', array());
             $result = pg_get_result($db_conn);
         }
 
@@ -260,7 +260,6 @@ class VolunteerModel {
 
         $all_sscociations = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
         return $all_sscociations;
     }
 

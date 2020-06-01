@@ -5,7 +5,30 @@
             $this->userModel = $this->model('AuthentificationModel');
         }
 
-        public function register(){
+        function is_volunteer_logged_in(){
+            
+            if(isset($_SESSION['id']) && $_SESSION['is_volunteer']){
+                return true;
+            }   
+            return false;
+        }
+
+        function is_association_logged_in(){
+            if(isset($_SESSION['id']) && $_SESSION['is_association']){
+                return true;
+            }   
+            return false;
+        }
+
+        function register(){
+
+            if($this->is_volunteer_logged_in()){
+                redirect('/../volunteer/dashboard');
+            }
+
+            if($this->is_association_logged_in()){
+                redirect('/../association/activity');
+            }
 
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -152,7 +175,7 @@
             }
           }
 
-        public function register_asociatie(){
+        public function register_asociatie(){          
 
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -285,8 +308,12 @@
       
         public function login(){
 
-            if ($this->isLoggedIn()){
+            if($this->is_volunteer_logged_in()){
                 redirect('/../volunteer/dashboard');
+            }
+
+            if($this->is_association_logged_in()){
+                redirect('/../association/activity');
             }
 
             // Check for POST
@@ -369,19 +396,16 @@
 
         public function createUserSession($user, $entity){
 
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['email'] = $user['email']; 
+            
             if ($entity == 'volunteer'){
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_email'] = $user['email']; 
-                $_SESSION['user_name'] = $user['username'];
                 $_SESSION['is_volunteer'] = true;
                 $_SESSION['is_association'] = false;
                 redirect('/volunteer/dashboard');
             }
 
-            if ($entity == 'association'){
-                $_SESSION['assoc_id'] = $user['id'];
-                $_SESSION['assoc_email'] = $user['email'];
-                $_SESSION['entity'] = 'volunteer';
+            if ($entity == 'association'){;
                 $_SESSION['is_volunteer'] = false;
                 $_SESSION['is_association'] = true;
                 redirect('/association/activity');
@@ -389,19 +413,12 @@
             
         }
 
-          public function logout(){
-            unset($_SESSION['user_id']);
-            unset($_SESSION['user_email']);
-            unset($_SESSION['user_name']);
+        public function logout(){
+            unset($_SESSION['id']);
+            unset($_SESSION['email']);
+            unset($_SESSION['is_volunteer']);
+            unset($_SESSION['is_association']);
             session_destroy();
             redirect('/user/login');
-          }
-
-          public function isLoggedIn(){
-            if(isset($_SESSION['user_id'])){
-              return true;
-            } else {
-              return false;
-            }
-          }
+        }
     }

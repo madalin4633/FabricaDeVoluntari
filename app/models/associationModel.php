@@ -38,7 +38,7 @@ class AssociationModel
 
         if (!pg_connection_busy($conn)) {
             $params=[];
-            $params[] = $GLOBALS['user_id'];
+            $params[] = $_SESSION['id'];
             if (isset($vol_id)) {
                 $params[] = $vol_id;
             }
@@ -65,7 +65,7 @@ class AssociationModel
 
         if (!pg_connection_busy($conn)) {
             $params=[];
-            $params[] = $GLOBALS['user_id'];
+            $params[] = $_SESSION['id'];
             pg_send_execute($conn, 'get_activityDetails', $params);
             $resultDetails = pg_get_result($conn);
         }
