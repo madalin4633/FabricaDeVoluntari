@@ -51,11 +51,11 @@
         </div>
     </div>
 
-    <script src="/public/javascript/menu.js"></script>
     <script>
         initCollapsible();
         initMenu();
     </script>
+    <script src="/public/javascript/menu.js"></script>
 </body>
 
 </html>

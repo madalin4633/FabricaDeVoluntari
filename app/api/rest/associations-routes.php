@@ -30,6 +30,12 @@ $associationsRoutes = [
         "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId",
         "handler" => "updateAssociation"
+    ],
+    [
+        "method" => "GET",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "associations/:assocId/myactivity",
+        "handler" => "getMyActivity"
     ],   
     [
         "method" => "GET",
@@ -122,10 +128,10 @@ function IsLoggedInHere()
 {
     $allHeaders = getallheaders();
 
-    if (isset($allHeaders['Authorization'])) {
+    if($_SESSION['is_volunteer'] || $_SESSION['is_association']){
         return true;
     }
-
+    //print_r('sunt aici');
     Response::status(401);
     Response::json([
         "status" => 401,
@@ -134,7 +140,13 @@ function IsLoggedInHere()
 
     return false;
 }
+function getMyActivity($req){
+    require_once __DIR__ . "/../../models/associationModel.php";
 
+    $association = new AssociationModel();
+    Response::status(200);
+    Response::json($association->get_myassociation_activity($req['params']['assocId'])); //returneaza rezultate diferite fata de select-ul facut in pgadmin
+}
 function updateAssociation($req) {
  //updateaza datele de la o asociatie
 }

@@ -379,7 +379,7 @@
             }
 
             if ($entity == 'association'){
-                $_SESSION['assoc_id'] = $user['id'];
+                $_SESSION['id'] = $user['id'];
                 $_SESSION['assoc_email'] = $user['email'];
                 $_SESSION['entity'] = 'volunteer';
                 $_SESSION['is_volunteer'] = false;

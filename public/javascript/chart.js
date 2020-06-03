@@ -1,12 +1,13 @@
 let activityChart = document.getElementById('activityChart').getContext('2d');
-
+Chart.defaults.global.defaultFontColor = 'white';
+Chart.defaults.global.defaultFontSize = 15;
 let volunteersChart = new Chart(activityChart, {
     type: 'horizontalBar',
     data: {
         labels:['Mihai Vornicu', 'Meseriasul din Copou', 'Mr. Madalinos'],
         datasets:[{
             label: 'Population',
-            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+            backgroundColor: '#ffffff',
             data: [
                 2034,
                 251235,
@@ -15,7 +16,9 @@ let volunteersChart = new Chart(activityChart, {
         }],
         options: {
             responsive: true,
-            legend: { display: false },
+            legend: { 
+                display: false
+            },
             title: {
               display: true,
               text: 'Predicted world population (millions) in 2050'

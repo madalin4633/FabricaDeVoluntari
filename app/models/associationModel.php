@@ -116,5 +116,24 @@ class AssociationModel
         }
     }
 
+    function get_myassociation_activity($assoc_id){ //de terminat aici cu view-ul corect
+        $db_conn = $GLOBALS['db'];
 
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'get_my_activity', 'SELECT nume_prenume, SUM(hours_worked) AS ore_lucrate FROM vMyAssociationActivity WHERE assoc_id =$1 GROUP BY nume_prenume');
+    
+            $res = pg_get_result($db_conn);
+        }
+          
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'get_my_activity', array($assoc_id));
+            $result = pg_get_result($db_conn);
+        }
+    
+        $row = pg_fetch_all($result, PGSQL_ASSOC);
+        pg_close();
+
+        // $row = json_encode($row);
+        return $row;
+    }
 }

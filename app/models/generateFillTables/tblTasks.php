@@ -75,13 +75,23 @@ function insertDataTasks($conn)
 function insert_Task($conn, $assoc_id, $title, $obs, $desc)
 {
     if (rand(0, 100) < 40) {
+        $done = 'TRUE';
+        $timestamp = time() - rand(300, 450)*36000;
+        //$start = strtotime("1 April 2020");
+        //$end = strtotime("3 June 2020");
+        //$timestamp = mt_rand($start, $end);
+        $current_timestamp = time();
+
         $query  ='INSERT INTO tblTasks 
-    (assoc_id, title, descr, obs, created_on, updated_on, due_date) VALUES 
+    (assoc_id, title, descr, obs, done, created_on, updated_on, due_date) VALUES 
     (' . $assoc_id . ','
       . pg_escape_literal($title)
       . ',' . pg_escape_literal($desc)
       . ',' . pg_escape_literal($obs)
-      . ',current_timestamp, current_timestamp, current_timestamp)';
+      . ',' . $done
+      . ',' . pg_escape_literal(date('Y-m-d H:i:s', $current_timestamp))
+      . ',' . pg_escape_literal(date('Y-m-d H:i:s', $timestamp))
+      . ',' . pg_escape_literal(date('Y-m-d H:i:s', $current_timestamp)) . ')';
 
         echo $query . '<br>';
 

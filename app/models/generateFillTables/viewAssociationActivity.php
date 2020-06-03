@@ -16,13 +16,13 @@ function dropViewAssociationActivity($conn)
 function createViewAssociationActivity($conn)
 {
     if (pg_query($conn, "CREATE VIEW vAssociationActivity AS
-            select tblTasks.id as task_id, tblVolAssoc.assoc_id, tblAssociations.logo, title, descr, obs, sum(hours_worked) as hours_worked, sum(bonus) as bonus, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
+            select tblTasks.id as task_id, tbltasks.assoc_id, tblAssociations.logo, title, descr, obs, sum(hours_worked) as hours_worked, sum(bonus) as bonus, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
             from tbltasks 
-            INNER JOIN tblActivity ON tblTasks.id=tblActivity.task_id
-            INNER JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblTasks.assoc_id
-            INNER JOIN tblAssociations ON tblTasks.assoc_id=tblAssociations.id
+            LEFT JOIN tblActivity ON tblTasks.id=tblActivity.task_id
+            LEFT JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblTasks.assoc_id
+            LEFT JOIN tblAssociations ON tblTasks.assoc_id=tblAssociations.id
             WHERE tblTasks.active=true and done=false
-            GROUP BY tblTasks.id, tblVolAssoc.assoc_id, title, descr, obs, due_date, tblAssociations.logo
+            GROUP BY tblTasks.id, tbltasks.assoc_id, title, descr, obs, due_date, tblAssociations.logo
                   ")) {
         echo "View vAssociationActivity created!<br>";
     } else {
@@ -48,14 +48,14 @@ function dropViewActivityEnrolledVolunteers($conn)
 function createViewActivityEnrolledVolunteers($conn)
 {
     if (pg_query($conn, "CREATE VIEW vActivityEnrolledVolunteers AS
-        SELECT task_id, vol_id, LEFT(tblVolunteers.nume,1) || LEFT(tblVolunteers.prenume,1) as initials, tblTasks.assoc_id, sum(hours_worked) as hours, profile_pic
+        SELECT tblTasks.id, vol_id, LEFT(tblVolunteers.nume,1) || LEFT(tblVolunteers.prenume,1) as initials, tblTasks.assoc_id, sum(hours_worked) as hours, profile_pic
         FROM tblTasks 
         LEFT JOIN tblActivity ON tblTasks.id=tblActivity.task_id
-        INNER JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id
-        INNER JOIN tblVolunteers ON tblVolAssoc.vol_id = tblVolunteers.id
-        GROUP BY vol_id, task_id, profile_pic, tblTasks.assoc_id, tblVolunteers.nume, tblVolunteers.prenume
-        ORDER BY task_id ASC
-")) {
+		LEFT JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id
+		LEFT JOIN tblVolunteers ON tblVolAssoc.vol_id=tblVolunteers.id
+		WHERE tblTasks.assoc_id=1
+        GROUP BY tblTasks.id, vol_id, tblVolunteers.nume, tblVolunteers.prenume , tblTasks.assoc_id, profile_pic
+        ")) {
         echo "View vActivityEnrolledVolunteers created!<br>";
     } else {
         echo "View vActivityEnrolledVolunteers failed! :" . pg_last_error($conn) . "<br>";
@@ -63,4 +63,35 @@ function createViewActivityEnrolledVolunteers($conn)
 }
 
 /***    ================================================================================================================== */
+function dropViewMyAssociationActivity($conn)
+{
+    try {
 
+        pg_query($conn, 'DROP VIEW vMyAssociationActivity;');
+        echo 'View vMyAssociationActivity dropped.<br>';
+    } catch (Exception $e) {
+        echo 'Failed to drop view vMyAssociationActivity: ' . $e->getMessage() . '<br>';
+    }
+}
+
+/***    ================================================================================================================== */
+
+function createViewMyAssociationActivity($conn)
+{
+    if (pg_query($conn, "CREATE VIEW vMyAssociationActivity AS
+        SELECT vol_id, tblVolunteers.nume || ' ' || tblVolunteers.prenume as nume_prenume, tblTasks.assoc_id, tblTasks.id as task_id, tblActivity.hours_worked, tblTasks.updated_on
+        FROM tblTasks 
+        LEFT JOIN tblActivity ON tblTasks.id=tblActivity.task_id
+		LEFT JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id
+		LEFT JOIN tblVolunteers ON tblVolAssoc.vol_id=tblVolunteers.id
+		WHERE vol_id IS NOT NULL AND tblTasks.done = TRUE
+        GROUP BY tblTasks.id, vol_id, tblVolunteers.nume, tblVolunteers.prenume , tblTasks.assoc_id, tblActivity.hours_worked
+		ORDER BY nume_prenume ASC
+        ")) {
+        echo "View vMyAssociationActivity created!<br>";
+    } else {
+        echo "View vMyAssociationActivity failed! :" . pg_last_error($conn) . "<br>";
+    }
+}
+
+/***    ================================================================================================================== */
