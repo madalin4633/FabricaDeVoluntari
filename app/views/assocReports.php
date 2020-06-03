@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/public/styles/userprofile.css" />
     <link rel="stylesheet" type="text/css" href="/public/styles/collapsible.css" />
     <link rel="stylesheet" type="text/css" href="/public/styles/menu.css" />
+    <link rel="stylesheet" type="text/css" href="/public/styles/charts.css" />
     <link rel="icon" href="/public/images/fdv_logo.png" />
     <title>Fabrica de Voluntari</title>
     <script src="/public/javascript/userprofile.js" ></script>
@@ -19,15 +20,27 @@
 
 <body>
     <div class="vertical-split">
-        <?php require_once __DIR__ . "/components/menu.php" ?>
-
-        <canvas id="activityChart" aria-label="Hello ARIA World" role="img">
-        <p>Graficele nu s-au generat</p>
-        </canvas>
-        <script src="/public/javascript/chart.js"></script>
+    <?php require_once __DIR__ . "/components/menu.php" ?>
+        <div class="buttonsContainer">
+            <button id="GenerateBtn" type="button">
+            Ultima saptamana
+            </button>
+            <button id="GenerateBtn" type="button">
+            Ultima luna
+            </button>
+            <button id="GenerateBtn" type="button">
+            Ultimul an
+            </button>
+        </div>
+        <div class="chartContainer">
+            <canvas id="activityChart" aria-label="Ore lucrate in asociatie" role="ore-lucrate">
+            <p>Graficele nu s-au generat</p>
+            </canvas>
+        </div>
     </div>
-
+    
     <script>initCollapsible();initMenu()</script>
+    <script src="/public/javascript/chart.js"></script>
 </body>
 
 </html>

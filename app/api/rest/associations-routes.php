@@ -145,7 +145,7 @@ function getMyActivity($req){
 
     $association = new AssociationModel();
     Response::status(200);
-    Response::json($association->get_myassociation_activity($req['params']['assocId'])); //returneaza rezultate diferite fata de select-ul facut in pgadmin
+    Response::json($association->get_myassociation_activity($req['params']['assocId']));
 }
 function updateAssociation($req) {
  //updateaza datele de la o asociatie
