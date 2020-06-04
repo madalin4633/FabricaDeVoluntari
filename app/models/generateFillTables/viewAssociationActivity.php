@@ -48,7 +48,7 @@ function dropViewActivityEnrolledVolunteers($conn)
 function createViewActivityEnrolledVolunteers($conn)
 {
     if (pg_query($conn, "CREATE VIEW vActivityEnrolledVolunteers AS
-        SELECT tblTasks.id, vol_id, LEFT(tblVolunteers.nume,1) || LEFT(tblVolunteers.prenume,1) as initials, tblTasks.assoc_id, sum(hours_worked) as hours, profile_pic
+        SELECT tblTasks.id, vol_id, LEFT(tblVolunteers.nume,1) || LEFT(tblVolunteers.prenume,1) as initials, tblTasks.assoc_id, sum(hours_worked) as hours, done,  profile_pic
         FROM tblTasks 
         LEFT JOIN tblActivity ON tblTasks.id=tblActivity.task_id
 		LEFT JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id

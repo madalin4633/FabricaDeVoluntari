@@ -76,12 +76,13 @@ class AssociationModel
             $this -> activity[] = pg_fetch_assoc($result);
         }
 
-
+        if (count($this->activity) == 0) return;
+        
         // activity details
         if (!pg_connection_busy($conn)) {
             $query = "SELECT * 
             FROM vActivityEnrolledVolunteers 
-            WHERE assoc_id=$1 
+            WHERE assoc_id=$1 AND done=false
             ORDER BY id ASC";
 
             pg_send_prepare($conn, 'get_activityDetails', $query);
@@ -105,7 +106,7 @@ class AssociationModel
             $array = pg_fetch_assoc($resultDetails);
             $task_id = $array['id'];
 
-            if ($this->activity[$act_row]['task_id'] != $task_id) {
+            if (isset($this->activity[$act_row]['task_id']) && $this->activity[$act_row]['task_id'] != $task_id) {
                 $act_row += 1;
             }
             $this->activity[$act_row]['volunteers'][] = $array;

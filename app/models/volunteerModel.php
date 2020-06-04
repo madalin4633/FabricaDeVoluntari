@@ -9,6 +9,7 @@ class VolunteerModel {
     public $pic = "no-photo.jpg";
     public $rating = 0;
     public $activity = [];
+    public $newTasks = [];
 
     public function __construct()
     {
@@ -50,6 +51,39 @@ class VolunteerModel {
 
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $this -> activity[] = pg_fetch_assoc($result);
+        }
+
+        $this->readNewTasks($assoc_id);
+    }
+
+    public function readNewTasks($assoc_id) {
+        $conn = $GLOBALS['db'];
+
+        if (!pg_connection_busy($conn)) {
+            $query = "SELECT 
+            title,
+            assoclogo,
+            descr,
+            obs,
+            due_date 
+            FROM vVolunteerNewTasks 
+            WHERE vol_enrolled<max_volunteers ";
+            if (isset($assoc_id)) $query.= "AND assoc_id=$1";
+
+            pg_send_prepare($conn, 'get_newtasks',  $query);
+            
+            $res = pg_get_result($conn);
+        }
+
+        if (!pg_connection_busy($conn)) {
+            $params=[];
+            if (isset($assoc_id)) $params[] = $assoc_id;
+            pg_send_execute($conn, 'get_newtasks', $params);
+            $result = pg_get_result($conn);
+        }
+
+        for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
+            $this -> newTasks[] = pg_fetch_assoc($result);
         }
     }
 
