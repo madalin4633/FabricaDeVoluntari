@@ -12,7 +12,7 @@ class AssociationModel
     }
 
     //TODO nested tables in SQL?
-    public function readActivity($vol_id)
+    function readActivity($vol_id)
     {
         $conn = $GLOBALS['db'];
 
@@ -114,6 +114,45 @@ class AssociationModel
             if ($this -> personalDetails['_ignore_pic']) 
                 $this -> pic ='logo/' . $this -> personalDetails['_ignore_pic'];
         }
+    }
+
+    
+    function get_nr_of_available_spots_on_task($task_id, $assoc_id){
+        $db_conn = $GLOBALS['db'];
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'get_available_spots_on_task', 'SELECT max_volunteers FROM tbltasks WHERE id =' . $task_id);
+    
+            $res = pg_get_result($db_conn);
+        }
+          
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'get_available_spots_on_task', array());
+            $result = pg_get_result($db_conn);
+        }
+    
+        $row = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+    
+        $max_spots = $row['max_volunteers'];
+
+        $query = 'SELECT COUNT(*) as result FROM vvolunteeractivity WHERE task_id = ' . $task_id . ' AND assoc_id = '.$assoc_id;
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'get_nr_of_vol_on_task', $query);
+    
+            $res = pg_get_result($db_conn);
+        }
+          
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'get_nr_of_vol_on_task', array());
+            $result = pg_get_result($db_conn);
+        }
+    
+        $row = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+
+        $ocuppied_spots = $row['result'];
+
+        return $max_spots - $ocuppied_spots;
     }
 
 

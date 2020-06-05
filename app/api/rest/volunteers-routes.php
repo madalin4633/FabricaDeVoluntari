@@ -102,6 +102,18 @@ $volunteersRoutes = [
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/tasks/:taskId/ratings",
         "handler" => "giveTaskFeedback"  //MICI BUGURI, POSIBIL DE LA CONSTRANGERI - DE VERIFICAT PE FINAL
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ['IsLoggedIn'],
+        "route" => "task/asign",
+        "handler" => "asignTask"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ['IsLoggedIn'],
+        "route" => "task/logwork",
+        "handler" => "logWorkOnTask"
     ]
 ];
 
@@ -411,6 +423,57 @@ function giveTaskFeedback($req){
     Response::json($output);
 }
 
+function asignTask($req){
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    require_once __DIR__ . "/../../models/associationModel.php";
+
+    $volunteer = new volunteerModel();
+
+    $association = new associationModel();
+
+    $available_spots = $association->get_nr_of_available_spots_on_task($req['payload']->task_id, $req['payload']->association_id);
+
+    if ($available_spots > 0){
+        $result = $volunteer->assign_task($req['payload']->volunteer_id, $req['payload']->task_id, $req['payload']->association_id);
+    }
+    else{
+        $result = false;
+    }
+
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+}
+
+function logWorkOnTask($req){
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    $result = $volunteer->log_work_on_task($req['payload']->task_id, $req['payload']->volunteer_id, $req['payload']->association_id, $req['payload']->hours);
+
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+
+}
 
 //mai jos exemple din cod - functii folosite la rutele din exemplele de pe devdrive.
 function getTeam($req) {

