@@ -64,7 +64,7 @@ function insert_VolAssoc($conn, $assoc, $vol)
     if (rand(0, 100) < 9) {                     /* 9% probabilitate ca voluntarul $vol sa lucreze la asociatia $assoc */
         $query  ='INSERT INTO tblVolAssoc 
         (assoc_id, vol_id, created_on) VALUES 
-        (' . $assoc . ',' . $vol .', current_timestamp)';
+        (' . $assoc . ',' . $vol .', NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\')';
 
         try {
             if (pg_query($conn, $query)) {

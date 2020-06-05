@@ -16,13 +16,14 @@ function dropViewAssociationActivity($conn)
 function createViewAssociationActivity($conn)
 {
     if (pg_query($conn, "CREATE VIEW vAssociationActivity AS
-            select tblTasks.id as task_id, tbltasks.assoc_id, tblAssociations.logo, title, descr, obs, sum(hours_worked) as hours_worked, sum(bonus) as bonus, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
+            select tblTasks.id as task_id, tblProjects.assoc_id, tblAssociations.logo, tblTasks.title, tblTasks.descr, obs, sum(hours_worked) as hours_worked, sum(bonus) as bonus, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
             from tbltasks 
             LEFT JOIN tblActivity ON tblTasks.id=tblActivity.task_id
-            LEFT JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblTasks.assoc_id
-            LEFT JOIN tblAssociations ON tblTasks.assoc_id=tblAssociations.id
+			LEFT JOIN tblProjects ON tblTasks.proj_id=tblProjects.id
+            LEFT JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblProjects.assoc_id
+            LEFT JOIN tblAssociations ON tblProjects.assoc_id=tblAssociations.id
             WHERE tblTasks.active=true and done=false
-            GROUP BY tblTasks.id, tbltasks.assoc_id, title, descr, obs, due_date, tblAssociations.logo
+            GROUP BY tblTasks.id, tblProjects.assoc_id, tblTasks.title, tblTasks.descr, obs, due_date, tblAssociations.logo
                   ")) {
         echo "View vAssociationActivity created!<br>";
     } else {

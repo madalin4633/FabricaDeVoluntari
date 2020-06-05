@@ -67,7 +67,9 @@ function insert_Feedback($conn, $task, $volassoc)
         if (rand(0, 100) < 29) {                     /* % probabilitate ca voluntarul sa aiba feedback */
             $query  ='INSERT INTO tblFeedback 
         (id, task_id, volassoc_id , ' . METRIC1 .',  ' . METRIC2 .',  ' . METRIC3 .',  ' . METRIC4 .',  ' . METRIC5 .', created_on, updated_on) VALUES 
-        (' . $task . ',' . $task . ',' . $volassoc . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) .', current_timestamp, current_timestamp)';
+        (' . $task . ',' . $task . ',' . $volassoc . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) . ',' . strval(rand(0, 5)) .', 
+        NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\', 
+        NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\')';
 
             try {
                 if (pg_query($conn, $query)) {

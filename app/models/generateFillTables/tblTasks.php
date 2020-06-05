@@ -20,18 +20,20 @@ function createTableTasks($conn)
 {
     if (pg_query($conn, 'CREATE TABLE tblTasks(
         id serial PRIMARY KEY,
-        assoc_id INTEGER NOT NULL, /*fkey*/
+        proj_id INTEGER NOT NULL, /*fkey*/
         title VARCHAR(200) NOT NULL,
         descr TEXT NOT NULL,
         obs TEXT,
+        hours_worked INTEGER,               /* hours worked each task*/
+        bonus INTEGER DEFAULT 0,            /* little hearts received for small tasks */
         max_volunteers INTEGER DEFAULT 3,
         active BOOLEAN DEFAULT TRUE,
         done BOOLEAN DEFAULT FALSE,
         created_on TIMESTAMP NOT NULL,
         updated_on TIMESTAMP NOT NULL,
         due_date TIMESTAMP NOT NULL,
-        CONSTRAINT task_assoc_fkey FOREIGN KEY (assoc_id)
-        REFERENCES tblAssociations(id)
+        CONSTRAINT task_proj_fkey FOREIGN KEY (proj_id)
+        REFERENCES tblProjects(id)
         )  ')) {
         echo "Table Tasks created!<br>";
     } else {
@@ -62,6 +64,8 @@ function insertDataTasks($conn)
                 $data['name'], /*title*/
                 array_key_exists('condiment', $data) ? $data['condiment']['recipe'] : null, /*obs*/
                 $data['base_layer']['recipe'], /*desc*/
+                rand(3, 10),
+                (rand(0, 100)<35) ? 1: 0
             );
         }
     }
@@ -72,16 +76,20 @@ function insertDataTasks($conn)
 /**
  * Insert test data in tblTasks
  */
-function insert_Task($conn, $assoc_id, $title, $obs, $desc)
+function insert_Task($conn, $assoc_id, $title, $obs, $desc, $hours, $bonus)
 {
     if (rand(0, 100) < 40) {
         $query  ='INSERT INTO tblTasks 
-    (assoc_id, title, descr, obs, created_on, updated_on, due_date) VALUES 
+    (proj_id, title, descr, obs, hours_worked, bonus, created_on, updated_on, due_date) VALUES 
     (' . $assoc_id . ','
       . pg_escape_literal($title)
       . ',' . pg_escape_literal($desc)
       . ',' . pg_escape_literal($obs)
-      . ',current_timestamp, current_timestamp, current_timestamp)';
+       . ',' . $hours
+      . ',' . $bonus 
+            . ',NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\', 
+            NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\', 
+            NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\')';
 
         echo $query . '<br>';
 

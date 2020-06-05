@@ -94,8 +94,9 @@ function insert_Volunteers($conn, $phone_no, $nume, $prenume, $gender, $nat, $do
     pg_escape_literal($nat) . ',' . 
     pg_escape_literal($dob) . ',' . 
     pg_escape_literal($pic) . ', ' . 
-    pg_escape_literal("somepassword") . ',
-    current_timestamp, current_timestamp)';
+    pg_escape_literal("9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0") . ',
+    NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\', 
+    NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\')';
 
     echo $query . '<br>';
 

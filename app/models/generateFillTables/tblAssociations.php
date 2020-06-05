@@ -30,6 +30,8 @@ function createTableAssociations($conn)
         email VARCHAR (355) UNIQUE NOT NULL,
         phone_no VARCHAR(16) NOT NULL,
         link_facebook VARCHAR(200),
+        link_invitatie VARCHAR(200),
+        link_invitatie_activ BOOLEAN,
         pass_hash VARCHAR(128) NOT NULL, /*sha512*/
         created_on TIMESTAMP NOT NULL,
         updated_on TIMESTAMP NOT NULL,
@@ -83,8 +85,10 @@ function insert_Assoc($conn, $nume, $adresa, $email, $logo)
     pg_escape_literal($adresa) . ',' . 
     pg_escape_literal($email) . ',' . 
     $logo . ',' . 
-    pg_escape_literal("somepassword") . ',
-    current_timestamp, current_timestamp, current_timestamp)';
+    pg_escape_literal("9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0") . ',
+    NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\', 
+    NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\', 
+    NOW() + (random() * (NOW()+\'366 days\' - NOW())) + \'30 days\')';
 
     echo $query . '<br>';
 
