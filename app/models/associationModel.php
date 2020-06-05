@@ -11,8 +11,34 @@ class AssociationModel
     {
     }
 
-    //TODO nested tables in SQL?
-    public function readActivity($vol_id)
+    public function addTask($title, $desc, $obs, $max_volunteers, $duedate) {
+        $conn = $GLOBALS['db'];
+
+        if (!pg_connection_busy($conn)) {
+            $query = "INSERT INTO tblTasks (assoc_id, title, descr, obs, max_volunteers, created_on, updated_on, due_date) 
+            VALUES ($1,$2,$3, $4, $5, current_timestamp, current_timestamp, $6)";
+
+            pg_send_prepare($conn, 'add_task', $query);
+            
+            $res = pg_get_result($conn);
+        }
+
+        if (!pg_connection_busy($conn)) {
+            $params=[];
+            $params[] = $_SESSION['assoc_id'];
+            $params[] = $title;
+            $params[] = $desc;
+            $params[] = $obs;
+            $params[] = $max_volunteers;
+            $params[] = $duedate;
+
+            pg_send_execute($conn, 'add_task', $params);
+            $result =  pg_get_result($conn);
+            return pg_result_error($result);
+        }
+    }
+
+    public function readActivity($assoc_id, $vol_id)
     {
         $conn = $GLOBALS['db'];
 
@@ -38,7 +64,7 @@ class AssociationModel
 
         if (!pg_connection_busy($conn)) {
             $params=[];
-            $params[] = $GLOBALS['user_id'];
+            $params[] = $assoc_id;
             if (isset($vol_id)) {
                 $params[] = $vol_id;
             }
@@ -50,13 +76,14 @@ class AssociationModel
             $this -> activity[] = pg_fetch_assoc($result);
         }
 
-
+        if (count($this->activity) == 0) return;
+        
         // activity details
         if (!pg_connection_busy($conn)) {
             $query = "SELECT * 
             FROM vActivityEnrolledVolunteers 
-            WHERE assoc_id=$1 
-            ORDER BY task_id ASC";
+            WHERE assoc_id=$1 AND done=false
+            ORDER BY id ASC";
 
             pg_send_prepare($conn, 'get_activityDetails', $query);
             
@@ -65,17 +92,21 @@ class AssociationModel
 
         if (!pg_connection_busy($conn)) {
             $params=[];
-            $params[] = $GLOBALS['user_id'];
+            $params[] = $assoc_id;
             pg_send_execute($conn, 'get_activityDetails', $params);
             $resultDetails = pg_get_result($conn);
         }
 
+        
         $act_row = 0;
+        $this->activity[$act_row]['volunteers'] = [];
+        
+        if (count($this->activity) > 0)
         for ($xi = 0; $xi < pg_num_rows($resultDetails); $xi++) {
             $array = pg_fetch_assoc($resultDetails);
-            $task_id = $array['task_id'];
+            $task_id = $array['id'];
 
-            if ($this->activity[$act_row]['task_id'] != $task_id) {
+            if (isset($this->activity[$act_row]['task_id']) && $this->activity[$act_row]['task_id'] != $task_id) {
                 $act_row += 1;
             }
             $this->activity[$act_row]['volunteers'][] = $array;

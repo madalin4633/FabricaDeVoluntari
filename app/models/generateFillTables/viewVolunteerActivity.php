@@ -34,3 +34,34 @@ function createViewVolunteerActivity($conn)
     }
 }
 
+/***    ================================================================================================================== */
+
+function dropViewVolunteerNewTasks($conn)
+{
+    try {
+
+        pg_query($conn, 'DROP VIEW vVolunteerNewTasks;');
+        echo 'View vVolunteerNewTasks dropped.<br>';
+    } catch (Exception $e) {
+        echo 'Failed to drop view vVolunteerNewTasks: ' . $e->getMessage() . '<br>';
+    }
+}
+
+/***    ================================================================================================================== */
+
+function createViewVolunteerNewTasks($conn)
+{
+    if (pg_query($conn, "CREATE VIEW vVolunteerNewTasks AS
+            select count(volassoc_id) as vol_enrolled, tblTasks.id as task_id, max_volunteers, tblTasks.assoc_id, title, descr, obs, logo as assoclogo, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
+            from tblTasks 
+            LEFT JOIN  tblAssociations ON tblTasks.assoc_id=tblAssociations.id 
+			LEFT JOIN tblActivity ON tblActivity.task_id=tblTasks.id
+            WHERE tblTasks.active=true and done=false
+			GROUP BY tblTasks.id, max_volunteers, tblTasks.assoc_id, title, obs, logo ,due_date
+                  ")) {
+        echo "View vVolunteerNewTasks created!<br>";
+    } else {
+        echo "View vVolunteerNewTasks failed! :" . pg_last_error($conn) . "<br>";
+    }
+}
+

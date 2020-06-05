@@ -68,11 +68,13 @@ function createViews($conn)
     dropViewVolunteerActivity($conn);
     dropViewAssociationActivity($conn);
     dropViewActivityEnrolledVolunteers($conn);
+    dropViewVolunteerNewTasks($conn);
 
     createViewVolunteerDashboard($conn);
     createViewVolunteerActivity($conn);
     createViewAssociationActivity($conn);
     createViewActivityEnrolledVolunteers($conn);
+    createViewVolunteerNewTasks($conn);
 }
 
 function insertDataAll($conn) {

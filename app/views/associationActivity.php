@@ -19,13 +19,26 @@
 
         <?php require_once __DIR__ . "/components/menu.php"?>
                 
-        <div class='add-buton'>+</div>
+        <button type='button' class='add-button' onclick="showAddTaskForm()">+</button>
+        <form class='task-form' method="POST" action="">
+            <input type="text" name="title" placeholder='Task Title'>
+            <!-- <label for="max_volunteers">MAX:</label> -->
+            <input type="number" name="max_volunteers" min=1 max=5 value=3>
+            <input type="date" name="due_date">
+            <p class='break-row'></p>
+            <textarea name="descr" placeholder='Description'></textarea>
+            <textarea name="obs" placeholder='Notes'></textarea>
+            <p class='break-row'></p>
+            <button name="add" type="submit" value="addTask">Add Task</button>
+        </form>
+
         <div class="current-activity">
             <?php
                 foreach ($association->activity as $task) {
                     echo "<div class='activity-task'>
                     <div class='task-panel'>
                         ";
+                        if (isset($task['volunteers']))
                         foreach($task['volunteers'] as $volunteer) {
                             if (file_exists(__DIR__ . "/../../public/images/profile-pics/" . $volunteer['profile_pic']))
                             echo "<div class='assoc-icon'
@@ -52,6 +65,7 @@
     </div>
 
     <script src="/public/javascript/menu.js"></script>
+    <script src="/public/javascript/useractivity.js"></script>
     <script>
         initCollapsible();
         initMenu();
