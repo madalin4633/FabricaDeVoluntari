@@ -102,16 +102,27 @@ $volunteersRoutes = [
         "middlewares" => ["IsLoggedIn"],
         "route" => "volunteers/:voluntId/tasks/:taskId/ratings",
         "handler" => "giveTaskFeedback"  //MICI BUGURI, POSIBIL DE LA CONSTRANGERI - DE VERIFICAT PE FINAL
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ['IsLoggedIn'],
+        "route" => "task/asign",
+        "handler" => "asignTask"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ['IsLoggedIn'],
+        "route" => "task/logwork",
+        "handler" => "logWorkOnTask"
     ]
 ];
 
 function IsLoggedIn(){
-    $allHeaders = getallheaders();
+    // $allHeaders = getallheaders();
 
-    if(isset($_SESSION['user_id'])){
+    if(isset($_SESSION['id'])){
         return true;
     }
-    print_r('sunt aici');
     Response::status(401);
     Response::json([
         "status" => 401,
@@ -143,8 +154,12 @@ function getVolunteers($req) {
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_all_volunteers();
+
+    $output = array_merge(array(), $result);
+
     Response::status(200);
-    Response::json($volunteer->get_all_volunteers());
+    Response::json($output);
     
 }
 
@@ -154,8 +169,12 @@ function getVolunteer($req) {
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_volunteer_by_id($req['params']['voluntId']);
+
+    $output = array_merge(array(), $result);
+
     Response::status(200);
-    Response::json($volunteer->get_volunteer_by_id($req['params']['voluntId']));
+    Response::json($output);
 
 }
 
@@ -187,8 +206,19 @@ function deleteVolunteer($req){
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->delete_volunteer_by_id($req['params']['voluntId']);
+
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
     Response::status(200);
-    Response::json($volunteer->delete_volunteer_by_id($req['params']['voluntId']));
+    Response::json($output);
 
 }
 
@@ -198,8 +228,16 @@ function getVoluntAssociations($req){
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_associations_of_volunteer_by_id($req['params']['voluntId']);
+
+    $output = array();
+
+    if ($result){
+        $output = array_merge(array(), $result);
+    }
+
     Response::status(200);
-    Response::json($volunteer->get_associations_of_volunteer_by_id($req['params']['voluntId']));
+    Response::json($output);
 }
 
 function getAssocActivity($req){
@@ -208,8 +246,16 @@ function getAssocActivity($req){
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_volunteer_activity_from_association($req['params']['voluntId'], $req['params']['assocId']);
+
+    $output = array();
+
+    if ($result){
+        $output = array_merge(array(), $result);
+    }
+
     Response::status(200);
-    Response::json($volunteer->get_volunteer_activity_from_association($req['params']['voluntId'], $req['params']['assocId']));
+    Response::json($output);
     
 }
 
@@ -244,8 +290,16 @@ function getVolunteerTasks($req){
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_volunteer_tasks_from_association($req['params']['voluntId'], $req['params']['assocId']);
+
+    $output = array();
+
+    if ($result){
+        $output = array_merge(array(), $result);
+    }
+
     Response::status(200);
-    Response::json($volunteer->get_volunteer_tasks_from_association($req['params']['voluntId'], $req['params']['assocId']));
+    Response::json($output);
 }
 
 function getAssocTask($req){
@@ -255,8 +309,16 @@ function getAssocTask($req){
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_volunteer_task_by_id_from_association($req['params']['voluntId'], $req['params']['assocId'], $req['params']['taskId']);
+
+    $output = array();
+
+    if ($result){
+        $output = array_merge(array(), $result);
+    }
+
     Response::status(200);
-    Response::json($volunteer->get_volunteer_task_by_id_from_association($req['params']['voluntId'], $req['params']['assocId'], $req['params']['taskId']));
+    Response::json($output);
 
 }
 
@@ -267,8 +329,16 @@ function getVolunteerAllTasks($req){
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_volunteer_all_tasks($req['params']['voluntId']);
+
+    $output = array();
+
+    if ($result){
+        $output = array_merge(array(), $result);
+    }
+
     Response::status(200);
-    Response::json($volunteer->get_volunteer_all_tasks($req['params']['voluntId']));
+    Response::json($output);
 
 }
 
@@ -279,8 +349,16 @@ function getVolunteerTask($req){
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_volunteer_task_by_id($req['params']['voluntId'], $req['params']['taskId']);
+
+    $output = array();
+
+    if ($result){
+        $output = array_merge(array(), $result);
+    }
+
     Response::status(200);
-    Response::json($volunteer->get_volunteer_task_by_id($req['params']['voluntId'], $req['params']['taskId']));
+    Response::json($output);
 
 }
 
@@ -291,8 +369,16 @@ function getFeedback($req){
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_volunteer_review_by_id($req['params']['voluntId']);
+
+    $output = array();
+
+    if ($result){
+        $output = array_merge(array(), $result);
+    }
+
     Response::status(200);
-    Response::json($volunteer->get_volunteer_review_by_id($req['params']['voluntId']));
+    Response::json($output);
 
 }
 
@@ -302,8 +388,16 @@ function getTaskFeedback($req){
 
     $volunteer = new volunteerModel();
 
+    $result = $volunteer->get_volunteer_review_specific_task($req['params']['voluntId'], $req['params']['taskId']);
+
+    $output = array();
+
+    if ($result){
+        $output = array_merge(array(), $result);
+    }
+
     Response::status(200);
-    Response::json($volunteer->get_volunteer_review_specific_task($req['params']['voluntId'], $req['params']['taskId']));
+    Response::json($output);
 
 }
 
@@ -329,6 +423,57 @@ function giveTaskFeedback($req){
     Response::json($output);
 }
 
+function asignTask($req){
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    require_once __DIR__ . "/../../models/associationModel.php";
+
+    $volunteer = new volunteerModel();
+
+    $association = new associationModel();
+
+    $available_spots = $association->get_nr_of_available_spots_on_task($req['payload']->task_id, $req['payload']->association_id);
+
+    if ($available_spots > 0){
+        $result = $volunteer->assign_task($req['payload']->volunteer_id, $req['payload']->task_id, $req['payload']->association_id);
+    }
+    else{
+        $result = false;
+    }
+
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+}
+
+function logWorkOnTask($req){
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    $result = $volunteer->log_work_on_task($req['payload']->task_id, $req['payload']->volunteer_id, $req['payload']->association_id, $req['payload']->hours);
+
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+
+}
 
 //mai jos exemple din cod - functii folosite la rutele din exemplele de pe devdrive.
 function getTeam($req) {

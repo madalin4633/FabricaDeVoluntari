@@ -18,9 +18,10 @@ class Association {
     public function activity() {
         // signed in association looking at his dashboard
         $association = new AssociationModel();
-        $association->readActivity($_SESSION['assoc_id'], null);
-        $association->readPersonalDetails($_SESSION['assoc_id']);
-
+        // $association->readActivity($_SESSION['assoc_id'], null);
+        // $association->readPersonalDetails($_SESSION['assoc_id']);
+        $association->readActivity(null, null);
+        $association->readPersonalDetails($_SESSION['id']);
 
         if (isset($_REQUEST['add']) && $_REQUEST['add'] == 'addTask') {
             if ($error = $association->addTask($_POST['title'], $_POST['descr'], $_POST['obs'],$_POST['max_volunteers'], $_POST['due_date'])) {

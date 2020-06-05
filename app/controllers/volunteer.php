@@ -9,10 +9,15 @@ class Volunteer {
 
     public function dashboard() {
         // signed in volunteer looking at his dashboard
+
+        if(!isset($_SESSION['id'])){
+            redirect('/../user/login');
+        }
+
         $volunteer = new VolunteerModel();
-        $volunteer->readAssociations($_SESSION['user_id']);
-        $volunteer->readSuggestedAssociations($_SESSION['user_id']);
-        $volunteer->readPersonalDetails($_SESSION['user_id']);
+        $volunteer->readAssociations($_SESSION['id']);
+        $volunteer->readSuggestedAssociations($_SESSION['id']);
+        $volunteer->readPersonalDetails($_SESSION['id']);
 
         require_once __DIR__ . '/../views/volunteerDashboard.php';
     }
@@ -20,7 +25,7 @@ class Volunteer {
     public function profile() {
         // signed in volunteer looking at his profile
         $volunteer = new VolunteerModel();
-        $volunteer->readPersonalDetails($_SESSION['user_id']);
+        $volunteer->readPersonalDetails($_SESSION['id']);
 
         require_once __DIR__ . '/../views/volunteerProfile.php';
     }
@@ -28,7 +33,7 @@ class Volunteer {
     public function activity($params) {
         // signed in volunteer looking at his activity in an assoc
         $volunteer = new VolunteerModel();
-        $volunteer->readPersonalDetails($_SESSION['user_id']);
+        $volunteer->readPersonalDetails($_SESSION['id']);
         if (isset($params[0]) && $params[0]!="")
             $volunteer->readActivity($params[0]);
         else
