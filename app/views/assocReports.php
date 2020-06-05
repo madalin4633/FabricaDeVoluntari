@@ -16,13 +16,13 @@
     <script src="/public/javascript/userprofile.js" ></script>
     <script src="/public/javascript/menu.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.4"></script>
 </head>
 
 <body>
     <div class="vertical-split">
     <?php require_once __DIR__ . "/components/menu.php" ?>
+        <div class="data">
+        <h3>Genereaza rapoarte grafice si numerice</h3>
         <div class="buttonsContainer">
             <button id="LastWeek" type="button">
             Ultima saptamana
@@ -34,12 +34,17 @@
             Ultimul an
             </button>
         </div>
-        <div class="chartContainer">
+        <div id="exportContainer"></div>
+        <div class="bigChart">
+        <div class="chartContainer" id="chartContainer">
             <canvas id="activityChart" aria-label="Activitate in asociatie" role="activitate">
             <p>Graficele nu s-au generat</p>
             </canvas>
-        </div>
-        NEBUNIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEe
+        </div> <!-- chartContainer-->
+        </div> <!-- bigChart -->
+            <div class="myDynamicTable" id="myDynamicTable"></div>
+            
+        </div> <!-- data -->
     </div>
     
     <script>initCollapsible();initMenu()</script>

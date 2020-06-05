@@ -79,13 +79,15 @@ function dropViewMyAssociationActivity($conn)
 function createViewMyAssociationActivity($conn)
 {
     if (pg_query($conn, "CREATE VIEW vMyAssociationActivity AS
-        SELECT vol_id, tblVolunteers.nume || ' ' || tblVolunteers.prenume as nume_prenume, tblTasks.assoc_id, tblTasks.id as task_id, tblActivity.hours_worked, tblTasks.updated_on
-        FROM tblTasks 
-        LEFT JOIN tblActivity ON tblTasks.id=tblActivity.task_id
-		LEFT JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id
-		LEFT JOIN tblVolunteers ON tblVolAssoc.vol_id=tblVolunteers.id
-		WHERE vol_id IS NOT NULL AND tblTasks.done = TRUE
-        GROUP BY tblTasks.id, vol_id, tblVolunteers.nume, tblVolunteers.prenume , tblTasks.assoc_id, tblActivity.hours_worked
+        select tblvolunteers.id, tblvolunteers.nume || ' ' || tblvolunteers.prenume AS nume_prenume, tblVolAssoc.assoc_id, tblTasks.id as task_id, tbltasks.hours_worked, tbltasks.updated_on
+            FROM tbltasks
+            INNER JOIN tblActivity ON tblTasks.id=tblActivity.task_id
+			INNER JOIN tblProjects ON tblTasks.proj_id=tblProjects.id
+            INNER JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblProjects.assoc_id
+            INNER JOIN tblVolunteers ON tblvolunteers.id=tblVolAssoc.vol_id
+			INNER JOIN tblAssociations ON tblProjects.assoc_id=tblAssociations.id
+            WHERE done=true
+            GROUP BY tblTasks.id, tblvolunteers.id, tblVolAssoc.assoc_id, tblVolunteers.nume, tblVolunteers.prenume, tbltasks.hours_worked
 		ORDER BY nume_prenume ASC
         ")) {
         echo "View vMyAssociationActivity created!<br>";

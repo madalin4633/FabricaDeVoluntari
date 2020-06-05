@@ -64,16 +64,16 @@ function createTables($conn)
 
 function createViews($conn)
 {
-    dropViewVolunteerDashboard($conn);
-    dropViewVolunteerActivity($conn);
-    dropViewAssociationActivity($conn);
-    dropViewActivityEnrolledVolunteers($conn);
+    //dropViewVolunteerDashboard($conn);
+    //dropViewVolunteerActivity($conn);
+    //dropViewAssociationActivity($conn);
+    //dropViewActivityEnrolledVolunteers($conn);
     dropViewMyAssociationActivity($conn);
 
-    createViewVolunteerDashboard($conn);
-    createViewVolunteerActivity($conn);
-    createViewAssociationActivity($conn);
-    createViewActivityEnrolledVolunteers($conn);
+    //createViewVolunteerDashboard($conn);
+    //createViewVolunteerActivity($conn);
+    //createViewAssociationActivity($conn);
+    //createViewActivityEnrolledVolunteers($conn);
     createViewMyAssociationActivity($conn);
 }
 

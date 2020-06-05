@@ -145,7 +145,11 @@ function getMyActivity($req){
 
     $association = new AssociationModel();
     Response::status(200);
-    Response::json($association->get_myassociation_activity($req['params']['assocId']));
+    $output = array();
+    $result=$association->get_myassociation_activity($req['params']['assocId'], $req['query']['filter_by']);
+    if($result)
+        $output=array_merge(array(),$result);
+    Response::json($output);
 }
 function updateAssociation($req) {
  //updateaza datele de la o asociatie
@@ -160,7 +164,7 @@ function getAssociation($req) {
 }
 function getAssociations($req) {
     Response::status(200);
-    echo "GET ALL TEAMS" . $req['payload'];
+    echo "GET ALL TEAMS /associations simplu" . $req['payload'];
     //un select din baza de date cu asociatii - toate
 }
 

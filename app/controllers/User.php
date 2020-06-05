@@ -373,7 +373,7 @@
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_email'] = $user['email']; 
                 $_SESSION['user_name'] = $user['username'];
-                $_SESSION['is_volunteer'] = true;
+                $_SESSION['is_volunteer'] = true; //de modif
                 $_SESSION['is_association'] = false;
                 redirect('/volunteer/dashboard');
             }
@@ -382,7 +382,7 @@
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['assoc_email'] = $user['email'];
                 $_SESSION['entity'] = 'volunteer';
-                $_SESSION['is_volunteer'] = false;
+                $_SESSION['is_volunteer'] = false; //de modif.
                 $_SESSION['is_association'] = true;
                 redirect('/association/activity');
             }

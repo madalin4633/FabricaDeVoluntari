@@ -43,8 +43,10 @@ function parseRequest($routeConfig)
         return false;
     }
 
-    $regExpString = $this -> routeExpToRegExp($routeConfig['route']);
-
+    if(strpos($url,'?')!=FALSE)
+        $regExpString = $this -> routeExpToRegExp($routeConfig['route'], 1);
+    else 
+        $regExpString = $this -> routeExpToRegExp($routeConfig['route'], 0);
 
     if (preg_match("/$regExpString/", $url, $matches)) {
         $params = [];
@@ -116,7 +118,7 @@ function handle404()
 
 
 
-function routeExpToRegExp($route)
+function routeExpToRegExp($route, $withQuery)
 {
     $regExpString = "\/api";
     $parts = explode('/', $route);
@@ -130,42 +132,12 @@ function routeExpToRegExp($route)
             $regExpString .= $p;
         }
     }
-    $regExpString .= '$';
+    if($withQuery==0)
+        $regExpString .= '$'; //end of string
+    else $regExpString .= '\?([\w-]+(=[\w-]*)?(&[\w-]+(=[\w-]*)?)*)?$';
+    //print_r($regExpString);
 
     return $regExpString;
 }
-
-// if (
-//     $_SERVER['REQUEST_METHOD'] !== 'OPTIONS' &&
-//     $_SERVER['REQUEST_METHOD'] !== 'GET' &&
-//     (!isset($allHeaders['Content-Type']) || $allHeaders['Content-Type'] !== 'application/json')
-// ) {
-//     header("Content-type: application/json");
-//     http_response_code(400);
-//     echo '{"status": 400, "reason": "Expecting payload as JSON" }';
-//     exit;
-// }
-
-
-
-// switch ($_SERVER['REQUEST_METHOD']) {
-//     case "GET":
-
-//         echo "GET to rest service";
-//         break;
-//     case "POST":
-//         header("Content-type: application/json");
-
-//         $body = json_decode(file_get_contents("php://input"));
-//         // insert
-//         http_response_code(201);
-
-//         $body->id = uniqid();
-//         echo json_encode($body);
-
-//         break;
-//     default:
-//         break;
-// }
 
 }

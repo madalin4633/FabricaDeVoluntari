@@ -1,15 +1,39 @@
 .chartContainer{
     /* position: relative; 
     height: 60vh; 
-    width: 80vw; 
+    width: 80vw; */
     margin-left: auto;
-	margin-right: auto; */
-	width: 100vw;
-    height: 100%;
-    border: 5px solid black;
-    overflow: scroll;
+	margin-right: auto;
+	width: 1300px;
+    /* overflow: scroll; */
 }
-.buttonsContainer{
+@media screen and (max-width: 500px){
+	.chartContainer{
+		width: 900px;
+	}
+}
+
+.bigChart{
+	width: 100vw;
+	overflow: auto;
+}
+.data{
+	overflow: auto;
+}
+h3{
+	text-align: center;
+	color: #77cfb2;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 30px;
+}
+.myDynamicTable{
+	color: black;
+	font-size: 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.buttonsContainer, .exportContainer{
     margin-top: 30px;
     margin-bottom: 30px;
     margin-left: auto;
@@ -19,7 +43,12 @@
   	border-color: #32be8f;
   	border-width: 7px;
 }
-#LastWeek, #LastMonth, #LastYear{
+canvas{
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+#LastWeek, #LastMonth, #LastYear, #exportCSV, #exportHTML, #exportPDF{
 	display: block;
 	width: 100%;
 	height: 50px;
@@ -37,4 +66,7 @@
 	transition: .5s;/*
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;*/
+}
+table{
+	margin: 0 auto;
 }
