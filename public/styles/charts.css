@@ -1,18 +1,25 @@
 .chartContainer{
-    position: relative; 
+    /* position: relative; 
     height: 60vh; 
     width: 80vw; 
     margin-left: auto;
-    margin-right: auto;
+	margin-right: auto; */
+	width: 100vw;
+    height: 100%;
+    border: 5px solid black;
+    overflow: scroll;
 }
 .buttonsContainer{
     margin-top: 30px;
     margin-bottom: 30px;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
+	display: flex;
+	border-style: inset;
+  	border-color: #32be8f;
+  	border-width: 7px;
 }
-#GenerateBtn{
+#LastWeek, #LastMonth, #LastYear{
 	display: block;
 	width: 100%;
 	height: 50px;
