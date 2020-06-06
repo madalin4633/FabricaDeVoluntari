@@ -4,9 +4,11 @@ class AssociationModel
 {
     public $volunteers = [];
     public $activity =[];
+    public $completed =[];
     public $projects = [];
     public $personalDetails = [];
-    public $pic = "no-photo.jpg";
+    public $pic = "no-logo-png-4.png";
+    public $nume = "";
 
     public function __construct()
     {
@@ -78,13 +80,11 @@ class AssociationModel
             logo as assoclogo,
             descr,
             obs,
-            due_date 
+            due_date,
+            task_done
             FROM vAssociationActivity 
-            WHERE proj_id=$1 
+            WHERE proj_id=$1 AND task_done=false
             ORDER BY task_id ASC";
-            // if (isset($vol_id)) {
-            //     $query.= "AND vol_id=$2";
-            // }
 
             pg_send_prepare($conn, 'get_assoc_activity', $query);
             
@@ -147,6 +147,85 @@ class AssociationModel
         return $activity;
     }
 
+    private function readCompleted($proj_id, $vol_id)
+    {
+        $conn = $GLOBALS['db'];
+
+
+        if (!pg_connection_busy($conn)) {
+            $query = "SELECT 
+            task_id,
+            title,
+            logo as assoclogo,
+            descr,
+            obs,
+            due_date,
+            task_done
+            FROM vAssociationActivity 
+            WHERE proj_id=$1 AND task_done=true
+            ORDER BY task_id ASC";
+
+            pg_send_prepare($conn, 'get_assoc_completed', $query);
+            
+            $res = pg_get_result($conn);
+        }
+
+        if (!pg_connection_busy($conn)) {
+            $params=[];
+            $params[] = $proj_id;
+            if (isset($vol_id)) {
+                $params[] = $vol_id;
+            }
+            pg_send_execute($conn, 'get_assoc_completed', $params);
+            $result = pg_get_result($conn);
+        }
+
+        $activity = [];
+        if (isset($result))
+        for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
+            $activity[] = pg_fetch_assoc($result);
+        }
+
+        if (count($activity) == 0) return $activity;
+        
+        
+        // activity details
+        if (!pg_connection_busy($conn)) {
+            $query = "SELECT * 
+            FROM vActivityEnrolledVolunteers 
+            WHERE proj_id=$1 AND done=true
+            ORDER BY task_id ASC";
+
+            pg_send_prepare($conn, 'get_completedDetails', $query);
+            
+            $res = pg_get_result($conn);
+        }
+
+        if (!pg_connection_busy($conn)) {
+            $params=[];
+            $params[] = $proj_id;
+            pg_send_execute($conn, 'get_completedDetails', $params);
+            $resultDetails = pg_get_result($conn);
+        }
+
+        
+        $act_row = 0;
+        $activity[$act_row]['volunteers'] = [];
+        
+        if (isset($resultDetails) && count($activity) > 0)
+        for ($xi = 0; $xi < pg_num_rows($resultDetails); $xi++) {
+            $array = pg_fetch_assoc($resultDetails);
+            $task_id = $array['task_id'];
+
+            if (isset($activity[$act_row]['task_id']) && $activity[$act_row]['task_id'] != $task_id) {
+                $act_row += 1;
+            }
+            $activity[$act_row]['volunteers'][] = $array;
+        }
+    
+        return $activity;
+    }
+
     public function readPersonalDetails($assoc_id) {
         $conn = $GLOBALS['db'];
 
@@ -177,6 +256,7 @@ class AssociationModel
             $this -> personalDetails = pg_fetch_assoc($result);
             if ($this -> personalDetails['_ignore_pic']) 
                 $this -> pic ='logo/' . $this -> personalDetails['_ignore_pic'];
+            $this->nume = $this->personalDetails['Nume'];
         }
     }
 
@@ -246,6 +326,7 @@ class AssociationModel
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $array = pg_fetch_assoc($result);
             $array['activity'] = $this->readActivity($array['id'], null);
+            $array['completed'] = $this->readCompleted($array['id'], null);
             $this -> projects[] = $array;
         }
     }

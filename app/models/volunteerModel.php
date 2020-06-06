@@ -6,7 +6,7 @@ class VolunteerModel {
     public $suggestedAssociations = [];
     public $personalDetails = [];
     public $username = "_username_";
-    public $pic = "no-photo.jpg";
+    public $pic = "no-pic.jpg";
     public $rating = 0;
     public $activity = [];
     public $newTasks = [];
@@ -27,7 +27,10 @@ class VolunteerModel {
 
         if (!pg_connection_busy($conn)) {
             $query = "SELECT 
+            assoc_id,
+            task_id, 
             title,
+            hours_worked,
             logo as assoclogo,
             descr,
             obs,
@@ -61,14 +64,21 @@ class VolunteerModel {
 
         if (!pg_connection_busy($conn)) {
             $query = "SELECT 
+            proj_id, 
+            proj_title,
+            proj_descr,
+            task_id,
+            assoc_id,
             title,
             assoclogo,
             descr,
             obs,
+            hours_worked,
             due_date 
             FROM vVolunteerNewTasks 
-            WHERE vol_enrolled<max_volunteers ";
-            if (isset($assoc_id)) $query.= "AND assoc_id=$1";
+            where vol_id=$1 AND (enrolled_id IS NULL OR enrolled_id<>$2) ";
+            if (isset($assoc_id)) $query.= "AND assoc_id=$3";
+            $query.=" ORDER BY proj_id ASC";
 
             pg_send_prepare($conn, 'get_newtasks',  $query);
             
@@ -77,13 +87,17 @@ class VolunteerModel {
 
         if (!pg_connection_busy($conn)) {
             $params=[];
+            $params[] = $_SESSION['id'];
+            $params[] = $_SESSION['id'];
             if (isset($assoc_id)) $params[] = $assoc_id;
             pg_send_execute($conn, 'get_newtasks', $params);
             $result = pg_get_result($conn);
         }
 
+
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
-            $this -> newTasks[] = pg_fetch_assoc($result);
+            $rowResult = pg_fetch_assoc($result);
+            $this -> newTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
         }
     }
 
@@ -544,7 +558,7 @@ class VolunteerModel {
             return false;
         }
 
-        $query = 'INSERT INTO tblactivity (task_id, volassoc_id, hours_worked, bonus, created_on, updated_on) VALUES ('.$task_id.', ' . $vol_assoc_id.', 0, 0, current_timestamp, current_timestamp)';
+        $query = 'INSERT INTO tblactivity (task_id, volassoc_id, created_on, updated_on) VALUES ('.$task_id.', ' . $vol_assoc_id.', current_timestamp, current_timestamp)';
 
         if (!pg_connection_busy($db_conn)) {
             pg_send_prepare($db_conn, 'assign_task_to_volunteer', $query);
@@ -554,6 +568,45 @@ class VolunteerModel {
         
         if (!pg_connection_busy($db_conn)) {
             pg_send_execute($db_conn, 'assign_task_to_volunteer', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
+    }
+
+    function mark_task_complete($volunteer_id, $task_id, $association_id, $for_vol){
+        $db_conn = $GLOBALS['db'];
+
+        if ($for_vol) {
+            $vol_assoc_id = $this->get_vol_assoc_id($volunteer_id, $association_id);
+
+            if (!$vol_assoc_id) {
+                return false;
+            }
+
+            $query = 'UPDATE tblActivity SET done=true WHERE task_id=$1 AND volassoc_id=$2';
+        }
+        else
+            $query = 'UPDATE tblTasks SET done=true WHERE id=$1';
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'vol_mark_task_complete', $query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            if ($for_vol)
+                $array = array($task_id, $vol_assoc_id);
+            else
+                $array = array($task_id);        
+            pg_send_execute($db_conn, 'vol_mark_task_complete', $array);
             $result = pg_get_result($db_conn);
         }
 

@@ -30,7 +30,7 @@
             <?php
 
             foreach ($association->projects as $project) {
-                echo "<div class='project-banner'>PROJECT: " . $project['title'] . "
+                echo "<div class='project'><div class='project-banner'>PROJECT: " . $project['title'] . "
                 <div class='project-details'>
                 " . $project['descr'] . "
                 </div>
@@ -51,6 +51,8 @@
                     <p class='break-row'></p>
                     <button name='add' type='submit' value='addTask'>Add Task</button>
                 </form>
+
+                <div class='active-tasks'>
         ";
 
                 foreach ($project['activity'] as $task) {
@@ -75,12 +77,48 @@
                         }
                     }
                     echo "<div class='activity-duedate'>" . $task['due_date'] . "</div>    
+                        <button class='done-button' onclick='assoc_markTaskDone(this, ". $task['task_id']  . ")'></button>
                     </div>
                     <div class='activity-title'>" . $task['title'] . "</div>
                     <div class='activity-desc'>" . $task['descr'] . "</div>
                     <div class='activity-notes'>" . $task['obs'] . "</div>
                     </div>";
                 }
+                echo "</div>";
+                echo "<div class='completed-tasks'>";
+                
+                foreach ($project['completed'] as $task) {
+                    echo "<div class='activity-task'>
+                    <div class='task-panel'>
+                        ";
+                    if (isset($task['volunteers'])) {
+                        foreach ($task['volunteers'] as $volunteer) {
+                            if (file_exists(__DIR__ . "/../../public/images/profile-pics/" . $volunteer['profile_pic'])) {
+                                echo "<div class='assoc-icon'
+                            style='background: url(/public/images/profile-pics/" . $volunteer['profile_pic'] . "); 
+                            background-size: cover; background-position: center; background-repeat: no-repeat;'
+                            >
+                        ";
+                            } else {
+                                echo "<div class='assoc-icon'
+                            style='background-color: burlywood; background-size: cover; background-position: center; background-repeat: no-repeat;'
+                            >" . $volunteer['initials'] ;
+                            }
+                            
+                            echo "<div class='ore-lucrate'>". $volunteer['hours'] . "</div></div>";
+                        }
+                    }
+                    echo "<div class='activity-duedate'>" . $task['due_date'] . "</div>    
+                        <button class='done-button' onclick='assoc_markTaskDone(this, ". $task['task_id']  . ")'></button>
+                    </div>
+                    <div class='activity-title'>" . $task['title'] . "</div>
+                    <div class='activity-desc'>" . $task['descr'] . "</div>
+                    <div class='activity-notes'>" . $task['obs'] . "</div>
+                    </div>";
+                }
+                
+                echo "</div>";
+                echo "</div>";
             }
             ?>
         </div>

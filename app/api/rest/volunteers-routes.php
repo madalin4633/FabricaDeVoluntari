@@ -112,6 +112,12 @@ $volunteersRoutes = [
     [
         "method" => "PUT",
         "middlewares" => ['IsLoggedIn'],
+        "route" => "task/markcomplete",
+        "handler" => "markTask"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ['IsLoggedIn'],
         "route" => "task/logwork",
         "handler" => "logWorkOnTask"
     ]
@@ -453,6 +459,31 @@ function asignTask($req){
     Response::status(200);
     Response::json($output);
 }
+
+function markTask($req){
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    require_once __DIR__ . "/../../models/associationModel.php";
+
+    $volunteer = new volunteerModel();
+
+    $association = new associationModel();
+
+        $result = $volunteer->mark_task_complete($req['payload']->volunteer_id, $req['payload']->task_id, $req['payload']->association_id, $req['payload']->for_volunteer);
+
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+}
+
 
 function logWorkOnTask($req){
     require_once __DIR__ . "/../../models/volunteerModel.php";

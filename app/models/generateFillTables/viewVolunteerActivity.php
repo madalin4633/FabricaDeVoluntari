@@ -26,7 +26,7 @@ function createViewVolunteerActivity($conn)
 			INNER JOIN tblProjects ON tblTasks.proj_id=tblProjects.id
             INNER JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblProjects.assoc_id
             INNER JOIN tblAssociations ON tblProjects.assoc_id=tblAssociations.id
-            WHERE tblTasks.active=true and done=false
+            WHERE tblTasks.active=true and tblActivity.done=false
             GROUP BY tblTasks.id, vol_id, tblVolAssoc.assoc_id, tblTasks.title, tblTasks.descr, obs, due_date, tblAssociations.logo
                   ")) {
         echo "View vVolunteerActivity created!<br>";
@@ -53,13 +53,13 @@ function dropViewVolunteerNewTasks($conn)
 function createViewVolunteerNewTasks($conn)
 {
     if (pg_query($conn, "CREATE VIEW vVolunteerNewTasks AS
-            select count(volassoc_id) as vol_enrolled, tblTasks.id as task_id, max_volunteers, tblProjects.assoc_id, tblTasks.title, tblTasks.descr, obs, logo as assoclogo, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
-            from tblTasks 
-			INNER JOIN tblProjects ON tblTasks.proj_id=tblProjects.id
-            LEFT JOIN  tblAssociations ON tblProjects.assoc_id=tblAssociations.id 
-			LEFT JOIN tblActivity ON tblActivity.task_id=tblTasks.id
-            WHERE tblTasks.active=true and done=false
-			GROUP BY tblTasks.id, max_volunteers, tblProjects.assoc_id, tblTasks.title, obs, logo ,due_date
+        SELECT tblProjects.id as proj_id, tblProjects.title as proj_title, tblProjects.descr as proj_descr, tblVolAssoc.vol_id, tblTasks.id as task_id, tblVolAssoc.assoc_id, tblTasks.title, tblTasks.descr, tblTasks.obs, hours_worked, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date, logo as assoclogo, tblTasks.done as task_done, tAct.vol_id as enrolled_id
+        FROM tblVolAssoc
+        INNER JOIN tblAssociations ON tblAssociations.id = tblVolAssoc.assoc_id
+        INNER JOIN tblProjects ON tblProjects.assoc_id = tblAssociations.id
+        INNER JOIN tblTasks ON tblTasks.proj_id = tblProjects.id
+        LEFT JOIN (SELECT * FROM tblActivity INNER JOIN tblVolAssoc ON tblActivity.volassoc_id=tblVolAssoc.id) tAct ON tAct.task_id = tblTasks.id 
+        where tblProjects.active = true 
                   ")) {
         echo "View vVolunteerNewTasks created!<br>";
     } else {

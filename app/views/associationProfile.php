@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="Description" content="Volunteer's profile showing personal details">
+    <meta name="Description" content="Association's profile showing personal details">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/public/styles/commons.css" />
     <link rel="stylesheet" type="text/css" href="/public/styles/tooltip.css" />
@@ -26,10 +26,10 @@
             <nav class="leftPanel">
                 <div class="vertical-split">
                     <div class="crop">
-                        <img alt="profile pic" src=/public/images/profile-pics/<?= $volunteer -> pic?> >
+                        <img alt="profile pic" src=/public/images/logo/<?= $association -> pic?> >
                     </div>
                     <div id="full-name">
-                        <?php echo $volunteer -> username; showFeedbackStars($volunteer->rating);?>
+                        <?php echo $association -> nume; ?>
                     </div>
                 </div>
 
@@ -38,13 +38,13 @@
             <div class="details-container">
                 <div class="info-table">
                     <div class="collapsible-container">
-                        <div class="collapsible-btn">Detalii personale</div>
+                        <div class="collapsible-btn">Details</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg">
                     </div>
                     <div class="collapsible-content">
                         <div class='tableElement'>
                             <?php 
-                                foreach($volunteer -> personalDetails as $key => $detail) {
+                                foreach($association -> personalDetails as $key => $detail) {
                                     if (strpos($key, '_ignore_') === false) {
                                     echo "<div class='tableRow'>
                                         <div class='tableHeader' style='white-space:nowrap'>
@@ -57,24 +57,6 @@
                                 };
                             ?>
                         </div>
-                    </div>
-                </div>
-                <div class="info-table">
-                    <div class="collapsible-container">
-                        <div class="collapsible-btn">Aptitudini</div>
-                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
-                    </div>
-                    <div class="collapsible-content">
-                        <div class="under-construction">Under construction</div>
-                    </div>
-                </div>
-                <div class="info-table">
-                    <div class="collapsible-container">
-                        <div class="collapsible-btn">Interese</div>
-                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
-                    </div>
-                    <div class="collapsible-content">
-                        <div class="under-construction">Under construction</div>
                     </div>
                 </div>
             </div>

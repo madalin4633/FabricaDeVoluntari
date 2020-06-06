@@ -54,6 +54,47 @@
     position: relative;
 }
 
+.completed-tasks .done-button {
+    background-color: green;
+    visibility: visible;
+    pointer-events: none;
+    box-shadow: 0px 0px 1px 1px aliceblue;
+}
+
+.completed-tasks > .activity-task {
+    background-color: gainsboro;
+}
+
+#active-tasks>.enrollTask {
+    display: none;
+}
+
+.activity-task:hover .done-button {
+    visibility: visible;
+}
+
+.done-button:active {
+    box-shadow: 0px 0px 1px 1px aliceblue;
+    background-color: green;
+}
+
+.done-button {
+    background: url(/public/images/done_outline-24px.svg);
+    background-color: orange;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px 3px gainsboro;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    margin-top: 5px;
+    color: white;
+    outline: none;
+    border: none;
+    visibility: hidden;
+}
+
 .enrollTask {
     grid-area: btn;
     margin-top: 3px;
@@ -94,14 +135,12 @@
     background-color: rgb(28, 42, 88);
     color: white;
     font-size: large;
-    display: flex;
+    display: block;
     flex-direction: column;
     align-self: flex-end;
     justify-self: flex-end;
-    width: 80vw;
-    margin-left: 40px;
+    width: auto;
     padding: 5px;
-    border-radius: 6px;
 }
 
 .project-details {
@@ -166,6 +205,11 @@
 
 .project-form > button {
     background-color: lightskyblue;
+}
+
+.project {
+    border: rgb(28, 42, 88) 2px dotted;
+    margin-bottom: 2px;
 }
 
 .break-row {

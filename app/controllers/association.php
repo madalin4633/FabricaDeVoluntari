@@ -5,7 +5,7 @@ require_once __DIR__ . '/../models/associationModel.php';
 
 class Association {
     public function index() {
-        $this -> reports();
+        $this -> activity();
     }
 
     public function reports() {
@@ -13,6 +13,14 @@ class Association {
         $association = new AssociationModel();
 
         require_once __DIR__ . '/../views/assocReports.php';
+    }
+
+    public function profile() {
+        // signed in assoc looking at his profile
+        $association = new AssociationModel();
+        $association->readPersonalDetails($_SESSION['id']);
+
+        require_once __DIR__ . '/../views/associationProfile.php';
     }
 
     public function activity() {
