@@ -16,10 +16,11 @@
     <script src="/public/javascript/userprofile.js" ></script>
     <script src="/public/javascript/menu.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 </head>
 
 <body>
-    <div class="vertical-split">
+    <div class="vertical-split" id="export">
     <?php require_once __DIR__ . "/components/menu.php" ?>
         <div class="data">
         <h3>Genereaza rapoarte grafice si numerice</h3>
