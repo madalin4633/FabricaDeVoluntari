@@ -1,5 +1,5 @@
-function showAddTaskForm() {
-    let form = document.querySelector(".task-form");
+function showAddTaskForm(e) {
+    let form = document.getElementById('add-task-' + e);
 
-    form.style.display = "flex";
+    form.style.display = "block";
 }

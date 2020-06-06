@@ -82,17 +82,17 @@ function createTables($conn)
 
 function createViews($conn)
 {
-    // dropViewVolunteerDashboard($conn);
-    // dropViewVolunteerActivity($conn);
-    // dropViewAssociationActivity($conn);
+    dropViewVolunteerDashboard($conn);
+    dropViewVolunteerActivity($conn);
+    dropViewAssociationActivity($conn);
     dropViewActivityEnrolledVolunteers($conn);
-    // dropViewVolunteerNewTasks($conn);
+    dropViewVolunteerNewTasks($conn);
 
-    // createViewVolunteerDashboard($conn);
-    // createViewVolunteerActivity($conn);
-    // createViewAssociationActivity($conn);
+    createViewVolunteerDashboard($conn);
+    createViewVolunteerActivity($conn);
+    createViewAssociationActivity($conn);
     createViewActivityEnrolledVolunteers($conn);
-    // createViewVolunteerNewTasks($conn);
+    createViewVolunteerNewTasks($conn);
 }
 
 function insertDataAll($conn) {
