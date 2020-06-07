@@ -49,7 +49,7 @@
                 <input type="button" id="disable" class="btn" value="Disable" <?php echo $data['disable_style']?>>
                 <input type="button" id="copy" class="btn" value="Copy link" <?php echo $data['copy_btn_style']?>>
 
-                <input type="text" id="link_label" id="invite_link" <?php echo $data['invitation_link']?>>
+                <input type="text" id="link_label" id="invite_link" <?php echo $data['invitation_link']?> readonly>
                 
                 
             </div>
