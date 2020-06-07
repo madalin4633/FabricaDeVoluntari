@@ -112,8 +112,8 @@
                     <div class='activity-duedate'>until " . $task['due_date'] . "</div>
                     <div class='assoc-icon'
                             style='background: url(/public/images/logo/" . $task['assoclogo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
-                            <button class='done-button' onclick='vol_markTaskDone(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
                             </div>
+                            <button class='done-button' onclick='vol_markTaskDone(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
                     </div>
                     <div class='activity-title'>" . $task['title'] . "</div>
                     <div class='activity-desc'>" . $task['descr'] . "</div>

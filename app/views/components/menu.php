@@ -23,7 +23,7 @@
     </button>
 
     <div class='assoc-icon'
-        style='background: url("/public/images/<?= $_SESSION['is_volunteer']?'/profile-pics/'.$volunteer -> pic:$association->pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
+        style='background: url("/public/images/<?= $_SESSION['is_volunteer']?'profile-pics/'.$volunteer -> pic: 'logo/'.$association->pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
     </div>
 </nav>
 <div class="user-notifications">

@@ -83,7 +83,7 @@ class VolunteerModel {
             hours_worked,
             due_date 
             FROM vVolunteerNewTasks 
-            where vol_id=$1 AND (enrolled_id IS NULL OR enrolled_id<>$2) ";
+            where vol_id=$1 AND task_done <> true AND (enrolled_id IS NULL OR enrolled_id<>$2) ";
             if (isset($assoc_id)) $query.= "AND assoc_id=$3";
             $query.=" ORDER BY proj_id ASC";
 

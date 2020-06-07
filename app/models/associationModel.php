@@ -255,7 +255,7 @@ class AssociationModel
         if (isset($result) && pg_num_rows($result) > 0) {
             $this -> personalDetails = pg_fetch_assoc($result);
             if ($this -> personalDetails['_ignore_pic']) 
-                $this -> pic ='logo/' . $this -> personalDetails['_ignore_pic'];
+                $this -> pic = $this -> personalDetails['_ignore_pic'];
             $this->nume = $this->personalDetails['Nume'];
         }
     }

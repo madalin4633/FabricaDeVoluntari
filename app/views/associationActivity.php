@@ -61,7 +61,7 @@
                         ";
                     if (isset($task['volunteers'])) {
                         foreach ($task['volunteers'] as $volunteer) {
-                            if (file_exists(__DIR__ . "/../../public/images/profile-pics/" . $volunteer['profile_pic'])) {
+                            if ($volunteer['profile_pic'] != null && file_exists(__DIR__ . "/../../public/images/profile-pics/" . $volunteer['profile_pic'])) {
                                 echo "<div class='assoc-icon'
                             style='background: url(/public/images/profile-pics/" . $volunteer['profile_pic'] . "); 
                             background-size: cover; background-position: center; background-repeat: no-repeat;'
@@ -70,7 +70,11 @@
                             } else {
                                 echo "<div class='assoc-icon'
                             style='background-color: burlywood; background-size: cover; background-position: center; background-repeat: no-repeat;'
-                            >" . $volunteer['initials'] ;
+                            >";  
+                            if($volunteer['initials']) 
+                            echo $volunteer['initials']; 
+                            else  
+                            echo "?" ;
                             }
                             
                             echo "<div class='ore-lucrate'>". $volunteer['hours'] . "</div></div>";
@@ -93,7 +97,7 @@
                         ";
                     if (isset($task['volunteers'])) {
                         foreach ($task['volunteers'] as $volunteer) {
-                            if (file_exists(__DIR__ . "/../../public/images/profile-pics/" . $volunteer['profile_pic'])) {
+                            if ($volunteer['profile_pic'] != null && file_exists(__DIR__ . "/../../public/images/profile-pics/" . $volunteer['profile_pic'])) {
                                 echo "<div class='assoc-icon'
                             style='background: url(/public/images/profile-pics/" . $volunteer['profile_pic'] . "); 
                             background-size: cover; background-position: center; background-repeat: no-repeat;'
@@ -102,7 +106,12 @@
                             } else {
                                 echo "<div class='assoc-icon'
                             style='background-color: burlywood; background-size: cover; background-position: center; background-repeat: no-repeat;'
-                            >" . $volunteer['initials'] ;
+                            >" ;
+                            if($volunteer['initials']) 
+                            echo $volunteer['initials']; 
+                            else  
+                            echo "?" ;
+
                             }
                             
                             echo "<div class='ore-lucrate'>". $volunteer['hours'] . "</div></div>";

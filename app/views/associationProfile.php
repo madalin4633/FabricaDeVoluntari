@@ -25,8 +25,8 @@
         <div class="horizontal-split">
             <nav class="leftPanel">
                 <div class="vertical-split">
-                    <div class="crop">
-                        <img alt="profile pic" src=/public/images/logo/<?= $association -> pic?> >
+                    <div class='crop'
+                        style='background: url("/public/images/logo/<?= $association -> pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                     </div>
                     <div id="full-name">
                         <?php echo $association -> nume; ?>

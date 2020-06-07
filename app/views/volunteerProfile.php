@@ -25,9 +25,9 @@
         <div class="horizontal-split">
             <nav class="leftPanel">
                 <div class="vertical-split">
-                    <div class="crop">
-                        <img alt="profile pic" src=/public/images/profile-pics/<?= $volunteer -> pic?> >
-                    </div>
+                <div class='crop'
+                    style='background: url("/public/images/profile-pics/<?= $volunteer -> pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
+                </div>
                     <div id="full-name">
                         <?php echo $volunteer -> username; showFeedbackStars($volunteer->rating);?>
                     </div>
@@ -43,17 +43,22 @@
                     </div>
                     <div class="collapsible-content">
                         <div class='tableElement'>
-                            <?php 
-                                foreach($volunteer -> personalDetails as $key => $detail) {
+                            <?php
+                                foreach ($volunteer -> personalDetails as $key => $detail) {
                                     if (strpos($key, '_ignore_') === false) {
-                                    echo "<div class='tableRow'>
+                                        echo "<div class='tableRow'>
                                         <div class='tableHeader' style='white-space:nowrap'>
                                             " . str_replace('_noedit_', '', $key) . "
                                         </div>
-                                        <div class='tableCell' "; if (strpos($key, '_noedit_') !== false) echo " contenteditable='true'"; echo ">
+                                        <div class='tableCell' ";
+                                        if (strpos($key, '_noedit_') !== false) {
+                                            echo " contenteditable='true'";
+                                        }
+                                        echo ">
                                             " . $detail . ' ' . "
                                         </div>
-                                    </div>";}
+                                    </div>";
+                                    }
                                 };
                             ?>
                         </div>
