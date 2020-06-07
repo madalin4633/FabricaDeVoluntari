@@ -260,6 +260,41 @@ class AssociationModel
         }
     }
 
+    function get_myassociation_activity($assoc_id, $filter_by){ //de adaugat inca un field la functie care sa fie de fapt acel parametru luat din formularul.. acum cate luni sau saptamani
+        $db_conn = $GLOBALS['db'];
+        switch ($filter_by) {
+            case 'last_week':
+                $interval='week';
+                break;
+            case 'last_month':
+                $interval='month';
+                break;
+            case 'last_year':
+                $interval='year';
+                break;
+            default:
+                break;
+        }
+        $selectul = 'SELECT nume_prenume, SUM(hours_worked) AS ore_lucrate, COUNT(task_id) AS nr_taskuri, SUM(hours_worked)/COUNT(task_id) AS ora_task, TO_CHAR(max(updated_on),\'dd-mm-yyyy hh24:mi\') AS ultima_activitate
+        FROM vMyAssociationActivity WHERE assoc_id=$1 AND (updated_on >= date_trunc(\'day\', CURRENT_TIMESTAMP - interval \'1' . $interval . '\') and updated_on < date_trunc(\'day\', CURRENT_TIMESTAMP))
+        GROUP BY nume_prenume ORDER BY nume_prenume ASC';
+        
+        if (!pg_connection_busy($db_conn)) { //filter_by o sa seteze o valoare pt week month sau year si deci va fi prepared statement si el
+                pg_send_prepare($db_conn, 'get_my_activity', $selectul);
+            $res = pg_get_result($db_conn);
+        }
+          
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'get_my_activity', array($assoc_id));
+            $result = pg_get_result($db_conn);
+        }
+    
+        $row = pg_fetch_all($result, PGSQL_ASSOC);
+        pg_close();
+
+        // $row = json_encode($row);
+        return $row;
+    }
     
     function get_nr_of_available_spots_on_task($task_id, $assoc_id){
         $db_conn = $GLOBALS['db'];

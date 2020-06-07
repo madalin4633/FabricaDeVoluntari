@@ -88,6 +88,8 @@ function createViews($conn)
     dropViewActivityEnrolledVolunteers($conn);
     dropViewVolunteerNewTasks($conn);
     dropViewVolunteerCompleted($conn);
+    // dropViewVolunteerNewTasks($conn);
+    // dropViewMyAssociationActivity($conn);
 
     createViewVolunteerDashboard($conn);
     createViewVolunteerActivity($conn);
@@ -95,6 +97,8 @@ function createViews($conn)
     createViewActivityEnrolledVolunteers($conn);
     createViewVolunteerNewTasks($conn);
     createViewVolunteerCompleted($conn);
+    // createViewVolunteerNewTasks($conn);
+    // createViewMyAssociationActivity($conn);
 }
 
 function insertDataAll($conn) {

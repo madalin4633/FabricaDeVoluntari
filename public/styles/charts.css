@@ -1,0 +1,72 @@
+.chartContainer{
+    /* position: relative; 
+    height: 60vh; 
+    width: 80vw; */
+    margin-left: auto;
+	margin-right: auto;
+	width: 1300px;
+    /* overflow: scroll; */
+}
+@media screen and (max-width: 500px){
+	.chartContainer{
+		width: 900px;
+	}
+}
+
+.bigChart{
+	width: 100vw;
+	overflow: auto;
+}
+.data{
+	overflow: auto;
+}
+h3{
+	text-align: center;
+	color: #77cfb2;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 30px;
+}
+.myDynamicTable{
+	color: black;
+	font-size: 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.buttonsContainer, .exportContainer{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+	display: flex;
+	border-style: inset;
+  	border-color: #32be8f;
+  	border-width: 7px;
+}
+canvas{
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+#LastWeek, #LastMonth, #LastYear, #exportCSV, #exportHTML, #exportPDF{
+	display: block;
+	width: 100%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+	background-size: 200%;
+    font-size: 1rem;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+	transition: .5s;/*
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;*/
+}
+table{
+	margin: 0 auto;
+}
