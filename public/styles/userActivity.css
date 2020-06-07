@@ -61,6 +61,10 @@
     box-shadow: 0px 0px 1px 1px aliceblue;
 }
 
+#new-tasks-container .done-button {
+    visibility: hidden;
+}
+
 .completed-tasks .activity-task {
     background-color: gainsboro;
 }

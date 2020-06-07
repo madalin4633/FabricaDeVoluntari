@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/public/styles/userActivity.css" />
     <link rel="stylesheet" type="text/css" href="/public/styles/collapsible.css" />
     <link rel="stylesheet" type="text/css" href="/public/styles/menu.css" />
+    <link rel="stylesheet" type="text/css" href="/public/styles/spinner.css" />
     <link rel="icon" href="/public/images/fdv_logo.png" />
     <title>Fabrica de Voluntari</title>
 </head>
@@ -27,15 +28,23 @@
         <div id="active-tasks" class="current-activity collapsible-content">
             <?php
                 foreach ($volunteer->activity['projects'] as $project) {
-                    echo "<div class='project'><div class='project-banner'>PROJECT: " . array_values($project['tasks'])[0]['proj_title'] . "
+                    echo "<div data-proj-id='project-". $project['id'] ."' class='project'><div class='project-banner'>PROJECT: " . array_values($project['tasks'])[0]['proj_title'] . "
                     <div class='project-details'>
                     " . array_values($project['tasks'])[0]['proj_descr'] . "
                     </div>
                     </div>";
 
                     foreach ($project['tasks'] as $task) {
-                        echo "<div class='activity-task'>
-                        <div class='task-panel'>
+                        echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task'>";
+                        echo "<div class='sk-chase-container'><div class='sk-chase'>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                      </div></div>";
+                        echo "<div class='task-panel'>
                         <div class='activity-duedate'>" . $task['hours_worked'] . " hours</div>
                         <div class='activity-duedate'>until " . $task['due_date'] . "</div>
                         <div class='assoc-icon'
@@ -63,20 +72,29 @@
             <?php
                 foreach ($volunteer->newTasks['projects'] as $project) {
 
-                    echo "<div class='project'><div class='project-banner'>PROJECT: " . array_values($project['tasks'])[0]['proj_title'] . "
+                    echo "<div data-proj-id='project-". $project['id'] ."' class='project'><div class='project-banner'>PROJECT: " . array_values($project['tasks'])[0]['proj_title'] . "
                     <div class='project-details'>
                     " . array_values($project['tasks'])[0]['proj_descr'] . "
                     </div>
                     </div>";
 
                     foreach ($project['tasks'] as $task) {
-                        echo "<div class='activity-task'>
-                    <div class='task-panel'>
-                    <div class='activity-duedate'>" . $task['hours_worked'] . " hours</div>
-                    <div class='activity-duedate'>until " . $task['due_date'] . "</div>
-                    <div class='assoc-icon'
+                        echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task'>";
+                        echo "<div class='sk-chase-container'><div class='sk-chase'>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                      </div></div>";
+                        echo "<div class='task-panel'>
+                        <div class='activity-duedate'>" . $task['hours_worked'] . " hours</div>
+                        <div class='activity-duedate'>until " . $task['due_date'] . "</div>
+                        <div class='assoc-icon'
                             style='background: url(/public/images/logo/" . $task['assoclogo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                         </div>
+                        <button class='done-button' onclick='vol_markTaskDone(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
                     </div>
                     <div class='activity-title'>" . $task['title'] . "</div>
                     <div class='activity-desc'>" . $task['descr'] . "</div>
@@ -99,15 +117,23 @@
             <?php
                 foreach ($volunteer->completedTasks['projects'] as $project) {
 
-                    echo "<div class='project'><div class='project-banner'>PROJECT: " . array_values($project['tasks'])[0]['proj_title'] . "
+                    echo "<div data-proj-id='project-". $project['id'] ."' class='project'><div class='project-banner'>PROJECT: " . array_values($project['tasks'])[0]['proj_title'] . "
                     <div class='project-details'>
                     " . array_values($project['tasks'])[0]['proj_descr'] . "
                     </div>
                     </div>";
 
                     foreach ($project['tasks'] as $task) {
-                        echo "<div class='activity-task'>
-                    <div class='task-panel'>
+                        echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task'>";
+                        echo "<div class='sk-chase-container'><div class='sk-chase'>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                        <div class='sk-chase-dot'></div>
+                      </div></div>";
+                        echo "<div class='task-panel'>
                     <div class='activity-duedate'>" . $task['hours_worked'] . " hours</div>
                     <div class='activity-duedate'>until " . $task['due_date'] . "</div>
                     <div class='assoc-icon'

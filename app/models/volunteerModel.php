@@ -14,13 +14,9 @@ class VolunteerModel {
 
     public function __construct()
     {
-        // $this -> id = $_SESSION['id'];
-
-        // $this -> readAssociations($this->id);
-
-        // $this -> readSuggestedAssociations($this->id);
-        
-        // $this -> readPersonalDetails($this->id);
+        $this -> activity['projects'] = [];
+        $this -> newTasks['projects'] = [];
+        $this -> completedTasks['projects'] = [];
     }
 
     public function readActivity($assoc_id) {
@@ -58,6 +54,8 @@ class VolunteerModel {
 
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
+            $this -> activity['projects'][$rowResult['proj_id']]['id'] = $rowResult['proj_id'];
+            // $this -> activity['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']]['id'] = $rowResult['task_id'];
             $this -> activity['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
             // $this -> activity[] = pg_fetch_assoc($result);
         }
@@ -104,6 +102,8 @@ class VolunteerModel {
 
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
+            $this -> newTasks['projects'][$rowResult['proj_id']]['id'] = $rowResult['proj_id'];
+            // $this -> newTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']]['id'] = $rowResult['task_id'];
             $this -> newTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
         }
     }
@@ -145,6 +145,8 @@ class VolunteerModel {
 
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
+            $this -> completedTasks['projects'][$rowResult['proj_id']]['id'] = $rowResult['proj_id'];
+            // $this -> completedTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']]['id'] = $rowResult['task_id'];
             $this -> completedTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
         }
     }
