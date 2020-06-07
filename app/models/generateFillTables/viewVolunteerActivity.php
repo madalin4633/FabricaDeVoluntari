@@ -20,18 +20,51 @@ function dropViewVolunteerActivity($conn)
 function createViewVolunteerActivity($conn)
 {
     if (pg_query($conn, "CREATE VIEW vVolunteerActivity AS
-            select tblTasks.id as task_id, vol_id, tblVolAssoc.assoc_id, tblAssociations.logo, tblTasks.title, tblTasks.descr, obs, sum(hours_worked) as hours_worked, sum(bonus) as bonus, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
+            select tblProjects.id as proj_id, tblProjects.title as proj_title, tblProjects.descr as proj_descr, tblTasks.id as task_id, vol_id, tblVolAssoc.assoc_id, tblAssociations.logo as assoclogo, tblTasks.title, tblTasks.descr, obs, sum(hours_worked) as hours_worked, sum(bonus) as bonus, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
             from tbltasks 
             INNER JOIN tblActivity ON tblTasks.id=tblActivity.task_id
 			INNER JOIN tblProjects ON tblTasks.proj_id=tblProjects.id
             INNER JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblProjects.assoc_id
             INNER JOIN tblAssociations ON tblProjects.assoc_id=tblAssociations.id
             WHERE tblTasks.active=true and tblActivity.done=false
-            GROUP BY tblTasks.id, vol_id, tblVolAssoc.assoc_id, tblTasks.title, tblTasks.descr, obs, due_date, tblAssociations.logo
+            GROUP BY tblProjects.id, tblProjects.title, tblProjects.descr, tblTasks.id, vol_id, tblVolAssoc.assoc_id, tblTasks.title, tblTasks.descr, obs, due_date, tblAssociations.logo
                   ")) {
         echo "View vVolunteerActivity created!<br>";
     } else {
         echo "View vVolunteerActivity failed! :" . pg_last_error($conn) . "<br>";
+    }
+}
+
+/***    ================================================================================================================== */
+
+function dropViewVolunteerCompleted($conn)
+{
+    try {
+
+        pg_query($conn, 'DROP VIEW vVolunteerCompleted;');
+        echo 'View vVolunteerCompleted dropped.<br>';
+    } catch (Exception $e) {
+        echo 'Failed to drop view vVolunteerCompleted: ' . $e->getMessage() . '<br>';
+    }
+}
+
+/***    ================================================================================================================== */
+
+function createViewVolunteerCompleted($conn)
+{
+    if (pg_query($conn, "CREATE VIEW vVolunteerCompleted AS
+            select tblProjects.id as proj_id, tblProjects.title as proj_title, tblProjects.descr as proj_descr, tblTasks.id as task_id, vol_id, tblVolAssoc.assoc_id, tblAssociations.logo as assoclogo, tblTasks.title, tblTasks.descr, obs, sum(hours_worked) as hours_worked, sum(bonus) as bonus, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
+            from tbltasks 
+            INNER JOIN tblActivity ON tblTasks.id=tblActivity.task_id
+			INNER JOIN tblProjects ON tblTasks.proj_id=tblProjects.id
+            INNER JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblProjects.assoc_id
+            INNER JOIN tblAssociations ON tblProjects.assoc_id=tblAssociations.id
+            WHERE tblTasks.active=true and tblActivity.done=true
+            GROUP BY tblProjects.id, tblProjects.title, tblProjects.descr, tblTasks.id, vol_id, tblVolAssoc.assoc_id, tblTasks.title, tblTasks.descr, obs, due_date, tblAssociations.logo
+                  ")) {
+        echo "View vVolunteerCompleted created!<br>";
+    } else {
+        echo "View vVolunteerCompleted failed! :" . pg_last_error($conn) . "<br>";
     }
 }
 

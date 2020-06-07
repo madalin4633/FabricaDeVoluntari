@@ -10,6 +10,7 @@ class VolunteerModel {
     public $rating = 0;
     public $activity = [];
     public $newTasks = [];
+    public $completedTasks = [];
 
     public function __construct()
     {
@@ -27,11 +28,14 @@ class VolunteerModel {
 
         if (!pg_connection_busy($conn)) {
             $query = "SELECT 
+            proj_id, 
+            proj_title,
+            proj_descr,
             assoc_id,
             task_id, 
             title,
             hours_worked,
-            logo as assoclogo,
+            assoclogo,
             descr,
             obs,
             due_date 
@@ -53,10 +57,13 @@ class VolunteerModel {
         }
 
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
-            $this -> activity[] = pg_fetch_assoc($result);
+            $rowResult = pg_fetch_assoc($result);
+            $this -> activity['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
+            // $this -> activity[] = pg_fetch_assoc($result);
         }
 
         $this->readNewTasks($assoc_id);
+        $this->readCompletedTasks($assoc_id);
     }
 
     public function readNewTasks($assoc_id) {
@@ -98,6 +105,47 @@ class VolunteerModel {
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
             $this -> newTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
+        }
+    }
+
+    public function readCompletedTasks($assoc_id) {
+        $conn = $GLOBALS['db'];
+
+        if (!pg_connection_busy($conn)) {
+            $query = "SELECT 
+            proj_id, 
+            proj_title,
+            proj_descr,
+            task_id,
+            assoc_id,
+            title,
+            assoclogo,
+            descr,
+            obs,
+            hours_worked,
+            due_date 
+            FROM vVolunteerCompleted 
+            where vol_id=$1 ";
+            if (isset($assoc_id)) $query.= "AND assoc_id=$2";
+            $query.=" ORDER BY proj_id ASC";
+
+            pg_send_prepare($conn, 'get_completedtasks',  $query);
+            
+            $res = pg_get_result($conn);
+        }
+
+        if (!pg_connection_busy($conn)) {
+            $params=[];
+            $params[] = $_SESSION['id'];
+            if (isset($assoc_id)) $params[] = $assoc_id;
+            pg_send_execute($conn, 'get_completedtasks', $params);
+            $result = pg_get_result($conn);
+        }
+
+
+        for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
+            $rowResult = pg_fetch_assoc($result);
+            $this -> completedTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
         }
     }
 

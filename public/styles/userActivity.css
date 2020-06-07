@@ -61,11 +61,11 @@
     box-shadow: 0px 0px 1px 1px aliceblue;
 }
 
-.completed-tasks > .activity-task {
+.completed-tasks .activity-task {
     background-color: gainsboro;
 }
 
-#active-tasks>.enrollTask {
+#active-tasks .enrollTask {
     display: none;
 }
 
