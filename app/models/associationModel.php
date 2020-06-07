@@ -132,8 +132,8 @@ class AssociationModel
                 break;
         }
 
-        $selectul = 'SELECT nume_prenume, SUM(hours_worked) AS ore_lucrate, COUNT(task_id) AS nr_taskuri 
-        FROM vMyAssociationActivity _        WHERE assoc_id=$1 AND (updated_on >= date_trunc(\'day\', CURRENT_TIMESTAMP - interval \'1 ' . $interval . '\') and updated_on < date_trunc(\'day\', CURRENT_TIMESTAMP))
+        $selectul = 'SELECT nume_prenume, SUM(hours_worked) AS ore_lucrate, COUNT(task_id) AS nr_taskuri, SUM(hours_worked)/COUNT(task_id) AS ora_task, TO_CHAR(max(updated_on),\'dd-mm-yyyy hh24:mi\') AS ultima_activitate
+        FROM vMyAssociationActivity WHERE assoc_id=$1 AND (updated_on >= date_trunc(\'day\', CURRENT_TIMESTAMP - interval \'1' . $interval . '\') and updated_on < date_trunc(\'day\', CURRENT_TIMESTAMP))
         GROUP BY nume_prenume ORDER BY nume_prenume ASC';
         
         if (!pg_connection_busy($db_conn)) { //filter_by o sa seteze o valoare pt week month sau year si deci va fi prepared statement si el

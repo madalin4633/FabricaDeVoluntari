@@ -17,13 +17,14 @@
     <script src="/public/javascript/menu.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable@3.5.3/dist/jspdf.plugin.autotable.js"></script>
 </head>
 
 <body>
-    <div class="vertical-split" id="export">
+    <div class="vertical-split">
     <?php require_once __DIR__ . "/components/menu.php" ?>
         <div class="data">
-        <h3>Genereaza rapoarte grafice si numerice</h3>
+        <h3>Genereaza rapoarte grafice si numerice din:</h3>
         <div class="buttonsContainer">
             <button id="LastWeek" type="button">
             Ultima saptamana
