@@ -1,3 +1,11 @@
+<?php
+	require_once __DIR__.'/../controllers/User.php';
+
+	$user = new User();
+
+	$result = $user->login_with_facebook();
+?>
+
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -25,9 +33,10 @@
 				<input type="submit" class="btn" value="Login">
 				
 				<a href="/user/register" id="reg_link"><button type="button" class="btn">Register</button></a>
+
+				<input type="button" class="btn" value="Login with facebook" onclick="window.location ='<?php echo $result?>'">
 				
-				<img id="fb_button" src="/public/images/fb_login.png" alt="Login with fb">
-			
+				<!-- <img id="fb_button" onclick="windows.location ='"  src="/public/images/fb_login.png" alt="Login with fb"> -->
 				
 			</form>
 		</div>

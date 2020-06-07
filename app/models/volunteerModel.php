@@ -9,10 +9,11 @@ class VolunteerModel {
     public $pic = "no-photo.jpg";
     public $rating = 0;
     public $activity = [];
+    public $newTasks = [];
 
     public function __construct()
     {
-        //$this -> id = $_SESSION['user_id'];
+        // $this -> id = $_SESSION['id'];
 
         // $this -> readAssociations($this->id);
 
@@ -42,7 +43,7 @@ class VolunteerModel {
 
         if (!pg_connection_busy($conn)) {
             $params=[];
-            $params[] = $GLOBALS['user_id'];
+            $params[] = $_SESSION['id'];
             if (isset($assoc_id)) $params[] = $assoc_id;
             pg_send_execute($conn, 'get_activity', $params);
             $result = pg_get_result($conn);
@@ -50,6 +51,39 @@ class VolunteerModel {
 
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $this -> activity[] = pg_fetch_assoc($result);
+        }
+
+        $this->readNewTasks($assoc_id);
+    }
+
+    public function readNewTasks($assoc_id) {
+        $conn = $GLOBALS['db'];
+
+        if (!pg_connection_busy($conn)) {
+            $query = "SELECT 
+            title,
+            assoclogo,
+            descr,
+            obs,
+            due_date 
+            FROM vVolunteerNewTasks 
+            WHERE vol_enrolled<max_volunteers ";
+            if (isset($assoc_id)) $query.= "AND assoc_id=$1";
+
+            pg_send_prepare($conn, 'get_newtasks',  $query);
+            
+            $res = pg_get_result($conn);
+        }
+
+        if (!pg_connection_busy($conn)) {
+            $params=[];
+            if (isset($assoc_id)) $params[] = $assoc_id;
+            pg_send_execute($conn, 'get_newtasks', $params);
+            $result = pg_get_result($conn);
+        }
+
+        for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
+            $this -> newTasks[] = pg_fetch_assoc($result);
         }
     }
 
@@ -246,13 +280,13 @@ class VolunteerModel {
         $db_conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'get_asoc_of_vol', 'SELECT nume from vvolunteerdashboard WHERE vol_id='.$id);
+            pg_send_prepare($db_conn, 'get_assoc_of_vol_by_id', 'SELECT nume from vvolunteerdashboard WHERE vol_id='.$id);
 
             $res = pg_get_result($db_conn);
         }
         
         if (!pg_connection_busy($db_conn)) {
-            pg_send_execute($db_conn, 'get_asoc_of_vol', array());
+            pg_send_execute($db_conn, 'get_assoc_of_vol_by_id', array());
             $result = pg_get_result($db_conn);
         }
 
@@ -260,7 +294,6 @@ class VolunteerModel {
 
         $all_sscociations = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
         return $all_sscociations;
     }
 
@@ -490,6 +523,116 @@ class VolunteerModel {
         
         if (!pg_connection_busy($db_conn)) {
             pg_send_execute($db_conn, 'give_feedback', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
+    }
+
+    function assign_task($volunteer_id, $task_id, $association_id){
+        $db_conn = $GLOBALS['db'];
+
+        $vol_assoc_id = $this->get_vol_assoc_id($volunteer_id, $association_id);
+
+        if(!$vol_assoc_id){
+            return false;
+        }
+
+        $query = 'INSERT INTO tblactivity (task_id, volassoc_id, hours_worked, bonus, created_on, updated_on) VALUES ('.$task_id.', ' . $vol_assoc_id.', 0, 0, current_timestamp, current_timestamp)';
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'assign_task_to_volunteer', $query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'assign_task_to_volunteer', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
+    }
+
+    function get_vol_assoc_id($volunteer_id, $association_id){
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'SELECT id from tblvolassoc WHERE vol_id = '.$volunteer_id . ' AND assoc_id = '. $association_id;
+        // print_r($query);
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'get_vol_assoc_id', $query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'get_vol_assoc_id', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $row = pg_fetch_array($result);
+
+        if(!$row){
+            return false;
+        }
+        else{
+            return $row['id'];
+        }
+    }
+
+    function log_work_on_task($task_id, $volunteer_id, $association_id, $hours){
+        $db_conn = $GLOBALS['db'];
+        
+        $vol_assoc_id = $this->get_vol_assoc_id($volunteer_id, $association_id);
+
+        $query = 'SELECT hours_worked from tblactivity WHERE task_id = ' . $task_id . ' AND volassoc_id = ' . $vol_assoc_id;
+
+        // print_r($query);
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'get_worked_hours_on_task', $query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'get_worked_hours_on_task', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $row = pg_fetch_array($result);
+
+        // print_r($row);
+        if (!$row){
+            return false;
+        }
+
+        $worked_hours = $row['hours_worked'];
+
+        $query = 'UPDATE tblactivity SET hours_worked = '.pg_escape_literal($worked_hours + $hours) .', updated_on = current_timestamp WHERE task_id = ' . $task_id . ' AND volassoc_id = ' . $vol_assoc_id;
+        // print_r($query);
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'work_log_hours_on_task', $query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'work_log_hours_on_task', array());
             $result = pg_get_result($db_conn);
         }
 
