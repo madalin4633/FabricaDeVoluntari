@@ -24,7 +24,7 @@ function createTableTasks($conn)
         title VARCHAR(200) NOT NULL,
         descr TEXT NOT NULL,
         obs TEXT,
-        hours_worked INTEGER,               /* hours worked each task*/
+        hours_worked INTEGER NOT NULL,               /* hours worked each task*/
         bonus INTEGER DEFAULT 0,            /* little hearts received for small tasks */
         max_volunteers INTEGER DEFAULT 3,
         active BOOLEAN DEFAULT TRUE,

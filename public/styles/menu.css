@@ -9,6 +9,7 @@
   position: sticky;
   align-content: space-around;
   justify-content: flex-start;
+  z-index: 100;
 }
 
 .menu .crop {

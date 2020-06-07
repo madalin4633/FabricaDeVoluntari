@@ -24,6 +24,7 @@ function createTableActivity($conn)
         volassoc_id INTEGER NOT NULL, /*fkey*/
         created_on TIMESTAMP NOT NULL,
         updated_on TIMESTAMP NOT NULL,
+        done boolean default false,
         CONSTRAINT act_task_fkey FOREIGN KEY (task_id)
         REFERENCES tblTasks(id),
         CONSTRAINT act_volassoc_fkey FOREIGN KEY (volassoc_id)
