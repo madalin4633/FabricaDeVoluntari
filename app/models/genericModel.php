@@ -87,12 +87,14 @@ function createViews($conn)
     // dropViewAssociationActivity($conn);
     dropViewActivityEnrolledVolunteers($conn);
     // dropViewVolunteerNewTasks($conn);
+    // dropViewMyAssociationActivity($conn);
 
     // createViewVolunteerDashboard($conn);
     // createViewVolunteerActivity($conn);
     // createViewAssociationActivity($conn);
     createViewActivityEnrolledVolunteers($conn);
     // createViewVolunteerNewTasks($conn);
+    // createViewMyAssociationActivity($conn);
 }
 
 function insertDataAll($conn) {
