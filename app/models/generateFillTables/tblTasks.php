@@ -24,7 +24,7 @@ function createTableTasks($conn)
         title VARCHAR(200) NOT NULL,
         descr TEXT NOT NULL,
         obs TEXT,
-        hours_worked INTEGER,               /* hours worked each task*/
+        hours_worked INTEGER NOT NULL,               /* hours worked each task*/
         bonus INTEGER DEFAULT 0,            /* little hearts received for small tasks */
         max_volunteers INTEGER DEFAULT 3,
         active BOOLEAN DEFAULT TRUE,
@@ -79,6 +79,13 @@ function insertDataTasks($conn)
 function insert_Task($conn, $assoc_id, $title, $obs, $desc, $hours, $bonus)
 {
     if (rand(0, 100) < 40) {
+        $done = 'TRUE';
+        $timestamp = time() - rand(300, 450)*36000;
+        //$start = strtotime("1 April 2020");
+        //$end = strtotime("3 June 2020");
+        //$timestamp = mt_rand($start, $end);
+        $current_timestamp = time();
+
         $query  ='INSERT INTO tblTasks 
     (proj_id, title, descr, obs, hours_worked, bonus, created_on, updated_on, due_date) VALUES 
     (' . $assoc_id . ','

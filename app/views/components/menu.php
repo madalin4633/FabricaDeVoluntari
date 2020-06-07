@@ -10,6 +10,7 @@
         <?= $_SESSION['is_volunteer']?"<button type='button' class='menu-button' onclick='location.href=\"/volunteer/activity\"'>Activity</button>":'' ?>
 
         <!-- association menu -->
+        <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/profile\"'>Profile </button>":'' ?>
         <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/activity\"'>Activity</button>":'' ?>
         <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/reports\"'>Reports </button>":'' ?>
         <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/recruitments\"'>Recruitments</button>":'' ?>
@@ -23,7 +24,7 @@
     </button>
 
     <div class='assoc-icon'
-        style='background: url("/public/images/<?= $_SESSION['is_volunteer']?'/profile-pics/'.$volunteer -> pic:$association->pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
+        style='background: url("/public/images/<?= $_SESSION['is_volunteer']?'profile-pics/'.$volunteer -> pic: 'logo/'.$association->pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
     </div>
 </nav>
 <div class="user-notifications">

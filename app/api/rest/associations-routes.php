@@ -30,6 +30,12 @@ $associationsRoutes = [
         "middlewares" => ["IsLoggedInHere"],
         "route" => "associations/:assocId",
         "handler" => "updateAssociation"
+    ],
+    [
+        "method" => "GET",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "associations/:assocId/myactivity",
+        "handler" => "getMyActivity"
     ],   
     [
         "method" => "GET",
@@ -135,7 +141,7 @@ function IsLoggedInHere()
     if(isset($_SESSION['id']) && $_SESSION['is_association'] == true){
         return true;
     }
-
+    //print_r('sunt aici');
     Response::status(401);
     Response::json([
         "status" => 401,
@@ -144,7 +150,17 @@ function IsLoggedInHere()
 
     return false;
 }
+function getMyActivity($req){
+    require_once __DIR__ . "/../../models/associationModel.php";
 
+    $association = new AssociationModel();
+    Response::status(200);
+    $output = array();
+    $result=$association->get_myassociation_activity($req['params']['assocId'], $req['query']['filter_by']);
+    if($result)
+        $output=array_merge(array(),$result);
+    Response::json($output);
+}
 function updateAssociation($req) {
  //updateaza datele de la o asociatie
 }
@@ -158,7 +174,7 @@ function getAssociation($req) {
 }
 function getAssociations($req) {
     Response::status(200);
-    echo "GET ALL TEAMS" . $req['payload'];
+    echo "GET ALL TEAMS /associations simplu" . $req['payload'];
     //un select din baza de date cu asociatii - toate
 }
 
