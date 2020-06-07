@@ -644,4 +644,30 @@ class VolunteerModel {
 
         return true;
     }
+
+    function join_association($volunteer_id, $association_id){
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'INSERT INTO tblvolassoc (vol_id, assoc_id, active, created_on) VALUES ( '. pg_escape_literal($volunteer_id) . ', '. pg_escape_literal($association_id) . ', true, current_timestamp)';
+        // print_r($query);
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'join_into_association_via_invite', $query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'join_into_association_via_invite', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
+    }
 }

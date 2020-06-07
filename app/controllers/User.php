@@ -402,7 +402,18 @@
             if ($entity == 'volunteer'){
                 $_SESSION['is_volunteer'] = true;
                 $_SESSION['is_association'] = false;
-                redirect('/volunteer/dashboard');
+                
+                if(isset($_SESSION['waiting_for_login'])){
+                    
+                    $redirect_url = $_SESSION['waiting_for_login'];
+                    
+                    unset($_SESSION['waiting_for_login']);
+                    
+                    redirect($redirect_url);
+                
+                }else{
+                    redirect('/volunteer/dashboard');
+                }
             }
 
             if ($entity == 'association'){;
@@ -464,7 +475,6 @@
 
             if(!$accessToken){
                 redirect('/user/login');
-                // exit();
             }
 
             $oAuth2Client = $facebook_object->getOAuth2Client();
@@ -480,7 +490,63 @@
             $_SESSION['is_association'] = false;
             $_SESSION['userData'] = $userData;
             $_SESSION['access_token'] = (string) $accessToken;
-            redirect('/volunteer/dashboard');
-        //     exit();
+            
+            if(isset($_SESSION['waiting_for_login'])){
+                    
+                $redirect_url = $_SESSION['waiting_for_login'];
+                
+                unset($_SESSION['waiting_for_login']);
+                
+                redirect($redirect_url);
+            
+            }else{
+                redirect('/volunteer/dashboard');
+            }
+        }
+
+        public function joinAssociation(){
+            
+            $invitation_link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+            
+            if(!$this->is_volunteer_logged_in()){
+
+                $_SESSION['waiting_for_login'] =  $invitation_link;
+               
+                redirect('/user/login');
+
+            }else{
+                
+                require_once __DIR__ . "/../models/associationModel.php";
+
+                $association = new AssociationModel();
+
+                $association_id = $association->get_association_id_by_invite_link($invitation_link);
+
+                if($association_id){
+
+                    require_once __DIR__ . "/../models/volunteerModel.php";
+
+                    $volunteer = new VolunteerModel();
+
+                    $result = $volunteer->join_association($_SESSION['id'], $association_id);
+
+                    if($result){
+
+                        redirect('/../../volunteer/dashboard');
+                        
+                    }else{
+
+                        die("Ne pare rau, dar a aparut o problema. Contactati un coordonator");
+
+                    }
+                    
+
+                }else{
+
+                    die("Ne pare rau, dar recrutarile sunt acum inchise. Te asteptam sa te alaturi data viitoare. Pentru nelamuriri contactati un coordonator.");
+
+                }
+
+            }
         }
     }

@@ -114,15 +114,25 @@ $associationsRoutes = [
         "middlewares" => ["IsLoggedIn"],
         "route" => "associations/:assocId/tasks/:taskId/ratings",
         "handler" => "giveTaskFeedback"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "association/:assocId/recruitments/enable",
+        "handler" => "enable_recruitments"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "association/:assocId/recruitments/disable",
+        "handler" => "disable_recruitments"
     ]
 ];
 //de discutat daca metodele alese sunt ok
 
 function IsLoggedInHere()
 {
-    $allHeaders = getallheaders();
-
-    if (isset($allHeaders['Authorization'])) {
+    if(isset($_SESSION['id']) && $_SESSION['is_association'] == true){
         return true;
     }
 
@@ -196,6 +206,48 @@ function updateTask($req){
 
 function deleteTask($req){
     //da delete la un task
+}
+
+function enable_recruitments($req){
+       
+    require_once __DIR__ . "/../../models/associationModel.php";
+
+    $association = new associationModel();
+
+    $result = $association->enable_recruitments($req['params']['assocId']);
+
+    $output = array();
+
+    if ($result){
+        $output['result'] = 'true';
+        $output['code'] = $result;
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+}
+
+function disable_recruitments($req){
+    require_once __DIR__ . "/../../models/associationModel.php";
+
+    $association = new associationModel();
+
+    $result = $association->disable_recruitments($req['params']['assocId']);
+
+    $output = array();
+
+    if ($result){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
 }
 
 

@@ -37,4 +37,8 @@ class Association {
         require_once __DIR__ . '/../views/associationActivity.php';
     }
 
+    public function recruitments(){
+        require_once __DIR__ . '/../views/recruitments.php';
+    }
+
 }

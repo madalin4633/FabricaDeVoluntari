@@ -12,7 +12,8 @@
         <!-- association menu -->
         <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/activity\"'>Activity</button>":'' ?>
         <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/reports\"'>Reports </button>":'' ?>
-
+        <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/recruitments\"'>Recruitments</button>":'' ?>
+        
         <!-- common menu -->
         <button type="button" id="logout-btn" class="menu-button" onclick="location.href='/user/logout'">Logout </button>
     </div>

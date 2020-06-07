@@ -25,7 +25,7 @@ class AssociationModel
 
         if (!pg_connection_busy($conn)) {
             $params=[];
-            $params[] = $_SESSION['assoc_id'];
+            $params[] = $_SESSION['id'];
             $params[] = $title;
             $params[] = $desc;
             $params[] = $obs;
@@ -186,5 +186,121 @@ class AssociationModel
         return $max_spots - $ocuppied_spots;
     }
 
+    function enable_recruitments($association_id){
+
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 8; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        // $invitation_code = hash('sha256', $randomString);
+        $invitation_code = $_SERVER['HTTP_ORIGIN'] . '/user/joinAssociation/' . $randomString;
+
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'UPDATE tblassociations SET link_invitatie_activ = true, link_invitatie = ' . pg_escape_literal($invitation_code) . ' WHERE id = ' . $association_id;
+
+        // print_r($query);
+
+        if(!pg_connection_busy($db_conn)){
+            pg_send_prepare($db_conn, 'enable_recruitments', $query);
+    
+            $res = pg_get_result($db_conn);
+        }
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'enable_recruitments', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return $invitation_code;
+    }
+
+    function disable_recruitments($association_id){
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'UPDATE tblassociations SET link_invitatie_activ = false' . ' WHERE id = ' . $association_id;
+
+        // print_r($query);
+
+        if(!pg_connection_busy($db_conn)){
+            pg_send_prepare($db_conn, 'disable_recruitments', $query);
+    
+            $res = pg_get_result($db_conn);
+        }
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'disable_recruitments', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
+    }
+
+    function get_invite_link($association_id){
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'SELECT link_invitatie_activ, link_invitatie from tblassociations WHERE id = ' . $association_id;
+
+        if(!pg_connection_busy($db_conn)){
+            pg_send_prepare($db_conn, 'get_invite_link', $query);
+    
+            $res = pg_get_result($db_conn);
+        }
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'get_invite_link', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $row = pg_fetch_array($result);
+
+        if ($row){
+            if($row['link_invitatie_activ'] == "t"){
+                return $row['link_invitatie'];
+            }
+        }
+        return false;
+    }
+
+    function get_association_id_by_invite_link($invite_link){
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'SELECT id, link_invitatie_activ from tblassociations WHERE link_invitatie = ' . pg_escape_literal($invite_link);
+
+        if(!pg_connection_busy($db_conn)){
+            pg_send_prepare($db_conn, 'get_assoc_id_by_invite_link', $query);
+    
+            $res = pg_get_result($db_conn);
+        }
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'get_assoc_id_by_invite_link', array());
+            $result = pg_get_result($db_conn);
+        }
+
+        $row = pg_fetch_array($result);
+
+        if ($row){
+            if($row['link_invitatie_activ'] == "t"){
+                return $row['id'];
+            }
+        }
+        return false;
+    }
 
 }
