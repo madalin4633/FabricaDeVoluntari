@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/public/styles/menu.css" />
     <link rel="icon" href="/public/images/fdv_logo.png" />
     <title>Fabrica de Voluntari</title>
-    <script src="/public/javascript/userprofile.js" ></script>
+    <script src="/public/javascript/collapsible.js" ></script>
     <script src="/public/javascript/menu.js" ></script>
     
 </head>

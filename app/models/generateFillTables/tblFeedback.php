@@ -19,7 +19,7 @@ function dropTableFeedback($conn)
 function createTableFeedback($conn)
 {
     if (pg_query($conn, 'CREATE TABLE tblFeedback(
-        id INTEGER,
+        id serial,
         task_id INTEGER NOT NULL, /*fkey*/
         volassoc_id INTEGER NOT NULL, /*fkey*/
         ' . METRIC1 .' INTEGER CHECK(' . METRIC1 .' <=5), CHECK(' . METRIC1 .' >=0),

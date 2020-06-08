@@ -52,6 +52,7 @@ class VolunteerModel {
             $result = pg_get_result($conn);
         }
 
+        $this -> activity['count'] = pg_num_rows($result);
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
             $this -> activity['projects'][$rowResult['proj_id']]['id'] = $rowResult['proj_id'];
@@ -99,7 +100,7 @@ class VolunteerModel {
             $result = pg_get_result($conn);
         }
 
-
+        $this -> newTasks['count'] = pg_num_rows($result);
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
             $this -> newTasks['projects'][$rowResult['proj_id']]['id'] = $rowResult['proj_id'];
@@ -142,7 +143,7 @@ class VolunteerModel {
             $result = pg_get_result($conn);
         }
 
-
+        $this -> completedTasks['count'] = pg_num_rows($result);
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
             $this -> completedTasks['projects'][$rowResult['proj_id']]['id'] = $rowResult['proj_id'];
@@ -575,7 +576,7 @@ class VolunteerModel {
 
         // print_r($val);
 
-        $query = 'INSERT INTO tblfeedback (id, task_id, volassoc_id, harnic, comunicativ, disponibil, punctual, serios, descriere, for_volunteer, created_on, updated_on) VALUES (' . $payload->id .','. $task_id.',' . $val .','. $payload->harnic .','. $payload->comunicativ.','. $payload->disponibil. ','. $payload->punctual .','. $payload->serios .','. pg_escape_literal($payload->descriere) .','. $payload->for_volunteer .', current_timestamp, current_timestamp)';
+        $query = 'INSERT INTO tblfeedback (task_id, volassoc_id, harnic, comunicativ, disponibil, punctual, serios, descriere, for_volunteer, created_on, updated_on) VALUES (' . $task_id.',' . $val .','. $payload->harnic .','. $payload->comunicativ.','. $payload->disponibil. ','. $payload->punctual .','. $payload->serios .','. pg_escape_literal($payload->descriere) .','. $payload->for_volunteer .', current_timestamp, current_timestamp)';
         
         print_r($query);
 
