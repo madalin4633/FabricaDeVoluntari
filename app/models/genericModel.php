@@ -42,6 +42,7 @@ require_once __DIR__ . "/generateFillTables/tblTasks.php";
 require_once __DIR__ . "/generateFillTables/tblActivity.php";
 require_once __DIR__ . "/generateFillTables/tblProjects.php";
 require_once __DIR__ . "/generateFillTables/tblCertifications.php";
+require_once __DIR__ . "/generateFillTables/tblBadgr.php";
 
 /**
  * called from api/createTables (admin only)
@@ -62,6 +63,7 @@ function createTables($conn)
     dropTableVolunteers($conn);
     dropTableProjects($conn);
     dropTableAssociations($conn);
+    dropTableBadgr($conn);
  
     createTableVolunteers($conn);
     createTableAssociations($conn);
@@ -71,6 +73,7 @@ function createTables($conn)
     createTableFeedback($conn);
     createTableActivity($conn);
     createTableCertifications($conn);
+    createTableBadgr($conn);
 
     // createViewVolunteerDashboard($conn);
     // createViewVolunteerActivity($conn);
@@ -88,9 +91,11 @@ function createViews($conn)
     dropViewActivityEnrolledVolunteers($conn);
     dropViewVolunteerNewTasks($conn);
     dropViewVolunteerCompleted($conn);
+    dropViewMyAssociationActivity($conn);
     // dropViewVolunteerNewTasks($conn);
     // dropViewMyAssociationActivity($conn);
 
+    createViewMyAssociationActivity($conn);
     createViewVolunteerDashboard($conn);
     createViewVolunteerActivity($conn);
     createViewAssociationActivity($conn);

@@ -66,6 +66,18 @@
                 </div>
                 <div class="info-table">
                     <div class="collapsible-container">
+                        <div class="collapsible-btn">My collection of badges</div>
+                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
+                    </div>
+                    <?php
+                        require_once __DIR__ . "/../models/badgrModel.php";
+                        $badge = new BadgrModel();
+
+                    ?>
+                    
+                </div> <!--info-table -->
+                <div class="info-table">
+                    <div class="collapsible-container">
                         <div class="collapsible-btn">Aptitudini</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
                     </div>
