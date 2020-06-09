@@ -73,22 +73,7 @@
                     <?php
                         require_once __DIR__ . "/../models/badgrModel.php";
                         $badge = new BadgrModel();
-                        $url = "http://www.yahoo.com/";  
-                        $ch = curl_init();  
-                        // set URL and other appropriate options  
-                        curl_setopt($ch, CURLOPT_URL, $url);  
-                        curl_setopt($ch, CURLOPT_HEADER, 0);  
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
-
-                        // grab URL and pass it to the browser  
-
-$output = curl_exec($ch);  
-
-//echo $output;
-
-// close curl resource, and free up system resources  
-curl_close($ch);
-                    ?>
+                        ?>
                     
                 </div> <!--info-table -->
                 <!--BADGR PART-------------------------------------------------------------------------------------------->
@@ -117,9 +102,10 @@ curl_close($ch);
 
     <script>initCollapsible();initMenu()</script>
     <script type='text/javascript'>
-        var assoc_id = "<?php echo $_SESSION['id'] ?>";
+        var refresh_token = "<?php echo $badge->refresh_token; ?>";
+        var email = "<?php echo $_SESSION['email'] ?>";
     </script>
-    <script src="/public/javascript/chart.js"></script>
+    <script src="/public/javascript/badgr.js"></script>
 </body>
 
 </html>

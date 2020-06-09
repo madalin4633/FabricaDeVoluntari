@@ -13,7 +13,7 @@ class BadgrModel {
         $conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($conn)) {
-            $query = 'SELECT tblbadgr.acces_token, tblbadgr.refresh_token FROM tblBadgr WHERE id=1';
+            $query = 'SELECT tblbadgr.access_token, tblbadgr.refresh_token FROM tblBadgr WHERE id=1';
 
             pg_send_prepare($conn, 'get_badgr_token',  $query);
             $res = pg_get_result($conn);
