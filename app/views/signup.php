@@ -35,11 +35,11 @@
                     <br/>
 
                     <div class="form__group">
-                        <input type="text" class="form__input" name="name" placeholder="Nume" required="" />
+                        <input type="text" class="form__input" name="name" placeholder="Nume" value=<?php echo $data['first_name']?> required="" />
                     </div>
 
                     <div class="form__group">
-                        <input type="text" class="form__input" name="surname" placeholder="Prenume" required="" />
+                        <input type="text" class="form__input" name="surname" placeholder="Prenume" value=<?php echo $data['last_name']?> required="" />
                     </div>
 
                     <div class="form__group">
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="form__group">
-                        <input type="text" class="form__input" name="email" placeholder="Email" required="" />
+                        <input type="text" class="form__input" name="email" placeholder="Email" value=<?php echo $data['email']?> required="" />
                     </div>
                     
                     <div class="form__group">
@@ -187,7 +187,7 @@
                     </div> -->
 
                     <div class="form__group">
-                        <input type="text" class="form__input" name="email" placeholder="Email" required="" />
+                        <input type="text" class="form__input" name="email" placeholder="Email" value=<?php echo $data['email']?> required="" />
                     </div>
 
                     <div class="form__group">

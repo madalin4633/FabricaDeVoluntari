@@ -253,8 +253,6 @@ class VolunteerModel {
         }
     
         $row = pg_fetch_array($result, NULL, PGSQL_ASSOC);
-    
-        pg_close();
 
         // $row = json_encode($row);
         return $row;
@@ -275,8 +273,6 @@ class VolunteerModel {
         }
 
         $all_volunteers = pg_fetch_all($result, PGSQL_ASSOC);
-
-        pg_close();
 
         // $all_volunteers = json_encode($all_volunteers);
 
@@ -329,8 +325,6 @@ class VolunteerModel {
 
         $cmdtuples = pg_affected_rows($result);
 
-        pg_close();
-
         if (!$cmdtuples){
             return false;
         }
@@ -377,8 +371,6 @@ class VolunteerModel {
         }
         
         $tasks = pg_fetch_all($result, PGSQL_ASSOC);
-
-        pg_close();
         
         return $tasks;
     }
@@ -423,8 +415,6 @@ class VolunteerModel {
         }
         
         $activity = pg_fetch_all($result, PGSQL_ASSOC);
-
-        pg_close();
         
         return $activity;
     }
@@ -447,8 +437,6 @@ class VolunteerModel {
         }
         
         $task = pg_fetch_all($result, PGSQL_ASSOC);
-
-        pg_close();
         
         return $task;
     }
@@ -472,8 +460,6 @@ class VolunteerModel {
         
         $tasks = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
-        
         return $tasks;
     }
 
@@ -495,8 +481,6 @@ class VolunteerModel {
         
         $task = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
-        
         return $task;
     }
 
@@ -518,8 +502,6 @@ class VolunteerModel {
         
         $review = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
-        
         return $review;
     }
 
@@ -540,8 +522,6 @@ class VolunteerModel {
         
         $review = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
-        
         return $review;
     }
 

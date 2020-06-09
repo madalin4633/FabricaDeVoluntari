@@ -367,6 +367,15 @@
                             $logged = true;
                         }
                     }
+
+                    if (!$logged){
+                        $admin_data = $this->userModel->login_as_admin($data['email'], $data['password']);
+                        
+                        if($admin_data){
+                            $this->createUserSession($admin_data, 'admin');
+                            $logged = true;
+                        }
+                    }
                 
                     if(!$logged){
                         $data['error'] = 'Email sau parola incorecta';
@@ -397,11 +406,11 @@
         public function createUserSession($user, $entity){
 
             $_SESSION['id'] = $user['id'];
-            $_SESSION['email'] = $user['email']; 
             
             if ($entity == 'volunteer'){
                 $_SESSION['is_volunteer'] = true;
                 $_SESSION['is_association'] = false;
+                $_SESSION['email'] = $user['email']; 
                 
                 if(isset($_SESSION['waiting_for_login'])){
                     
@@ -416,10 +425,18 @@
                 }
             }
 
-            if ($entity == 'association'){;
+            if ($entity == 'association'){
+                $_SESSION['email'] = $user['email']; 
                 $_SESSION['is_volunteer'] = false;
                 $_SESSION['is_association'] = true;
                 redirect('/association/activity');
+            }
+
+            if ($entity == 'admin'){
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['is_volunteer'] = true;
+                $_SESSION['is_association'] = true;
+                redirect('/admin');
             }
             
         }
@@ -429,6 +446,9 @@
             unset($_SESSION['email']);
             unset($_SESSION['is_volunteer']);
             unset($_SESSION['is_association']);
+            if(isset($_SESSION['username'])){
+                unset($_SESSION['username']);
+            }
             session_destroy();
             redirect('/user/login');
         }
@@ -445,7 +465,7 @@
             
             $handler = $facebook_object -> getRedirectLoginHelper();
                 
-            $redirect_path = "http://localhost:8888/user/login_facebook_pipe";
+            $redirect_path = 'http://'. $_SERVER['HTTP_HOST'] . '/user/login_facebook_pipe';
             $data = ['email'];
             $fullURL = $handler->getLoginUrl($redirect_path, $data);
 
@@ -483,25 +503,38 @@
 
             $response = $facebook_object->get("/me?fields=id, first_name, last_name, email, picture.type(large)", $accessToken);
             $userData = $response->getGraphNode()->asArray();
+            
+            
             $volunteer_data = $this->userModel->login_as_volunteer($userData['email'], 0);
-            $_SESSION['id'] = $volunteer_data['id'];
-            $_SESSION['email'] = $volunteer_data['email'];
-            $_SESSION['is_volunteer'] = true;
-            $_SESSION['is_association'] = false;
-            $_SESSION['userData'] = $userData;
-            $_SESSION['access_token'] = (string) $accessToken;
-            
-            if(isset($_SESSION['waiting_for_login'])){
+
+            if($volunteer_data){
+                $_SESSION['id'] = $volunteer_data['id'];
+                $_SESSION['email'] = $volunteer_data['email'];
+                $_SESSION['is_volunteer'] = true;
+                $_SESSION['is_association'] = false;
+                $_SESSION['userData'] = $userData;
+                $_SESSION['access_token'] = (string) $accessToken;
+                
+                if(isset($_SESSION['waiting_for_login'])){
+                        
+                    $redirect_url = $_SESSION['waiting_for_login'];
                     
-                $redirect_url = $_SESSION['waiting_for_login'];
+                    unset($_SESSION['waiting_for_login']);
+                    
+                    redirect($redirect_url);
                 
-                unset($_SESSION['waiting_for_login']);
-                
-                redirect($redirect_url);
-            
-            }else{
-                redirect('/volunteer/dashboard');
+                }else{
+                    redirect('/volunteer/dashboard');
+                }
             }
+            else if{
+                $association_data = $this->userModel->login_as_association($userData['email'], 0);
+            }
+            else{
+                $data = $userData;
+                $this->view('signup', $data);
+            }
+            
         }
 
         public function joinAssociation(){
