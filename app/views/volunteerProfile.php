@@ -64,6 +64,7 @@
                         </div>
                     </div>
                 </div>
+                <!--BADGR PART-------------------------------------------------------------------------------------------->
                 <div class="info-table">
                     <div class="collapsible-container">
                         <div class="collapsible-btn">My collection of badges</div>
@@ -72,10 +73,25 @@
                     <?php
                         require_once __DIR__ . "/../models/badgrModel.php";
                         $badge = new BadgrModel();
+                        $url = "http://www.yahoo.com/";  
+                        $ch = curl_init();  
+                        // set URL and other appropriate options  
+                        curl_setopt($ch, CURLOPT_URL, $url);  
+                        curl_setopt($ch, CURLOPT_HEADER, 0);  
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
 
+                        // grab URL and pass it to the browser  
+
+$output = curl_exec($ch);  
+
+//echo $output;
+
+// close curl resource, and free up system resources  
+curl_close($ch);
                     ?>
                     
                 </div> <!--info-table -->
+                <!--BADGR PART-------------------------------------------------------------------------------------------->
                 <div class="info-table">
                     <div class="collapsible-container">
                         <div class="collapsible-btn">Aptitudini</div>
@@ -100,6 +116,10 @@
     </div>
 
     <script>initCollapsible();initMenu()</script>
+    <script type='text/javascript'>
+        var assoc_id = "<?php echo $_SESSION['id'] ?>";
+    </script>
+    <script src="/public/javascript/chart.js"></script>
 </body>
 
 </html>

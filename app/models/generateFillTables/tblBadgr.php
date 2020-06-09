@@ -20,7 +20,7 @@ function createTableBadgr($conn)
 {
     if (pg_query($conn, 'CREATE TABLE tblBadgr(
         id INTEGER,
-        acces_token VARCHAR(200),
+        access_token VARCHAR(200),
         refresh_token VARCHAR(200)
         )  ')) {
         echo "Table Badgr created!<br>";
