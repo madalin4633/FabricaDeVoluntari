@@ -120,6 +120,12 @@ $volunteersRoutes = [
         "middlewares" => ['IsLoggedIn'],
         "route" => "task/logwork",
         "handler" => "logWorkOnTask"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ['IsLoggedIn'],
+        "route" => "badger/refresh/token",
+        "handler" => "refreshBadgrAccessToken"
     ]
 ];
 
@@ -504,6 +510,27 @@ function logWorkOnTask($req){
     Response::status(200);
     Response::json($output);
 
+}
+
+function refreshBadgrAccessToken($req){
+    require_once __DIR__ . "/../../models/volunteerModel.php";
+
+    $volunteer = new volunteerModel();
+
+    $result = $volunteer->refresh_access_token_badger($req['payload']);
+
+    $output = array();
+
+    if ($result == true){
+        $output['result'] = 'true';
+        Response::status(200);
+    }
+    else{
+        $output['result'] = 'false';
+        Response::status(409);
+    }
+
+    Response::json($output);
 }
 
 //mai jos exemple din cod - functii folosite la rutele din exemplele de pe devdrive.
