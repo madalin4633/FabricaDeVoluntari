@@ -113,6 +113,11 @@
     visibility: visible;
 }
 
+/* only show feedback button if task has not been given feedback */
+.activity-task:hover .need-feedback .feedback-button {
+    visibility: visible;
+}
+
 .activity-task:hover .enroll-button {
     visibility: visible;
 }
@@ -320,7 +325,7 @@
 
 .project {
     border: rgb(28, 42, 88) 2px dotted;
-    margin-bottom: 2px;
+    margin-bottom: 60px;
 }
 
 .break-row {
@@ -335,11 +340,16 @@
 }
 
 .task-form>input[name="title"] {
-    width: 70%;
+    width: calc(100% - 15px);
 }
 
 .task-form>input[name="due_date"] {
     max-width: fit-content;
+    align-self: flex-end;
+}
+
+.task-form>input[name="hours"] {
+    width: 50px;
     align-self: flex-end;
 }
 

@@ -42,6 +42,7 @@
                 <form id='add-task-". $project['id'] . "' class='task-form' method='POST' action=''>
                     <input type='text' name='projId' readonly style='display:none' value='". $project['id'] . "'>
                     <input type='text' name='title' placeholder='Task Title'>
+                    <p class='break-row'></p>
                     <label for='max_volunteers'>Max Volunteers</label>
                     <input type='number' name='max_volunteers' min=1 max=5 value=3>
                     <label for='max_volunteers'>Hours</label>
@@ -59,20 +60,20 @@
         ";
 
                 foreach ($project['activity'] as $task) {
-                    echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task need-feedback'>";
+                    echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task'>";
                     require __DIR__ . '/components/spinner.php';
                     echo "<div class='task-panel'>
                     ";
                     if (isset($task['volunteers'])) {
                         foreach ($task['volunteers'] as $volunteer) {
                             if ($volunteer['profile_pic'] != null && file_exists(__DIR__ . "/../../public/images/profile-pics/" . $volunteer['profile_pic'])) {
-                                echo "<div class='assoc-icon'
+                                echo "<div class='assoc-icon need-feedback'
                             style='background: url(/public/images/profile-pics/" . $volunteer['profile_pic'] . "); 
                             background-size: cover; background-position: center; background-repeat: no-repeat;'
                             >
                         ";
                             } else {
-                                echo "<div class='assoc-icon'
+                                echo "<div class='assoc-icon need-feedback'
                             style='background-color: burlywood; background-size: cover; background-position: center; background-repeat: no-repeat;'
                             >";  
                             if($volunteer['initials']) 
@@ -87,7 +88,7 @@
                         }
                     }
                     echo "<div class='activity-duedate'>" . $task['due_date'] . "</div>    
-                        <button class='done-button' onclick='assoc_markTaskDone(this, ". $task['task_id']  . ",". (($volunteer['vol_id'] == null)?'""':$volunteer['vol_id']) . "," . $_SESSION['id'] . ")'></button>
+                        <button class='done-button' onclick='assoc_markTaskDone(this, ". $task['task_id']  . ",null,null)'></button>
                  </div>
                     <div class='activity-title'>" . $task['title'] . "</div>
                     <div class='activity-desc'>" . $task['descr'] . "</div>
@@ -98,20 +99,20 @@
                 echo "<div class='completed-tasks'>";
                 
                 foreach ($project['completed'] as $task) {
-                    echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task need-feedback'>";
+                    echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task'>";
                     require __DIR__ . '/components/spinner.php';
                     echo "<div class='task-panel'>
                         ";
                     if (isset($task['volunteers'])) {
                         foreach ($task['volunteers'] as $volunteer) {
                             if ($volunteer['profile_pic'] != null && file_exists(__DIR__ . "/../../public/images/profile-pics/" . $volunteer['profile_pic'])) {
-                                echo "<div class='assoc-icon'
+                                echo "<div class='assoc-icon" . (($volunteer['volhasfeedback'] != 't') ? ' need-feedback' : '') . "'
                             style='background: url(/public/images/profile-pics/" . $volunteer['profile_pic'] . "); 
                             background-size: cover; background-position: center; background-repeat: no-repeat;'
                             >
                         ";
                             } else {
-                                echo "<div class='assoc-icon'
+                                echo "<div class='assoc-icon" . (($volunteer['volhasfeedback'] != 't' && $volunteer['initials']) ? ' need-feedback' : '') . "'
                             style='background-color: burlywood; background-size: cover; background-position: center; background-repeat: no-repeat;'
                             >" ;
                             if($volunteer['initials']) 
@@ -121,13 +122,13 @@
 
                             }
                             
-                            echo "<div class='ore-lucrate'>". $volunteer['hours'] . "</div>
-                            <button class='feedback-button' onclick="; echo '"showFeedbackForm(this, '. $task['task_id']  . ',true,' . $volunteer['volassoc_id'] . ',' . $_SESSION['id'] . ',\'' . $volunteer['profile_pic'] .'\',\'' . $volunteer['initials'] . '\')">'; echo"</button>
+                            if ($volunteer['activity_done'] == 't') echo "<div class='ore-lucrate'>". $volunteer['hours'] . "</div>";
+                            echo "<button class='feedback-button' onclick="; echo '"showFeedbackForm(this, '. $task['task_id']  . ',true,' . $volunteer['volassoc_id'] . ',' . $_SESSION['id'] . ',\'' . $volunteer['profile_pic'] .'\',\'' . $volunteer['initials'] . '\')">'; echo"</button>
                             </div>";
                         }
                     }
                     echo "<div class='activity-duedate'>" . $task['due_date'] . "</div>    
-                    <button class='done-button' onclick='assoc_markTaskDone(this, ". $task['task_id']  . ",". (($volunteer['vol_id'] == null)?'""':$volunteer['vol_id']) . "," . $_SESSION['id'] . ")'></button>
+                    <button class='done-button' onclick='assoc_markTaskDone(this, ". $task['task_id']  . ",null, null)'></button>
             </div>
                     <div class='activity-title'>" . $task['title'] . "</div>
                     <div class='activity-desc'>" . $task['descr'] . "</div>

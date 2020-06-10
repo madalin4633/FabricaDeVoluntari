@@ -11,6 +11,8 @@ class VolunteerModel {
     public $activity = [];
     public $newTasks = [];
     public $completedTasks = [];
+    public $feedback = [];
+    public $overallRating = 0;
 
     public function __construct()
     {
@@ -111,7 +113,44 @@ class VolunteerModel {
         }
     }
 
-    public function readCompletedTasks($assoc_id) {
+    public function readFeedback($vol_id) {
+        $conn = $GLOBALS['db'];
+
+        $query = "SELECT tblFeedback.descriere, 
+            CAST ((harnic + comunicativ + disponibil + punctual + serios) AS FLOAT)/5 as rating, 
+        TO_CHAR(tblFeedback.created_on, 'dd-mm-yyyy') as created_date,
+        tblAssociations.nume  as nume_assoc
+
+        FROM tblFeedback
+        INNER JOIN tblVolAssoc ON tblVolAssoc.id = tblFeedback.volassoc_id
+        INNER JOIN tblAssociations ON tblAssociations.id = tblVolAssoc.assoc_id 
+        WHERE vol_id = $1 AND for_volunteer=true
+        ORDER BY tblFeedback.created_on DESC";
+
+
+        if (!pg_connection_busy($conn)) {
+            pg_send_prepare($conn, 'get_vol_feedback', $query);
+
+            $res = pg_get_result($conn);
+        }
+        
+        if (!pg_connection_busy($conn)) {
+            pg_send_execute($conn, 'get_vol_feedback', array($vol_id));
+            $result = pg_get_result($conn);
+        }
+            
+        $this -> overallRating = 0;
+        for ($xi = 0; $xi < pg_num_rows($result); $xi++)  {
+            $array = pg_fetch_assoc($result);
+            $this -> feedback[] = $array;
+            $this -> overallRating += $array['rating'];
+        }
+
+        if (pg_num_rows($result)>0)
+        $this -> overallRating = $this -> overallRating / pg_num_rows($result);
+    }
+
+public function readCompletedTasks($assoc_id) {
         $conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($conn)) {
@@ -126,6 +165,7 @@ class VolunteerModel {
             assoclogo,
             descr,
             obs,
+            assocHasFeedback,
             hours_worked,
             due_date 
             FROM vVolunteerCompleted 

@@ -26,6 +26,7 @@ class Volunteer {
         // signed in volunteer looking at his profile
         $volunteer = new VolunteerModel();
         $volunteer->readPersonalDetails($_SESSION['id']);
+        $volunteer->readFeedback($_SESSION['id']);
 
         require_once __DIR__ . '/../views/volunteerProfile.php';
     }

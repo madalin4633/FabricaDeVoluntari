@@ -50,13 +50,16 @@ function dropViewActivityEnrolledVolunteers($conn)
 function createViewActivityEnrolledVolunteers($conn)
 {
     if (pg_query($conn, "CREATE VIEW vActivityEnrolledVolunteers AS
-        SELECT tblProjects.id as proj_id, tblTasks.id as task_id, tblActivity.volassoc_id, vol_id, LEFT(tblVolunteers.nume,1) || LEFT(tblVolunteers.prenume,1) as initials, tblProjects.assoc_id, sum(hours_worked) as hours, tblTasks.done,  profile_pic
+        SELECT tblProjects.id as proj_id, tblTasks.id as task_id, tblActivity.volassoc_id, vol_id, LEFT(tblVolunteers.nume,1) || LEFT(tblVolunteers.prenume,1) as initials, tblProjects.assoc_id, sum(hours_worked) as hours, tblTasks.done as task_done, tblActivity.done as activity_done,  profile_pic, 
+		 tblFbVol.volHasFeedback, assocHasFeedback
         FROM tblTasks 
         LEFT JOIN tblActivity ON tblTasks.id=tblActivity.task_id
         LEFT JOIN tblProjects ON tblTasks.proj_id=tblProjects.id
 		LEFT JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id
-		LEFT JOIN tblVolunteers ON tblVolAssoc.vol_id=tblVolunteers.id
-        GROUP BY tblProjects.id, tblActivity.volassoc_id, tblTasks.id, vol_id, tblVolunteers.nume, tblVolunteers.prenume , tblProjects.assoc_id, profile_pic
+		LEFT JOIN tblVolunteers ON tblVolAssoc.vol_id=tblVolunteers.id 
+		LEFT JOIN (SELECT true as volHasFeedback, volassoc_id, task_id FROM tblFeedback WHERE for_volunteer = true ) tblFbVol ON tblFbVol.volassoc_id = tblActivity.volassoc_id AND tblFbVol.task_id = tblTasks.id
+		LEFT JOIN (SELECT true as assocHasFeedback, volassoc_id, task_id FROM tblFeedback WHERE for_volunteer = false ) tblFbAssoc ON tblFbAssoc.volassoc_id = tblActivity.volassoc_id AND tblFbAssoc.task_id = tblTasks.id
+        GROUP BY tblProjects.id, tblActivity.volassoc_id, tblTasks.id, vol_id, tblVolunteers.nume, tblVolunteers.prenume , tblProjects.assoc_id, profile_pic, tblFbVol.volHasFeedback, assocHasFeedback, tblActivity.done
         ")) {
         echo "View vActivityEnrolledVolunteers created!<br>";
     } else {

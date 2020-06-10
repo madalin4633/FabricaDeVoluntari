@@ -115,7 +115,7 @@
                     </div>";
 
                     foreach ($project['tasks'] as $task) {
-                        echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task need-feedback'>";
+                        echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task" . (($task['assochasfeedback'] != 't') ? ' need-feedback' : '' ) . "'>";
                         require __DIR__ . '/components/spinner.php';
                         echo "<div class='task-panel'>
                             <div class='activity-duedate'>" . $task['hours_worked'] . " hours</div>

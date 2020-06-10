@@ -53,14 +53,16 @@ function dropViewVolunteerCompleted($conn)
 function createViewVolunteerCompleted($conn)
 {
     if (pg_query($conn, "CREATE VIEW vVolunteerCompleted AS
-            select tblProjects.id as proj_id, tblProjects.title as proj_title, tblProjects.descr as proj_descr, tblTasks.id as task_id, vol_id, tblVolAssoc.assoc_id, tblVolAssoc.id as volassoc_id, tblAssociations.logo as assoclogo, tblTasks.title, tblTasks.descr, obs, sum(hours_worked) as hours_worked, sum(bonus) as bonus, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date
+            select tblProjects.id as proj_id, tblProjects.title as proj_title, tblProjects.descr as proj_descr, tblTasks.id as task_id, vol_id, tblVolAssoc.assoc_id, tblVolAssoc.id as volassoc_id, tblAssociations.logo as assoclogo, tblTasks.title, tblTasks.descr, obs, sum(hours_worked) as hours_worked, sum(bonus) as bonus, TO_CHAR(due_date, 'DD-MM-YYYY') as due_date, tblTasks.done as task_done, tblActivity.done as activity_done, assocHasFeedback 
             from tbltasks 
             INNER JOIN tblActivity ON tblTasks.id=tblActivity.task_id
 			INNER JOIN tblProjects ON tblTasks.proj_id=tblProjects.id
             INNER JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblProjects.assoc_id
             INNER JOIN tblAssociations ON tblProjects.assoc_id=tblAssociations.id
+		LEFT JOIN (SELECT true as volHasFeedback, volassoc_id, task_id FROM tblFeedback WHERE for_volunteer = true ) tblFbVol ON tblFbVol.volassoc_id = tblActivity.volassoc_id AND tblFbVol.task_id = tblTasks.id
+		LEFT JOIN (SELECT true as assocHasFeedback, volassoc_id, task_id FROM tblFeedback WHERE for_volunteer = false ) tblFbAssoc ON tblFbAssoc.volassoc_id = tblActivity.volassoc_id AND tblFbAssoc.task_id = tblTasks.id
             WHERE tblTasks.active=true and tblActivity.done=true
-            GROUP BY tblProjects.id, tblProjects.title, tblProjects.descr, tblTasks.id, vol_id, tblVolAssoc.assoc_id, tblTasks.title, tblTasks.descr, obs, due_date, tblAssociations.logo
+            GROUP BY tblProjects.id, tblProjects.title, tblProjects.descr, tblTasks.id, vol_id, tblVolAssoc.assoc_id, tblTasks.title, tblTasks.descr, obs, due_date, tblAssociations.logo, tblActivity.done, assocHasFeedback
                   ")) {
         echo "View vVolunteerCompleted created!<br>";
     } else {

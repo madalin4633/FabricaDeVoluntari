@@ -45,6 +45,9 @@ nav .vertical-split{
     font: 21px "Source Sans Pro";
     color: whitesmoke;
     padding: 0.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .crop {
@@ -184,6 +187,37 @@ nav .vertical-split{
     width: auto;
 }
 
+.feedbackRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.feedbackRow * {
+    padding: 5px;
+    color: white;
+    font-size: 18px;
+}
+
+.feedbackStars {
+    display: block;
+}
+
+.feedbackDate {
+    display: block;
+    width: 270px;
+}
+
+.feedbackFrom {
+    display: block;
+}
+
+.feedbackDescr {
+    width: 100%;
+    color: cyan;
+}
+
 @media only screen and (max-width: 800px) {
     .leftPanel {
         display: none;
@@ -211,3 +245,4 @@ nav .vertical-split{
     }
 
 }
+

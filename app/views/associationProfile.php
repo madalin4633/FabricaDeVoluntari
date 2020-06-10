@@ -34,6 +34,7 @@
                 </div>
 
             </nav>
+            <div class='useful-space'>
 
             <div class="details-container">
                 <div class="info-table">
@@ -61,7 +62,36 @@
                 </div>
             </div>
 
-        </div>
+            <div class="details-container">
+                <div class="info-table">
+                    <div class="collapsible-container">
+                        <div class="collapsible-btn">Feedback</div>
+                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg">
+                    </div>
+                    <div class="collapsible-content">
+                        <div class='tableElement'>
+                            <?php 
+                                foreach($association -> feedback as $feedback) {
+                                    echo "<div class='tableRow'>
+                                        <div class='tableHeader' style='white-space:nowrap'>
+                                            " . $feedback['created_date'] . "
+                                        </div>
+                                        <div class='tableCell'>
+                                            " . $feedback['nume_vol'] . "
+                                        </div>
+                                        <div class='tableCell'>
+                                            " . $feedback['descriere'] . "
+                                        </div>
+                                    </div>";
+                                };
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                            </div>
+       </div>
     </div>
 
     <script>initCollapsible();initMenu()</script>

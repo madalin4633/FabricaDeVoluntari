@@ -152,9 +152,9 @@ function assoc_markTaskDone(elem, task_id, vol_id, assoc_id) {
     if (!taskContainer.classList.contains("pending"))
         taskContainer.classList.add("pending");
 
-    let payload = {'volunteer_id':vol_id,
+    let payload = {'volunteer_id':0,
     'task_id': task_id,
-    'association_id': assoc_id,
+    'association_id': 0,
     'for_volunteer': false};
 
     fetch("/api/task/markcomplete", {method: 'PUT', 

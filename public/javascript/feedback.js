@@ -1,9 +1,9 @@
 let overlay = document.getElementById('feedback-form-overlay');
 let score = {harnic: 0, comunicativ: 0, disponibil: 0, punctual: 0, serios: 0};
 
-overlay.addEventListener('click', function(event) {
+overlay.onclick= function(event) {
     event.target.isEqualNode(overlay) && overlay.classList.remove('open');
-});
+};
 
 function updateFeedbackStar(elem) {
     let allStars = elem.parentNode.querySelectorAll('.feedback-star');
@@ -65,10 +65,12 @@ function showFeedbackForm(elem, task_id, forVolunteer, volassoc_id, vol_id, vol_
     overlay.classList.add('open');
 
     let btnGiveFeedback = document.getElementById('btnGiveFeedback');
-    btnGiveFeedback.addEventListener('click', function() {
-        giveFeedback(elem.parentNode.parentNode, task_id, forVolunteer, volassoc_id, vol_id, 
+    btnGiveFeedback.onclick = function() {
+        let needFeedbackFlag = elem.parentNode.parentNode;
+        if (forVolunteer) needFeedbackFlag = elem.parentNode;
+        giveFeedback(needFeedbackFlag, task_id, forVolunteer, volassoc_id, vol_id, 
                 score['harnic'], score['comunicativ'], score['disponibil'], score['punctual'], score['serios']);
-    })  
+    } 
 }
 
 function giveFeedback(taskContainer, task_id, forVolunteer, volassoc_id, vol_id, harnic, comunicativ, disponibil, punctual, serios) {
@@ -104,6 +106,7 @@ function giveFeedback(taskContainer, task_id, forVolunteer, volassoc_id, vol_id,
         feedbackNotes.value = "";
         overlay.classList.remove('open');
         taskContainer.classList.remove('need-feedback');
+
     })
     .catch(function(error) {
         console.log('a crapat ' + error)

@@ -19,14 +19,15 @@ class Association {
         // signed in assoc looking at his profile
         $association = new AssociationModel();
         $association->readPersonalDetails($_SESSION['id']);
+        $association->readFeedback($_SESSION['id']);
 
         require_once __DIR__ . '/../views/associationProfile.php';
     }
 
-    public function activity() {
+    public function activity($params) {
         // signed in association looking at his dashboard
         $association = new AssociationModel();
-        $association->readProjects($_SESSION['id']);
+        $association->readProjects($_SESSION['id'], ((isset($params[0]) && $params[0]!="") ? $params[0] : null));
         $association->readPersonalDetails($_SESSION['id']);
 
         if (isset($_REQUEST['add']) && $_REQUEST['add'] == 'addProject') {
