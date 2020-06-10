@@ -70,11 +70,15 @@
                         <div class="collapsible-btn">Badge-urile mele</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
                     </div>
-                    <div class="collapsible-content" id="collapsible-profile">
-                    <?php
+                    <div class="collapsible-content">
+                        <div class="slider">
+                        </div>
+                        <div  id="collapsible-profile">
+                            <?php
                         require_once __DIR__ . "/../models/badgrModel.php";
                         $badge = new BadgrModel();
-                        ?>
+                            ?>
+                        </div>
                     </div>
                 </div> <!--info-table -->
                 <!--BADGR PART-------------------------------------------------------------------------------------------->
