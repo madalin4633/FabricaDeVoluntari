@@ -19,7 +19,7 @@ function dropTableFeedback($conn)
 function createTableFeedback($conn)
 {
     if (pg_query($conn, 'CREATE TABLE tblFeedback(
-        id INTEGER,
+        id serial,
         task_id INTEGER NOT NULL, /*fkey*/
         volassoc_id INTEGER NOT NULL, /*fkey*/
         ' . METRIC1 .' INTEGER CHECK(' . METRIC1 .' <=5), CHECK(' . METRIC1 .' >=0),
@@ -35,7 +35,8 @@ function createTableFeedback($conn)
         CONSTRAINT feed_task_fkey FOREIGN KEY (task_id)
         REFERENCES tblTasks(id),
         CONSTRAINT feed_volassoc_fkey FOREIGN KEY (volassoc_id)
-        REFERENCES tblVolAssoc(id)
+        REFERENCES tblVolAssoc(id),
+        CONSTRAINT feedbackUnq UNIQUE (task_id, volassoc_id, for_volunteer)
         )  ')) {
         echo "Table Feedback created!<br>";
     } else {

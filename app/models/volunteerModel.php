@@ -11,16 +11,14 @@ class VolunteerModel {
     public $activity = [];
     public $newTasks = [];
     public $completedTasks = [];
+    public $feedback = [];
+    public $overallRating = 0;
 
     public function __construct()
     {
-        // $this -> id = $_SESSION['id'];
-
-        // $this -> readAssociations($this->id);
-
-        // $this -> readSuggestedAssociations($this->id);
-        
-        // $this -> readPersonalDetails($this->id);
+        $this -> activity['projects'] = [];
+        $this -> newTasks['projects'] = [];
+        $this -> completedTasks['projects'] = [];
     }
 
     public function readActivity($assoc_id) {
@@ -32,6 +30,7 @@ class VolunteerModel {
             proj_title,
             proj_descr,
             assoc_id,
+            volassoc_id,
             task_id, 
             title,
             hours_worked,
@@ -56,8 +55,11 @@ class VolunteerModel {
             $result = pg_get_result($conn);
         }
 
+        $this -> activity['count'] = pg_num_rows($result);
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
+            $this -> activity['projects'][$rowResult['proj_id']]['id'] = $rowResult['proj_id'];
+            // $this -> activity['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']]['id'] = $rowResult['task_id'];
             $this -> activity['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
             // $this -> activity[] = pg_fetch_assoc($result);
         }
@@ -76,6 +78,7 @@ class VolunteerModel {
             proj_descr,
             task_id,
             assoc_id,
+            volassoc_id,
             title,
             assoclogo,
             descr,
@@ -101,14 +104,53 @@ class VolunteerModel {
             $result = pg_get_result($conn);
         }
 
-
+        $this -> newTasks['count'] = pg_num_rows($result);
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
+            $this -> newTasks['projects'][$rowResult['proj_id']]['id'] = $rowResult['proj_id'];
+            // $this -> newTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']]['id'] = $rowResult['task_id'];
             $this -> newTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
         }
     }
 
-    public function readCompletedTasks($assoc_id) {
+    public function readFeedback($vol_id) {
+        $conn = $GLOBALS['db'];
+
+        $query = "SELECT tblFeedback.descriere, 
+            CAST ((harnic + comunicativ + disponibil + punctual + serios) AS FLOAT)/5 as rating, 
+        TO_CHAR(tblFeedback.created_on, 'dd-mm-yyyy') as created_date,
+        tblAssociations.nume  as nume_assoc
+
+        FROM tblFeedback
+        INNER JOIN tblVolAssoc ON tblVolAssoc.id = tblFeedback.volassoc_id
+        INNER JOIN tblAssociations ON tblAssociations.id = tblVolAssoc.assoc_id 
+        WHERE vol_id = $1 AND for_volunteer=true
+        ORDER BY tblFeedback.created_on DESC";
+
+
+        if (!pg_connection_busy($conn)) {
+            pg_send_prepare($conn, 'get_vol_feedback', $query);
+
+            $res = pg_get_result($conn);
+        }
+        
+        if (!pg_connection_busy($conn)) {
+            pg_send_execute($conn, 'get_vol_feedback', array($vol_id));
+            $result = pg_get_result($conn);
+        }
+            
+        $this -> overallRating = 0;
+        for ($xi = 0; $xi < pg_num_rows($result); $xi++)  {
+            $array = pg_fetch_assoc($result);
+            $this -> feedback[] = $array;
+            $this -> overallRating += $array['rating'];
+        }
+
+        if (pg_num_rows($result)>0)
+        $this -> overallRating = $this -> overallRating / pg_num_rows($result);
+    }
+
+public function readCompletedTasks($assoc_id) {
         $conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($conn)) {
@@ -118,10 +160,12 @@ class VolunteerModel {
             proj_descr,
             task_id,
             assoc_id,
+            volassoc_id,
             title,
             assoclogo,
             descr,
             obs,
+            assocHasFeedback,
             hours_worked,
             due_date 
             FROM vVolunteerCompleted 
@@ -142,9 +186,11 @@ class VolunteerModel {
             $result = pg_get_result($conn);
         }
 
-
+        $this -> completedTasks['count'] = pg_num_rows($result);
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $rowResult = pg_fetch_assoc($result);
+            $this -> completedTasks['projects'][$rowResult['proj_id']]['id'] = $rowResult['proj_id'];
+            // $this -> completedTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']]['id'] = $rowResult['task_id'];
             $this -> completedTasks['projects'][$rowResult['proj_id']]['tasks'][$rowResult['task_id']] = $rowResult;
         }
     }
@@ -550,30 +596,30 @@ class VolunteerModel {
 
         // print_r($task_id.'   '.$volunteer_id);
 
-        $first_query = 'SELECT volassoc.id FROM tblvolassoc volassoc JOIN tbltasks tsk ON tsk.assoc_id = volassoc.assoc_id JOIN vvolunteeractivity vact ON vact.task_id = tsk.id WHERE tsk.id = ' . $task_id . ' AND volassoc.vol_id = ' . $volunteer_id;
+        // $first_query = 'SELECT volassoc.id FROM tblvolassoc volassoc JOIN tbltasks tsk ON tsk.assoc_id = volassoc.assoc_id JOIN vvolunteeractivity vact ON vact.task_id = tsk.id WHERE tsk.id = ' . $task_id . ' AND volassoc.vol_id = ' . $volunteer_id;
 
-        if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'retrive_data', $first_query);
+        // if (!pg_connection_busy($db_conn)) {
+        //     pg_send_prepare($db_conn, 'retrive_data', $first_query);
 
-            $res = pg_get_result($db_conn);
-        }
+        //     $res = pg_get_result($db_conn);
+        // }
         
-        if (!pg_connection_busy($db_conn)) {
-            pg_send_execute($db_conn, 'retrive_data', array());
-            $result = pg_get_result($db_conn);
-        }
+        // if (!pg_connection_busy($db_conn)) {
+        //     pg_send_execute($db_conn, 'retrive_data', array());
+        //     $result = pg_get_result($db_conn);
+        // }
 
-        $value = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+        // $value = pg_fetch_array($result, NULL, PGSQL_ASSOC);
 
-        if(isset($value)){
-            return false;
-        }
+        // if(isset($value)){
+        //     return false;
+        // }
 
-        $val = $value['id'];
+        // $val = $value['id'];
 
         // print_r($val);
-
-        $query = 'INSERT INTO tblfeedback (id, task_id, volassoc_id, harnic, comunicativ, disponibil, punctual, serios, descriere, for_volunteer, created_on, updated_on) VALUES (' . $payload->id .','. $task_id.',' . $val .','. $payload->harnic .','. $payload->comunicativ.','. $payload->disponibil. ','. $payload->punctual .','. $payload->serios .','. pg_escape_literal($payload->descriere) .','. $payload->for_volunteer .', current_timestamp, current_timestamp)';
+        $for_volunteer = $payload->for_volunteer?'true':'false';
+        $query = 'INSERT INTO tblfeedback (task_id, volassoc_id, harnic, comunicativ, disponibil, punctual, serios, descriere, for_volunteer, created_on, updated_on) VALUES (' . $payload->task_id.',' . $payload->volassoc_id .','. $payload->harnic .','. $payload->comunicativ.','. $payload->disponibil. ','. $payload->punctual .','. $payload->serios .','. pg_escape_literal($payload->descriere) .','. $for_volunteer .', current_timestamp, current_timestamp)';
         
         print_r($query);
 

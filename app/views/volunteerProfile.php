@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/public/styles/menu.css" />
     <link rel="icon" href="/public/images/fdv_logo.png" />
     <title>Fabrica de Voluntari</title>
-    <script src="/public/javascript/userprofile.js" ></script>
+    <script src="/public/javascript/collapsible.js" ></script>
     <script src="/public/javascript/menu.js" ></script>
     
 </head>
@@ -29,7 +29,7 @@
                     style='background: url("/public/images/profile-pics/<?= $volunteer -> pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                 </div>
                     <div id="full-name">
-                        <?php echo $volunteer -> username; showFeedbackStars($volunteer->rating);?>
+                        <?php echo $volunteer -> username; showFeedbackStars($volunteer->overallRating);?>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
             <div class="details-container">
                 <div class="info-table">
                     <div class="collapsible-container">
-                        <div class="collapsible-btn">Detalii personale</div>
+                        <div class="collapsible-btn">Personal Details</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg">
                     </div>
                     <div class="collapsible-content">
@@ -64,25 +64,36 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="info-table">
                     <div class="collapsible-container">
-                        <div class="collapsible-btn">Aptitudini</div>
-                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
+                        <div class="collapsible-btn">Feedback</div>
+                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg">
                     </div>
                     <div class="collapsible-content">
-                        <div class="under-construction">Under construction</div>
+                        <div class='tableElement'>
+                            <?php 
+                                foreach($volunteer -> feedback as $feedback) {
+                                    echo "<div class='feedbackRow'>
+                                        <div class='feedbackDate'>
+                                            " . $feedback['created_date'] . "
+                                        </div>
+                                        <div class='feedbackStars'>
+                                            "; showFeedbackStars($feedback['rating']); 
+                                        echo "</div>
+                                        <div class='feedbackFrom'>
+                                            " . $feedback['nume_assoc'] . "
+                                        </div>
+                                        <div class='feedbackDescr'>
+                                            " . $feedback['descriere'] . "
+                                        </div>
+                                    </div>";
+                                };
+                            ?>
+                        </div>
                     </div>
                 </div>
-                <div class="info-table">
-                    <div class="collapsible-container">
-                        <div class="collapsible-btn">Interese</div>
-                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
-                    </div>
-                    <div class="collapsible-content">
-                        <div class="under-construction">Under construction</div>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
     </div>

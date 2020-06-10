@@ -48,29 +48,29 @@ require_once __DIR__ . "/generateFillTables/tblCertifications.php";
  */
 function createTables($conn)
 {
-    dropViewVolunteerDashboard($conn);
-    dropViewVolunteerActivity($conn);
-    dropViewAssociationActivity($conn);
-    dropViewActivityEnrolledVolunteers($conn);
-    dropViewVolunteerNewTasks($conn);
+//     dropViewVolunteerDashboard($conn);
+//     dropViewVolunteerActivity($conn);
+//     dropViewAssociationActivity($conn);
+//     dropViewActivityEnrolledVolunteers($conn);
+//     dropViewVolunteerNewTasks($conn);
 
-   dropTableCertifications($conn);
-    dropTableActivity($conn);
-    dropTableFeedback($conn);
-    dropTableTasks($conn);
-    dropTableVolAssoc($conn);
-    dropTableVolunteers($conn);
-    dropTableProjects($conn);
-    dropTableAssociations($conn);
+//    dropTableCertifications($conn);
+//     dropTableActivity($conn);
+//     dropTableFeedback($conn);
+//     dropTableTasks($conn);
+//     dropTableVolAssoc($conn);
+//     dropTableVolunteers($conn);
+//     dropTableProjects($conn);
+//     dropTableAssociations($conn);
  
-    createTableVolunteers($conn);
-    createTableAssociations($conn);
-    createTableVolAssoc($conn);
-     createTableProjects($conn);
-   createTableTasks($conn);
+//     createTableVolunteers($conn);
+//     createTableAssociations($conn);
+//     createTableVolAssoc($conn);
+//      createTableProjects($conn);
+//    createTableTasks($conn);
     createTableFeedback($conn);
-    createTableActivity($conn);
-    createTableCertifications($conn);
+    // createTableActivity($conn);
+    // createTableCertifications($conn);
 
     // createViewVolunteerDashboard($conn);
     // createViewVolunteerActivity($conn);

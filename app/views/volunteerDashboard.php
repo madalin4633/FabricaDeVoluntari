@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/public/styles/menu.css" />
     <link rel="icon" href="/public/images/fdv_logo.png" />
     <title>Fabrica de Voluntari</title>
-    <script src="/public/javascript/userprofile.js" ></script>
+    <script src="/public/javascript/collapsible.js" ></script>
     <script src="/public/javascript/menu.js" ></script>
 </head>
 
@@ -25,7 +25,7 @@
             <div class="details-container">
                 <div class="info-table">
                     <div class="collapsible-container active">
-                        <div class="collapsible-btn">Asociatiile mele</div>
+                        <div class="collapsible-btn">My Associations</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
                     </div>
                     <div class="collapsible-content" style="max-height: fit-content;">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="info-table">
                     <div class="collapsible-container active">
-                        <div class="collapsible-btn">Asociatii Sugerate</div>
+                        <div class="collapsible-btn">Campaigns</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white"
                             src="/public/images/arrow_drop_down_circle-24px.svg" >
                     </div>
