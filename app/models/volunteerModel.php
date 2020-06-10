@@ -28,6 +28,7 @@ class VolunteerModel {
             proj_title,
             proj_descr,
             assoc_id,
+            volassoc_id,
             task_id, 
             title,
             hours_worked,
@@ -75,6 +76,7 @@ class VolunteerModel {
             proj_descr,
             task_id,
             assoc_id,
+            volassoc_id,
             title,
             assoclogo,
             descr,
@@ -119,6 +121,7 @@ class VolunteerModel {
             proj_descr,
             task_id,
             assoc_id,
+            volassoc_id,
             title,
             assoclogo,
             descr,
@@ -553,30 +556,30 @@ class VolunteerModel {
 
         // print_r($task_id.'   '.$volunteer_id);
 
-        $first_query = 'SELECT volassoc.id FROM tblvolassoc volassoc JOIN tbltasks tsk ON tsk.assoc_id = volassoc.assoc_id JOIN vvolunteeractivity vact ON vact.task_id = tsk.id WHERE tsk.id = ' . $task_id . ' AND volassoc.vol_id = ' . $volunteer_id;
+        // $first_query = 'SELECT volassoc.id FROM tblvolassoc volassoc JOIN tbltasks tsk ON tsk.assoc_id = volassoc.assoc_id JOIN vvolunteeractivity vact ON vact.task_id = tsk.id WHERE tsk.id = ' . $task_id . ' AND volassoc.vol_id = ' . $volunteer_id;
 
-        if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'retrive_data', $first_query);
+        // if (!pg_connection_busy($db_conn)) {
+        //     pg_send_prepare($db_conn, 'retrive_data', $first_query);
 
-            $res = pg_get_result($db_conn);
-        }
+        //     $res = pg_get_result($db_conn);
+        // }
         
-        if (!pg_connection_busy($db_conn)) {
-            pg_send_execute($db_conn, 'retrive_data', array());
-            $result = pg_get_result($db_conn);
-        }
+        // if (!pg_connection_busy($db_conn)) {
+        //     pg_send_execute($db_conn, 'retrive_data', array());
+        //     $result = pg_get_result($db_conn);
+        // }
 
-        $value = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+        // $value = pg_fetch_array($result, NULL, PGSQL_ASSOC);
 
-        if(isset($value)){
-            return false;
-        }
+        // if(isset($value)){
+        //     return false;
+        // }
 
-        $val = $value['id'];
+        // $val = $value['id'];
 
         // print_r($val);
-
-        $query = 'INSERT INTO tblfeedback (task_id, volassoc_id, harnic, comunicativ, disponibil, punctual, serios, descriere, for_volunteer, created_on, updated_on) VALUES (' . $task_id.',' . $val .','. $payload->harnic .','. $payload->comunicativ.','. $payload->disponibil. ','. $payload->punctual .','. $payload->serios .','. pg_escape_literal($payload->descriere) .','. $payload->for_volunteer .', current_timestamp, current_timestamp)';
+        $for_volunteer = $payload->for_volunteer?'true':'false';
+        $query = 'INSERT INTO tblfeedback (task_id, volassoc_id, harnic, comunicativ, disponibil, punctual, serios, descriere, for_volunteer, created_on, updated_on) VALUES (' . $payload->task_id.',' . $payload->volassoc_id .','. $payload->harnic .','. $payload->comunicativ.','. $payload->disponibil. ','. $payload->punctual .','. $payload->serios .','. pg_escape_literal($payload->descriere) .','. $for_volunteer .', current_timestamp, current_timestamp)';
         
         print_r($query);
 

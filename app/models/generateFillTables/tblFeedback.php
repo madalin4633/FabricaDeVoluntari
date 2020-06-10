@@ -35,7 +35,8 @@ function createTableFeedback($conn)
         CONSTRAINT feed_task_fkey FOREIGN KEY (task_id)
         REFERENCES tblTasks(id),
         CONSTRAINT feed_volassoc_fkey FOREIGN KEY (volassoc_id)
-        REFERENCES tblVolAssoc(id)
+        REFERENCES tblVolAssoc(id),
+        CONSTRAINT feedbackUnq UNIQUE (task_id, volassoc_id, for_volunteer)
         )  ')) {
         echo "Table Feedback created!<br>";
     } else {

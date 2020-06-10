@@ -46,7 +46,7 @@
                             style='background: url(/public/images/logo/" . $task['assoclogo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                         </div>
                         <button class='done-button' onclick='vol_markTaskDone(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
-                        <button class='feedback-button' onclick='showFeedbackForm(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
+                        <button class='feedback-button' onclick='showFeedbackForm(this, ". $task['task_id']  . ",false," . $task['volassoc_id'] . "," . $_SESSION['id'] . ")'></button>
                         <button class='enroll-button' onclick='assignTask(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
                         </div>
                         <div class='activity-title'>" . $task['title'] . "</div>
@@ -85,7 +85,7 @@
                             style='background: url(/public/images/logo/" . $task['assoclogo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                         </div>
                         <button class='done-button' onclick='vol_markTaskDone(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
-                        <button class='feedback-button' onclick='showFeedbackForm(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
+                        <button class='feedback-button' onclick='showFeedbackForm(this, ". $task['task_id']  . ",false," . $task['volassoc_id'] . "," . $_SESSION['id'] . ")'></button>
                         <button class='enroll-button' onclick='assignTask(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
                         </div>
                         <div class='activity-title'>" . $task['title'] . "</div>
@@ -120,11 +120,11 @@
                         echo "<div class='task-panel'>
                             <div class='activity-duedate'>" . $task['hours_worked'] . " hours</div>
                             <div class='activity-duedate'>until " . $task['due_date'] . "</div>
-                            <div class='assoc-icon'
+                            <div class='assoc-icon' data-assoc-id=" . $task['assoc_id'] . "
                             style='background: url(/public/images/logo/" . $task['assoclogo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                             </div>
                             <button class='done-button' onclick='vol_markTaskDone(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
-                            <button class='feedback-button' onclick='showFeedbackForm(this, ". $task['task_id']  . ",". $_SESSION['id'] . "," . $task['assoc_id'] . ")'></button>
+                            <button class='feedback-button' onclick='showFeedbackForm(this, ". $task['task_id']  . ",false," . $task['volassoc_id'] . "," . $_SESSION['id'] . ")'></button>
                             <button class='enroll-button' onclick='assignTask(this, ". $task['task_id']  . ")'></button>
                     </div>
                     <div class='activity-title'>" . $task['title'] . "</div>
@@ -145,6 +145,7 @@
     <script src="/public/javascript/collapsible.js" ></script>
     <script src="/public/javascript/feedback.js" ></script>
     <script>
+        
         initCollapsible();
         initMenu();
     </script>
