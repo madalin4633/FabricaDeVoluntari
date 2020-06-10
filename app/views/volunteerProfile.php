@@ -67,14 +67,15 @@
                 <!--BADGR PART-------------------------------------------------------------------------------------------->
                 <div class="info-table">
                     <div class="collapsible-container">
-                        <div class="collapsible-btn">My collection of badges</div>
+                        <div class="collapsible-btn">Badge-urile mele</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
                     </div>
+                    <div class="collapsible-content" id="collapsible-profile">
                     <?php
                         require_once __DIR__ . "/../models/badgrModel.php";
                         $badge = new BadgrModel();
                         ?>
-                    
+                    </div>
                 </div> <!--info-table -->
                 <!--BADGR PART-------------------------------------------------------------------------------------------->
                 <div class="info-table">
