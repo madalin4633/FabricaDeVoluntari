@@ -71,6 +71,10 @@ form{
 	text-decoration: none;
 }
 
+.button_container{
+	display: flex;
+}
+
 .btn{
 	display: block;
 	width: 100%;

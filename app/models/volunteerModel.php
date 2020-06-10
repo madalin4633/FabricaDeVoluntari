@@ -599,6 +599,8 @@ class VolunteerModel {
             $result = pg_get_result($db_conn);
         }
 
+        print_r($result);
+
         $cmdtuples = pg_affected_rows($result);
 
         if (!$cmdtuples){

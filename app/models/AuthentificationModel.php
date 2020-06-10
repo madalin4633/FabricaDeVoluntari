@@ -12,7 +12,7 @@ class AuthentificationModel extends App {
 
     public function register($data){
         
-        $query = 'INSERT INTO tblVolunteers 
+        $query = 'INSERT INTO tblvolunteers 
         (nume, prenume, username, email, gen, phone_no, nationalitate, data_nasterii, profile_pic, created_on, updated_on, pass_hash) VALUES 
         ('. pg_escape_literal($data['name']) . ',' . pg_escape_literal($data['surname']) . ','  . pg_escape_literal($data['surname'] . $data['name']) . 
           ',' . pg_escape_literal($data['email']) . ',' . pg_escape_literal($data['gender']) . ',' . pg_escape_literal($data['phone']) . ',' .

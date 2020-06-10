@@ -160,14 +160,14 @@
             } else {
               // Init data -- NOT A POST REQUEST
                 $data =[
-                    'name' => '',
-                    'email' => '',
-                    'password' => '',
-                    'confirm_password' => '',
-                    'name_err' => '',
-                    'email_err' => '',
-                    'password_err' => '',
-                    'confirm_password_err' => ''
+                    // 'name' => '',
+                    // 'email' => '',
+                    // 'password' => '',
+                    // 'confirm_password' => '',
+                    // 'name_err' => '',
+                    // 'email_err' => '',
+                    // 'password_err' => '',
+                    // 'confirm_password_err' => ''
                 ];
         
                 // Load view
@@ -503,17 +503,21 @@
 
             $response = $facebook_object->get("/me?fields=id, first_name, last_name, email, picture.type(large)", $accessToken);
             $userData = $response->getGraphNode()->asArray();
-            
-            
+
+            $loggedIn = false;
+
             $volunteer_data = $this->userModel->login_as_volunteer($userData['email'], 0);
 
             if($volunteer_data){
+                
                 $_SESSION['id'] = $volunteer_data['id'];
                 $_SESSION['email'] = $volunteer_data['email'];
                 $_SESSION['is_volunteer'] = true;
                 $_SESSION['is_association'] = false;
                 $_SESSION['userData'] = $userData;
                 $_SESSION['access_token'] = (string) $accessToken;
+
+                $loggedIn = true;
                 
                 if(isset($_SESSION['waiting_for_login'])){
                         
@@ -527,10 +531,26 @@
                     redirect('/volunteer/dashboard');
                 }
             }
-            else if{
+
+            if(!$loggedIn){
+                
                 $association_data = $this->userModel->login_as_association($userData['email'], 0);
+
+                if ($association_data){
+                    $_SESSION['id'] = $volunteer_data['id'];
+                    $_SESSION['email'] = $volunteer_data['email'];
+                    $_SESSION['is_volunteer'] = true;
+                    $_SESSION['is_association'] = false;
+                    $_SESSION['userData'] = $userData;
+                    $_SESSION['access_token'] = (string) $accessToken;
+
+                    $loggedIn = true;
+
+                    redirect('/association/activity');
+                }
             }
-            else{
+            
+            if(!$loggedIn){
                 $data = $userData;
                 $this->view('signup', $data);
             }

@@ -4,8 +4,6 @@
 	<title>Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/public/styles/admin.css"/>
-    <link rel="stylesheet" type="text/css" href="/public/styles/userActivity.css" />
-    <link rel="stylesheet" type="text/css" href="/public/styles/collapsible.css" />
 </head>
 
 
@@ -16,34 +14,58 @@
             <h2>Fabrica de Voluntari</h2>
             <ul>
                 <li><a href="#" onclick="openCity(event, 'news_tab')">News</a></li>
-                <li><a href="#" onclick="openCity(event, 'volunteer_tab')">Voluntari</a></li>
-                <li><a href="#" onclick="openCity(event, 'association_tab')">Asociatii</a></li>
-                <li><a href="#" onclick="openCity(event, 'logout')">Logout</a></li>
+                <li><a href="#" onclick="openCity(event, 'volunteer_tab')">Postman</a></li>
+                <li><a href="#" onclick="openCity(event, 'association_tab')">Statistici</a></li>
+                <li><a href="/user/logout" onclick="openCity(event, 'logout')">Logout</a></li>
             </ul> 
             
         </div>
 
         <div class="main_content">
             <div id="news_tab" class="tab">
+                <p>Test1</p>
             </div>
 
             <div id="volunteer_tab" class="tab">
-                <button type='button' class='btn' id='add-project' onclick="showAddTaskForm(0)">Add</button>
-                <form class='project-form' id='add-task-0' method="POST" action="">
-                    <input type="text" name="title" placeholder='Project Title'>
-                    <textarea name="descr" placeholder='Description'></textarea>
-                    <button name="add" type="submit" value="addProject">Add Project</button>
-                </form>
-                <br/>
-                <br/>
-                <br/>
-            
-                <button type='button' class='btn' id='add-project' onclick="showAddTaskForm(0)">Delete</button>
-                <form class='project-form' id='add-task-0' method="POST" action="">
-                    <input type="text" name="title" placeholder='Project Title'>
-                    <textarea name="descr" placeholder='Description'></textarea>
-                    <button name="add" type="submit" value="addProject">Add Project</button>
-                </form>
+                <div class = "container_rec">
+
+                    <div class="content">
+                        <div class = "form__group">
+                            <input type="text" class="form__input" id="input_route" placeholder="Route">
+                        </div>
+    
+                        <div class = "form__group">
+                            <textarea type="text" class="form__input" id="input_payload" placeholder="Payload"></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="form__group">
+                                <SELECT class="form__input" name="status" id="method_selector">
+
+                                    <OPTION Value="post">POST</OPTION>
+                                    <OPTION Value="put">PUT</OPTION>
+                                    <OPTION Value="get">GET</OPTION>
+                                    <OPTION Value="delete">DELETE</OPTION>
+
+                                </SELECT>
+                            </div>
+
+                            <input type="button" id="exec" class="btn" value="EXECUTE">
+                        </div>
+                        
+                        
+
+                        <div class = "form__group">
+                            <textarea type="text" class="form__input" id="input_payload" placeholder="Result"></textarea>
+                        </div>
+
+                        
+                        
+                    
+                    
+                    </div>
+
+                </div>
             </div>
 
             <div id="association_tab" class="tab">
