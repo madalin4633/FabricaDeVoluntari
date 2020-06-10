@@ -145,23 +145,35 @@ function vol_markTaskDone(elem, task_id, vol_id, assoc_id) {
     })
 }
 
-function assoc_markTaskDone(elem, task_id) {
-    let payload = {'volunteer_id':0,
+function assoc_markTaskDone(elem, task_id, vol_id, assoc_id) {
+    let taskContainer = elem.parentNode.parentNode;
+
+    // start spinner
+    if (!taskContainer.classList.contains("pending"))
+        taskContainer.classList.add("pending");
+
+    let payload = {'volunteer_id':vol_id,
     'task_id': task_id,
-    'association_id': 0,
+    'association_id': assoc_id,
     'for_volunteer': false};
 
     fetch("/api/task/markcomplete", {method: 'PUT', 
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)})
-    .then(function (resp) {
-        console.log("a mers!");
-
-        let activeContainer = document.getElementById("active-tasks");
-
-
-    })
-    .catch(function () {
-        console.log("a crapat!");
+     .then(function (resp) {
+            let projectContainer = taskContainer.parentNode.parentNode.querySelector(".completed-tasks");
+        
+            projectContainer.appendChild(taskContainer);
+ 
+            // stop spinner
+            if (taskContainer.classList.contains("pending"))
+            taskContainer.classList.remove("pending");
+            
+         })
+     .catch(function (error) {
+         console.log("a crapat! " + error);
+        //  stop spinner
+        if (taskContainer.classList.contains("pending"))
+        taskContainer.classList.remove("pending");
     })
 }

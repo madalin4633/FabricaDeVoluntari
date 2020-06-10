@@ -50,13 +50,13 @@ function dropViewActivityEnrolledVolunteers($conn)
 function createViewActivityEnrolledVolunteers($conn)
 {
     if (pg_query($conn, "CREATE VIEW vActivityEnrolledVolunteers AS
-        SELECT tblProjects.id as proj_id, tblTasks.id as task_id, vol_id, LEFT(tblVolunteers.nume,1) || LEFT(tblVolunteers.prenume,1) as initials, tblProjects.assoc_id, sum(hours_worked) as hours, tblTasks.done,  profile_pic
+        SELECT tblProjects.id as proj_id, tblTasks.id as task_id, tblActivity.volassoc_id, vol_id, LEFT(tblVolunteers.nume,1) || LEFT(tblVolunteers.prenume,1) as initials, tblProjects.assoc_id, sum(hours_worked) as hours, tblTasks.done,  profile_pic
         FROM tblTasks 
         LEFT JOIN tblActivity ON tblTasks.id=tblActivity.task_id
         LEFT JOIN tblProjects ON tblTasks.proj_id=tblProjects.id
 		LEFT JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id
 		LEFT JOIN tblVolunteers ON tblVolAssoc.vol_id=tblVolunteers.id
-        GROUP BY tblProjects.id, tblTasks.id, vol_id, tblVolunteers.nume, tblVolunteers.prenume , tblProjects.assoc_id, profile_pic
+        GROUP BY tblProjects.id, tblActivity.volassoc_id, tblTasks.id, vol_id, tblVolunteers.nume, tblVolunteers.prenume , tblProjects.assoc_id, profile_pic
         ")) {
         echo "View vActivityEnrolledVolunteers created!<br>";
     } else {

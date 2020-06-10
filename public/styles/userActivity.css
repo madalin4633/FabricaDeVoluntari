@@ -84,6 +84,11 @@
     display: none;
 }
 
+/* do not show feedback button in active tasks */
+.active-tasks .feedback-button {
+    display: none;
+}
+
 /* do not show feedback button in new tasks */
 #new-tasks-container .feedback-button {
     display: none;
@@ -96,6 +101,11 @@
 
 .activity-task:hover .done-button {
     visibility: visible;
+}
+
+.task-panel > .feedback-button {
+    right: 0px;
+    top: 0px;
 }
 
 /* only show feedback button if task has not been given feedback */
@@ -155,7 +165,7 @@
     border: none;
     visibility: hidden;
     position: absolute;
-    right: 0px;
+    top: 20px;
 }
 
 .enroll-button {

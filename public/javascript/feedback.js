@@ -1,26 +1,73 @@
 let overlay = document.getElementById('feedback-form-overlay');
+let score = {harnic: 0, comunicativ: 0, disponibil: 0, punctual: 0, serios: 0};
 
 overlay.addEventListener('click', function(event) {
     event.target.isEqualNode(overlay) && overlay.classList.remove('open');
 });
 
-function showFeedbackForm(elem, task_id, isVolunteer, volassoc_id, vol_id) {
+function updateFeedbackStar(elem) {
+    let allStars = elem.parentNode.querySelectorAll('.feedback-star');
+
+    allStars.forEach(element => {
+        element.classList.remove('selected');
+    });
+
+    elem.classList.add('selected');
+    let metric = elem.parentNode.querySelector('.metric-name').textContent;
+
+    score[metric] = parseInt(elem.getAttribute('data-star'));
+}
+
+function showFeedbackForm(elem, task_id, forVolunteer, volassoc_id, vol_id, vol_pic='', vol_initials='') {
+
+    score = {harnic: 0, comunicativ: 0, disponibil: 0, punctual: 0, serios: 0};
+    
+    let allStars = document.getElementById('feedback-form-container').querySelectorAll('.feedback-star');
+    allStars.forEach(element => {
+        element.classList.remove('selected');
+    });
+
     // get details
     let taskContainer = document.querySelector("[data-task-id='task-" + task_id + "']" )
     let title = taskContainer.querySelector('.activity-title').textContent;
-    let projectBanner = taskContainer.parentNode.querySelector('.project-banner').cloneNode(true);
+
+    let projectContainer = taskContainer.parentNode;
+    if (forVolunteer) {
+        projectContainer = taskContainer.parentNode.parentNode;
+        document.getElementById('feedback-form-container').classList.add('show-stars');
+    }
+
+    let projectBanner = projectContainer.querySelector('.project-banner').cloneNode(true);
     projectBanner.removeChild(projectBanner.querySelector('.project-details'));
 
     let taskTitleNode = document.getElementById('feedback-form-task');
     taskTitleNode.textContent = 'TASK: ' + title;
     taskTitleNode.setAttribute('data-task-id', task_id);
     
-    let overlay = document.getElementById('feedback-form-overlay');
+    let projectTitleNode = document.getElementById('feedback-form-title');
+    projectTitleNode.textContent = projectBanner.textContent;
+ 
+    let profilePic = overlay.querySelector('.feedback-assoc-icon');
+    if (vol_pic != '') {
+        profilePic.style.backgroundImage = 'url("/public/images/profile-pics/' + vol_pic + '")';
+        profilePic.textContent = "";
+        profilePic.style.display = "block";
+
+    } else if (vol_initials != '') {
+        profilePic.style.display = "block";
+        profilePic.style.backgroundColor = 'burlywood';
+        profilePic.style.backgroundPosition = 'center';
+        profilePic.style.backgroundImage = "";
+        profilePic.textContent = vol_initials;
+    }
+
+    // let overlay = document.getElementById('feedback-form-overlay');
     overlay.classList.add('open');
 
     let btnGiveFeedback = document.getElementById('btnGiveFeedback');
     btnGiveFeedback.addEventListener('click', function() {
-        giveFeedback(elem.parentNode.parentNode, task_id, isVolunteer, volassoc_id, vol_id,0,0,0,0,0);
+        giveFeedback(elem.parentNode.parentNode, task_id, forVolunteer, volassoc_id, vol_id, 
+                score['harnic'], score['comunicativ'], score['disponibil'], score['punctual'], score['serios']);
     })  
 }
 
