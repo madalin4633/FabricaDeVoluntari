@@ -23,7 +23,7 @@
         <?php require_once __DIR__ . "/components/feedback-form.php"?>
                
         <button type='button' class='add-button' id='add-project' onclick="showAddTaskForm(0)">+</button>
-        <form class='project-form' id='add-task-0' method="POST" action="">
+        <form class='project-form' id='add-task-0' method="POST">
             <input type="text" name="title" placeholder='Project Title'>
             <textarea name="descr" placeholder='Description'></textarea>
             <button name="add" type="submit" value="addProject">Add Project</button>
@@ -39,15 +39,15 @@
                 </div>
                 </div>
                 <button type='button' class='add-button' value='". $project['id'] ."' onclick='showAddTaskForm(". $project['id'] . ")'>+</button>
-                <form id='add-task-". $project['id'] . "' class='task-form' method='POST' action=''>
+                <form id='add-task-". $project['id'] . "' class='task-form' method='POST'>
                     <input type='text' name='projId' readonly style='display:none' value='". $project['id'] . "'>
                     <input type='text' name='title' placeholder='Task Title'>
                     <p class='break-row'></p>
-                    <label for='max_volunteers'>Max Volunteers</label>
+                    <label>Max Volunteers</label>
                     <input type='number' name='max_volunteers' min=1 max=5 value=3>
-                    <label for='max_volunteers'>Hours</label>
+                    <label>Hours</label>
                     <input type='number' name='hours' min=1>
-                    <label for='due_date'>Due Date</label>
+                    <label>Due Date</label>
                     <input type='date' name='due_date'>
                     <p class='break-row'></p>
                     <textarea name='descr' placeholder='Description'></textarea>

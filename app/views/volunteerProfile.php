@@ -38,7 +38,7 @@
             <div class="details-container">
                 <div class="info-table">
                     <div class="collapsible-container">
-                        <div class="collapsible-btn">Detalii personale</div>
+                        <div class="collapsible-btn">Personal Details</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg">
                     </div>
                     <div class="collapsible-content">

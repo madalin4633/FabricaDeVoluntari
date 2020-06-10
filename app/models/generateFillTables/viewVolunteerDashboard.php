@@ -90,12 +90,12 @@ function createViewVolunteerDashboard_Bonus($conn)
 {
     if (pg_query($conn, 'CREATE VIEW vVolunteerDashboardBonus AS
             select tblVolAssoc.vol_id, tblVolAssoc.assoc_id, nume
-                            , SUM(bonus) as bonus,
+                            , COUNT(bonus) as bonus,
                             SUM(hours_worked) AS hours_worked  
             from tblvolassoc
             INNER JOIN tblAssociations ON tblAssociations.id = tblVolAssoc.assoc_id
             LEFT JOIN (SELECT bonus, hours_worked, volassoc_id FROM tblActivity 
-            INNER JOIN tblTasks ON tblTasks.id = tblActivity.task_id
+            INNER JOIN tblTasks ON tblTasks.id = tblActivity.task_id 
             WHERE tblActivity.done = true OR tblActivity.done IS NULL) tAct ON tAct.volassoc_id=tblVolAssoc.id
             GROUP BY tblVolAssoc.vol_id, tblVolAssoc.assoc_id, nume
                   ')) {
