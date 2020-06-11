@@ -408,6 +408,36 @@ class AssociationModel
         return $invitation_code;
     }
 
+    function edit_campaigns($proj_id, $enable){
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'UPDATE tblProjects SET in_campaign = $1 WHERE id = $2';
+
+        // print_r($query);
+
+        if(!pg_connection_busy($db_conn)){
+            pg_send_prepare($db_conn, 'edit_campaigns', $query);
+    
+            $res = pg_get_result($db_conn);
+        }
+
+        if (!pg_connection_busy($db_conn)) {
+            $params=[];
+            $params[] = $enable;
+            $params[] = $proj_id;
+            pg_send_execute($db_conn, 'edit_campaigns', $params);
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
+    }
+
     function disable_recruitments($association_id){
         $db_conn = $GLOBALS['db'];
 
@@ -494,9 +524,11 @@ class AssociationModel
             $query = "SELECT 
             id,
             title,
-            descr
+            descr,
+            in_campaign 
             FROM tblProjects 
             WHERE assoc_id=$1 AND active=true
+            ORDER BY id ASC
             ";
 
             pg_send_prepare($conn, 'get_assoc_proj', $query);

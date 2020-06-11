@@ -89,7 +89,7 @@ nav .vertical-split{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 80%;
+    height: 90%;
     padding-left: 4px;
 }
 
@@ -119,6 +119,27 @@ nav .vertical-split{
     background-repeat: no-repeat;
     background-position: right;
     background-position-y: 0px;
+}
+
+.gdrive {
+    background: url("/public/images/kisspng-google-drive-computer-icons-google-docs-transparent-google-drive-png-5ab1174c17bbe1.8275644315215552760972.png");
+    background-size: contain;
+    background-position: left;
+    background-repeat: no-repeat;
+    width: 130px;
+    height: 30px;
+    color: white;
+    text-align: end;
+    border: none;
+}
+
+.gdrive:hover {
+    box-shadow:  1px 1px #77aaff;
+}
+
+.gdrive.disabled {
+    filter: grayscale(1);
+    pointer-events: none;
 }
 
 .flex-grid-expandable-list {

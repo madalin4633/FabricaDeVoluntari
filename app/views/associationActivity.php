@@ -33,7 +33,12 @@
             <?php
 
             foreach ($association->projects as $project) {
-                echo "<div class='project'><div class='project-banner'>PROJECT: " . $project['title'] . "
+                echo "<div data-in-campaign='" . (($project['in_campaign'] == 't') ? 'true' : 'false') . "' class='project'>
+                <button class='campaign-button' onclick='assoc_ToggleCampaign(this, ". $project['id']  . ")'></button>
+                <div class='project-banner'>";
+                require __DIR__ . '/components/spinner.php';
+                echo "
+                <div>PROJECT: " . $project['title'] . "</div>
                 <div class='project-details'>
                 " . $project['descr'] . "
                 </div>
