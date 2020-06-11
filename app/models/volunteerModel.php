@@ -201,18 +201,20 @@ public function readCompletedTasks($assoc_id) {
     function readPersonalDetails($vol_id) {
         $conn = $GLOBALS['db'];
 
+        $query = "SELECT username as _ignore_username, 
+        nume as \"Nume\", 
+        prenume as \"Prenume\", 
+        gen as \"Gen\",
+        nationalitate as \"Nationalitate\",
+        email as \"E-mail\", 
+        profile_pic as \"_ignore_pic\",
+        TO_CHAR(data_nasterii, 'd Mon YYYY') as \"Data Nastere\",
+        TO_CHAR(tblVolunteers.created_on, 'Mon YYYY') as \"_noedit_Data Inscriere\"  
+        FROM tblVolunteers 
+        WHERE tblVolunteers.id = $1";
+
         if (!pg_connection_busy($conn)) {
-            pg_send_prepare($conn, 'get_personal_data', "SELECT username as _ignore_username, 
-                            nume as \"Nume\", 
-                            prenume as \"Prenume\", 
-                            gen as \"Gen\",
-                            nationalitate as \"Nationalitate\",
-                            email as \"E-mail\", 
-                            profile_pic as \"_ignore_pic\",
-                            TO_CHAR(data_nasterii, 'd Mon YYYY') as \"Data Nastere\",
-                            TO_CHAR(created_on, 'Mon YYYY') as \"_noedit_Data Inscriere\"  
-                            FROM tblVolunteers
-            WHERE id = $1");
+            pg_send_prepare($conn, 'get_personal_data', $query);
 
             $res = pg_get_result($conn);
         }

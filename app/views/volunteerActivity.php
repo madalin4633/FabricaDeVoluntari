@@ -40,8 +40,8 @@
                         echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task need-feedback'>";
                         require __DIR__ . '/components/spinner.php';
                         echo "<div class='task-panel'>
-                        <div class='activity-duedate'>" . $task['hours_worked'] . " hours</div>
-                        <div class='activity-duedate'>until " . $task['due_date'] . "</div>
+                        <div class='activity-hours'>" . $task['hours_worked'] . "h</div>
+                        <div class='activity-duedate'>" . $task['due_date'] . "</div>
                         <div class='assoc-icon'
                             style='background: url(/public/images/logo/" . $task['assoclogo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                         </div>
@@ -79,8 +79,8 @@
                         echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task need-feedback'>";
                         require __DIR__ . '/components/spinner.php';
                         echo "<div class='task-panel'>
-                        <div class='activity-duedate'>" . $task['hours_worked'] . " hours</div>
-                        <div class='activity-duedate'>until " . $task['due_date'] . "</div>
+                        <div class='activity-hours'>" . $task['hours_worked'] . "h</div>
+                        <div class='activity-duedate'>" . $task['due_date'] . "</div>
                         <div class='assoc-icon'
                             style='background: url(/public/images/logo/" . $task['assoclogo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                         </div>
@@ -118,8 +118,8 @@
                         echo "<div data-task-id='task-". $task['task_id'] ."' class='activity-task" . (($task['assochasfeedback'] != 't') ? ' need-feedback' : '' ) . "'>";
                         require __DIR__ . '/components/spinner.php';
                         echo "<div class='task-panel'>
-                            <div class='activity-duedate'>" . $task['hours_worked'] . " hours</div>
-                            <div class='activity-duedate'>until " . $task['due_date'] . "</div>
+                            <div class='activity-hours'>" . $task['hours_worked'] . "h</div>
+                            <div class='activity-duedate'>" . $task['due_date'] . "</div>
                             <div class='assoc-icon' data-assoc-id=" . $task['assoc_id'] . "
                             style='background: url(/public/images/logo/" . $task['assoclogo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                             </div>

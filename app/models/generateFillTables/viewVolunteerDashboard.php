@@ -26,7 +26,7 @@ function createViewVolunteerDashboard($conn)
     createViewVolunteerDashboard_Feedback($conn);
 
     if (pg_query($conn, 'CREATE VIEW vVolunteerDashboard AS
-    SELECT vVolunteerDashboardFeedback.vol_id, vVolunteerDashboardFeedback.assoc_id, vVolunteerDashboardFeedback.nume, logo, hours_worked, bonus, rating 
+    SELECT vVolunteerDashboardFeedback.vol_id, vVolunteerDashboardFeedback.assoc_id, vVolunteerDashboardFeedback.nume, logo, hours_worked, bonus, rating, drive_url  
                 FROM vVolunteerDashboardBonus
                 INNER JOIN vVolunteerDashboardFeedback ON vVolunteerDashboardFeedback.vol_id=vVolunteerDashboardBonus.vol_id AND vVolunteerDashboardFeedback.assoc_id=vVolunteerDashboardBonus.assoc_id
                   ')) {
@@ -53,7 +53,7 @@ function dropViewVolunteerDashboard_Feedback($conn)
 function createViewVolunteerDashboard_Feedback($conn)
 {
     if (pg_query($conn, 'CREATE VIEW vVolunteerDashboardFeedback AS
-    SELECT vol_id, tblVolAssoc.assoc_id, nume, logo
+    SELECT vol_id, tblVolAssoc.assoc_id, nume, logo, drive_url
                 , (AVG(' . METRIC1 .') 
                 + AVG(' . METRIC2 .')
                 + AVG(' . METRIC3 .') 
@@ -63,8 +63,9 @@ function createViewVolunteerDashboard_Feedback($conn)
                 LEFT JOIN tblProjects ON tblProjects.assoc_id=tblVolAssoc.assoc_id
                 LEFT JOIN tblTasks ON tblTasks.proj_id=tblProjects.id
                 LEFT JOIN tblFeedback ON tblFeedback.task_id=tblTasks.id AND tblFeedback.volassoc_id = tblVolAssoc.id
+                LEFT JOIN tblCertifications ON tblCertifications.volassoc_id = tblVolAssoc.id 
                 WHERE tblVolAssoc.active=true
-                GROUP BY vol_id, tblVolAssoc.assoc_id, nume, logo
+                GROUP BY vol_id, tblVolAssoc.assoc_id, nume, logo, drive_url
                   ')) {
         echo "View vVolunteerDashboardFeedback created!<br>";
     } else {

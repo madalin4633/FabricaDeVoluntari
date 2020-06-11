@@ -310,6 +310,15 @@
     align-content: space-around;
 }
 
+.activity-hours {
+    padding: 4px;
+    font-size: 20px;
+    color: green;
+    bottom: 0px;
+    align-self: flex-start;
+    line-height: 60px;
+}
+
 .activity-duedate {
     padding: 4px;
     font-size: 20px;

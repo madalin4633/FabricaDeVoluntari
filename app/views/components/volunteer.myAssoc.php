@@ -18,7 +18,9 @@
                     <div class='tooltip'><span class='tooltiptext'>Tasks Completed</span><img class='svg-white' alt='icon' src='/public/images/engineering-24px.svg'>
                         <span class='aprecieri'>" . $assoc['bonus'] . "</span></div>";
                         showFeedbackStars($assoc['rating']);
-                echo "</div>
+                        
+                echo "<button type='button' class='gdrive" . (($assoc['drive_url'] == null) ? " disabled'" : '') . "' onclick="; echo '"javascript:window.location.href = \'' . $assoc['drive_url'] . '\'"'; echo ">Certifications</button>
+                </div>
             </div>
         </div>";
     }

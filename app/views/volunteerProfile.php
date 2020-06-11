@@ -33,6 +33,8 @@
                     </div>
                 </div>
 
+
+
             </nav>
 
             <div class="details-container">
