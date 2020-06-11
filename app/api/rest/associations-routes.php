@@ -138,6 +138,12 @@ $associationsRoutes = [
         "middlewares" => ["IsLoggedInHere"],
         "route" => "association/campaigns",
         "handler" => "edit_campaigns"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "association/certifications",
+        "handler" => "edit_certifications"
     ]
 ];
 //de discutat daca metodele alese sunt ok
@@ -261,6 +267,26 @@ function edit_campaigns($req) {
     $association = new associationModel();
 
     $result = $association->edit_campaigns($req['payload']->projId, $req['payload']->enableCampaign);
+
+    $output = array();
+
+    if ($result){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+}
+
+function edit_certifications($req) {
+    require_once __DIR__ . "/../../models/associationModel.php";
+
+    $association = new associationModel();
+
+    $result = $association->edit_certifications($req['payload']->volassoc_id, $req['payload']->drive_url);
 
     $output = array();
 

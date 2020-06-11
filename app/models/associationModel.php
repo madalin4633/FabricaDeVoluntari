@@ -456,6 +456,59 @@ class AssociationModel
         return true;
     }
 
+    function edit_certifications($volassoc_id, $drive_url){
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'UPDATE tblCertifications SET drive_url = $1 WHERE volassoc_id = $2';
+
+        // print_r($query);
+
+        if(!pg_connection_busy($db_conn)){
+            pg_send_prepare($db_conn, 'edit_certifications', $query);
+    
+            $res = pg_get_result($db_conn);
+        }
+
+        if (!pg_connection_busy($db_conn)) {
+            $params=[];
+            $params[] = $drive_url;
+            $params[] = $volassoc_id;
+            pg_send_execute($db_conn, 'edit_certifications', $params);
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if ($cmdtuples == 0) {
+            $query = 'INSERT INTO tblCertifications (volassoc_id, drive_url, active, created_on, updated_on) VALUES ($1, $2, true, current_timestamp, current_timestamp)';
+
+            // print_r($query);
+
+            if (!pg_connection_busy($db_conn)) {
+                pg_send_prepare($db_conn, 'add_certifications', $query);
+    
+                $res = pg_get_result($db_conn);
+            }
+
+            if (!pg_connection_busy($db_conn)) {
+                $params=[];
+                $params[] = $volassoc_id;
+                $params[] = $drive_url;
+                pg_send_execute($db_conn, 'add_certifications', $params);
+                $result = pg_get_result($db_conn);
+            }
+
+            $cmdtuples = pg_affected_rows($result);
+
+        }
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
+    }
+
     function disable_recruitments($association_id){
         $db_conn = $GLOBALS['db'];
 
@@ -568,4 +621,37 @@ class AssociationModel
             $this -> projects[] = $array;
         }
     }
+
+    public function readVolunteers($assoc_id) {
+        $conn = $GLOBALS['db'];
+
+        if (!pg_connection_busy($conn)) {
+            $query = "select tblVolunteers.nume || ' ' || tblVolunteers.prenume as nume, LEFT(tblVolunteers.nume,1) || LEFT(tblVolunteers.prenume,1) as initials, sum(hours_worked) as hours, drive_url, tblVolunteers.profile_pic, tblVolAssoc.id as volassoc_id  
+            from tblVolAssoc
+            INNER JOIN tblVolunteers ON tblVolunteers.id = tblVolAssoc.vol_id
+            LEFT JOIN tblCertifications ON tblCertifications.volassoc_id = tblVolAssoc.id
+            LEFT JOIN tblActivity ON tblActivity.volassoc_id = tblVolassoc.id 
+            LEFT JOIN tblTasks ON tblTasks.id = tblActivity.task_id 
+            WHERE tblActivity.done = true AND tblVolAssoc.assoc_id = $1
+            GROUP BY tblVolunteers.nume, tblVolunteers.prenume, drive_url, profile_pic, tblVolAssoc.id 
+            ";
+
+            pg_send_prepare($conn, 'get_vol_in_assoc', $query);
+            
+            $res = pg_get_result($conn);
+        }
+
+        if (!pg_connection_busy($conn)) {
+            $params=[];
+            $params[] = $_SESSION['id']; // it was $assoc_id before merge
+            pg_send_execute($conn, 'get_vol_in_assoc', $params);
+            $result = pg_get_result($conn);
+        }
+
+        for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
+            $array = pg_fetch_assoc($result);
+            $this -> volunteers[] = $array;
+        }
+    }
+
 }

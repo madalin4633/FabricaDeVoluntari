@@ -11,6 +11,7 @@ class Association {
     public function reports() {
         // signed in association looking at his dashboard
         $association = new AssociationModel();
+        $association->readPersonalDetails($_SESSION['id']);
 
         require_once __DIR__ . '/../views/assocReports.php';
     }
@@ -22,6 +23,15 @@ class Association {
         $association->readFeedback($_SESSION['id']);
 
         require_once __DIR__ . '/../views/associationProfile.php';
+    }
+
+    public function dashboard() {
+        // signed in assoc looking at his dashboard
+        $association = new AssociationModel();
+        $association->readPersonalDetails($_SESSION['id']);
+        $association->readVolunteers($_SESSION['id']);
+
+        require_once __DIR__ . '/../views/associationDashboard.php';
     }
 
     public function activity($params) {
@@ -56,6 +66,8 @@ class Association {
     }
 
     public function recruitments(){
+        $association = new AssociationModel();
+        $association->readPersonalDetails($_SESSION['id']);
         require_once __DIR__ . '/../views/recruitments.php';
     }
 
