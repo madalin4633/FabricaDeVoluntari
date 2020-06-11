@@ -165,7 +165,7 @@ class VolunteerModel {
                             profile_pic as \"_ignore_pic\",
                             TO_CHAR(data_nasterii, 'd Mon YYYY') as \"Data Nastere\",
                             TO_CHAR(created_on, 'Mon YYYY') as \"_noedit_Data Inscriere\"  
-                            FROM tblVolunteers
+                            FROM tblvolunteers
             WHERE id = $1");
 
             $res = pg_get_result($conn);
@@ -242,7 +242,7 @@ class VolunteerModel {
         $db_conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'get_volunteer', 'SELECT * FROM tblVolunteers WHERE id =' . $id);
+            pg_send_prepare($db_conn, 'get_volunteer', 'SELECT * FROM tblvolunteers WHERE id =' . $id);
     
             $res = pg_get_result($db_conn);
         }
@@ -262,7 +262,7 @@ class VolunteerModel {
         $db_conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'get_volunteers', 'SELECT nume, prenume FROM tblVolunteers');
+            pg_send_prepare($db_conn, 'get_volunteers', 'SELECT nume, prenume FROM tblvolunteers');
 
             $res = pg_get_result($db_conn);
         }
@@ -288,13 +288,13 @@ class VolunteerModel {
         // print_r($query);
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'delete_volunteer_from_assoc', $query);
+            pg_send_prepare($db_conn, 'update_volunteer_by_id_1', $query);
 
             $res = pg_get_result($db_conn);
         }
         
         if (!pg_connection_busy($db_conn)) {
-            pg_send_execute($db_conn, 'delete_volunteer_from_assoc', array());
+            pg_send_execute($db_conn, 'update_volunteer_by_id_1', array());
             $result = pg_get_result($db_conn);
         }
 
@@ -313,13 +313,13 @@ class VolunteerModel {
         $db_conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'delete_volunteer', 'DELETE FROM tblVolunteers WHERE id =' . $id);
+            pg_send_prepare($db_conn, 'delete_volunteer_by_id', 'DELETE FROM tblvolunteers WHERE id =' . $id);
 
             $res = pg_get_result($db_conn);
         }
         
         if (!pg_connection_busy($db_conn)) {
-            pg_send_execute($db_conn, 'delete_volunteer', array());
+            pg_send_execute($db_conn, 'delete_volunteer_by_id', array());
             $result = pg_get_result($db_conn);
         }
 

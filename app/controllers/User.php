@@ -60,7 +60,7 @@
                     'password_err' => '',
                     'confirm_password_err' => '',
                     'accord_err' => '',
-            
+                    'error' => '',
                 ];
                 
                 $err_fields = 0;
@@ -141,20 +141,20 @@
         
                 // Make sure errors are empty
                 if($err_fields == 0){
-                    // SUCCESS - Proceed to inser
+                    // SUCCESS - Proceed to insert
                     
                     if($this->userModel->register($data)){
                         flash('register_success', 'You are now registered and can log in');
+                        // redirect('/user/login');
+                        $_SESSION['fresh_registered'] = true;
                         redirect('/user/login');
                     }
                     else{
-                        die('Something went wrong');
+                        echo "<script>alert('Deja exista un cont cu acest email. Va rugam sa incercati cu alt email'); window.location = '/user/register';</script>";
                     }
                     
                 } else {
-                    // Load view with errors
-                    print_r($data);
-                    die('Something went wrong');
+                    echo "<script>alert('$data'); window.location = '/user/register';</script>";
                 }
       
             } else {
@@ -413,6 +413,8 @@
                 $_SESSION['email'] = $user['email']; 
                 
                 if(isset($_SESSION['waiting_for_login'])){
+
+                    $_SESSION['joined_into_assoc'] = true;
                     
                     $redirect_url = $_SESSION['waiting_for_login'];
                     

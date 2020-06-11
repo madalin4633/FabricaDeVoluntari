@@ -21,9 +21,9 @@ $volunteersRoutes = [
     ],
     [
         "method" => "POST",
-        //"middlewares" => ["IsLoggedIn"] --abia iti faci cont de voluntar, nu tre sa fii logat
+        //"middlewares" => ["IsLoggedIn"]
         "route" => "volunteers",
-        "handler" => "addVolunteer"   //DE FACUT 
+        "handler" => "addVolunteer"    
     ],   
     [
         "method" => "GET",
@@ -124,11 +124,11 @@ $volunteersRoutes = [
 ];
 
 function IsLoggedIn(){
-    // $allHeaders = getallheaders();
 
-    if(isset($_SESSION['id'])){
+    if(isset($_SESSION['id']) && $_SESSION['is_volunteer']){
         return true;
     }
+
     Response::status(401);
     Response::json([
         "status" => 401,
@@ -137,22 +137,6 @@ function IsLoggedIn(){
 
     return false;
 }
-
-function IsPartOfAssociation($req) //middleware de verificare daca e in asociatie
-{
-    if ($req['params']['assocId'] === 'moldavia') {
-        return true;
-    }
-
-    Response::status(403);
-    Response::json([
-        "status" => 403,
-        "reason" => "You can only access this teams you're part of!"
-    ]);
-
-    return false;
-}
-
 
 function getVolunteers($req) {
 
@@ -504,40 +488,4 @@ function logWorkOnTask($req){
     Response::status(200);
     Response::json($output);
 
-}
-
-//mai jos exemple din cod - functii folosite la rutele din exemplele de pe devdrive.
-function getTeam($req) {
-
-
-    // req['payload']
-
-    // DB GET $req['params']['teamId'];
-
-    Response::status(200);
-    Response::json($req['params']);
-    
-    
-    
-    // echo "Get team {$req['params']['teamId']}";
-    // $req['params']['teamId'];
-
-
-    /// procesare din DB
-
-    // $res -> status(200); 
-        // http_response_code(200)
-    
-    // $res -> json($payload);
-        // header("Content-Type: application/json");
-        // echo json_encode($payload);
-}
-
-
-function addVolunteer($req) {
-    $modifiedPayload = $req['payload'];
-    $modifiedPayload -> id = uniqid();
-    
-    Response::status(200);
-    Response::json($modifiedPayload);
 }

@@ -13,20 +13,27 @@
         <div id="bar1" class="sidebar">
             <h2>Fabrica de Voluntari</h2>
             <ul>
-                <li><a href="#" onclick="openCity(event, 'news_tab')">News</a></li>
-                <li><a href="#" onclick="openCity(event, 'volunteer_tab')">Postman</a></li>
-                <li><a href="#" onclick="openCity(event, 'association_tab')">Statistici</a></li>
-                <li><a href="/user/logout" onclick="openCity(event, 'logout')">Logout</a></li>
+                <li><a href="#" onclick="change_tab(event, 'video_tab')">Video</a></li>
+                <li><a href="#" onclick="change_tab(event, 'postman')">Postman</a></li>
+                <li><a href="https://app.swaggerhub.com/apis/FabricaDeVoluntari/Fabrica-de-Voluntari/1.0.0">Swagger</a></li>
+                <li><a href="/user/logout" onclick="change_tab(event, 'logout')">Logout</a></li>
             </ul> 
             
         </div>
 
         <div class="main_content">
-            <div id="news_tab" class="tab">
-                <p>Test1</p>
+            <div id="video_tab" class="tab">
+                <div class = "container_rec">
+                    <div class = "content">
+                        <iframe width="1000" height="600"
+                            src="https://www.youtube.com/embed/H5e6q84SbqY">
+                        </iframe>
+                    </div>
+                </div>
+                
             </div>
 
-            <div id="volunteer_tab" class="tab">
+            <div id="postman" class="tab">
                 <div class = "container_rec">
 
                     <div class="content">
@@ -52,25 +59,14 @@
 
                             <input type="button" id="exec" class="btn" value="EXECUTE">
                         </div>
-                        
-                        
-
-                        <div class = "form__group">
-                            <textarea type="text" class="form__input" id="input_payload" placeholder="Result"></textarea>
-                        </div>
-
-                        
-                        
                     
+                        <div class = "form__group">
+                            <textarea type="text" class="form__input" id="output" placeholder="Result"></textarea>
+                        </div>                   
                     
                     </div>
 
                 </div>
-            </div>
-
-            <div id="association_tab" class="tab">
-                <h3>Tokyo</h3>
-                <p>Tokyo is the capital of Japan.</p>
             </div>
         </div>
     </div>

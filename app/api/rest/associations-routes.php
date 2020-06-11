@@ -134,14 +134,13 @@ $associationsRoutes = [
         "handler" => "disable_recruitments"
     ]
 ];
-//de discutat daca metodele alese sunt ok
 
 function IsLoggedInHere()
 {
-    if(isset($_SESSION['id']) && $_SESSION['is_association'] == true){
+    if(isset($_SESSION['id']) && $_SESSION['is_association']){
         return true;
     }
-    //print_r('sunt aici');
+
     Response::status(401);
     Response::json([
         "status" => 401,
@@ -150,6 +149,7 @@ function IsLoggedInHere()
 
     return false;
 }
+
 function getMyActivity($req){
     require_once __DIR__ . "/../../models/associationModel.php";
 
@@ -161,6 +161,7 @@ function getMyActivity($req){
         $output=array_merge(array(),$result);
     Response::json($output);
 }
+
 function updateAssociation($req) {
  //updateaza datele de la o asociatie
 }
@@ -265,41 +266,3 @@ function disable_recruitments($req){
     Response::status(200);
     Response::json($output);
 }
-
-
-//mai jos exemple din cod - functii folosite la rutele din exemplele de pe devdrive.
-function getTeamHere($req) {
-
-
-    // req['payload']
-
-    // DB GET $req['params']['teamId'];
-
-    Response::status(200);
-    Response::json($req['params']);
-    
-    
-    
-    // echo "Get team {$req['params']['teamId']}";
-    // $req['params']['teamId'];
-
-
-    /// procesare din DB
-
-    // $res -> status(200); 
-        // http_response_code(200)
-    
-    // $res -> json($payload);
-        // header("Content-Type: application/json");
-        // echo json_encode($payload);
-}
-
-function addAssociation($req) {
-    $modifiedPayload = $req['payload'];
-    $modifiedPayload -> id = uniqid();
-    
-    Response::status(200);
-    Response::json($modifiedPayload);
-}
-
-
