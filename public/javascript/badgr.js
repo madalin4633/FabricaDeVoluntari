@@ -87,7 +87,7 @@ function onClickAward(myBadges, bearer) {
       body: JSON.stringify(recipientPayload)
     })
   }
-  //if(myBadges.includes('8RDDeQwXRHeiPszXa4Qijw')==0) - prima asociatie
+  //badges for hours worked and number of tasks
   const myNaiveUrl = `/api/volunteers/${myID}/tasks`;
   fetch(myNaiveUrl)
     .then(function (resp) {
@@ -131,7 +131,116 @@ function onClickAward(myBadges, bearer) {
             'Authorization': bearer
           },
           body: JSON.stringify(recipientPayload)
+        })} //from here badges regarding the hours worked
+        if (sumHoursWorked >= 1 && sumHoursWorked < 10 && (myBadges.includes('0LgHQQc9Q1miBpADl_OE6w') == 0)) {
+          fetch('https://api.badgr.io/v2/badgeclasses/0LgHQQc9Q1miBpADl_OE6w/assertions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': bearer
+            },
+            body: JSON.stringify(recipientPayload)
+          })
+        }
+        if (sumHoursWorked >= 10 && sumHoursWorked < 100 && (myBadges.includes('azF6ho04QvyVv-qofLizEg') == 0)) {
+          fetch('https://api.badgr.io/v2/badgeclasses/azF6ho04QvyVv-qofLizEg/assertions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': bearer
+            },
+            body: JSON.stringify(recipientPayload)
+          })
+        }
+        if (sumHoursWorked >= 100 && (myBadges.includes('srSOwZGTTo2y9hziUfin8w') == 0)) {
+          fetch('https://api.badgr.io/v2/badgeclasses/srSOwZGTTo2y9hziUfin8w/assertions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': bearer
+            },
+            body: JSON.stringify(recipientPayload)
+          })}
+    })
+    //badges for number of ngos
+    const myUrl = `/api/volunteers/${myID}/associations`;
+  fetch(myUrl)
+    .then(function (resp) {
+      return resp.json();
+    })
+    .then(function (jsonResp) {
+      console.log(jsonResp);
+      var numberOfNGOs = jsonResp.length;
+
+      if (numberOfNGOs >= 1 && numberOfNGOs < 5 && (myBadges.includes('Z4ms_ZQMSyitFbEdJsxOSw') == 0)) {
+        fetch('https://api.badgr.io/v2/badgeclasses/Z4ms_ZQMSyitFbEdJsxOSw/assertions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+          },
+          body: JSON.stringify(recipientPayload)
+        })
+      }
+      if (numberOfNGOs >= 5 && numberOfNGOs < 10 && (myBadges.includes('wGLztPSZQ2e3xW04PIxyxw') == 0)) {
+        fetch('https://api.badgr.io/v2/badgeclasses/wGLztPSZQ2e3xW04PIxyxw/assertions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+          },
+          body: JSON.stringify(recipientPayload)
+        })
+      }
+      if (numberOfNGOs >= 10 && (myBadges.includes('txhJHk48Qb2mTStRGVpwsA') == 0)) {
+        fetch('https://api.badgr.io/v2/badgeclasses/txhJHk48Qb2mTStRGVpwsA/assertions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+          },
+          body: JSON.stringify(recipientPayload)
         })}
+    })
+    //badges regarding feedback
+    const myLastUrl = `/api/volunteers/${myID}/ratings`;
+  fetch(myLastUrl)
+    .then(function (resp) {
+      return resp.json();
+    })
+    .then(function (jsonResp) {
+      console.log(jsonResp);
+      var minGrade = 6;
+      var maxGrade = -1;
+      var grade = 0;
+      for (var i = 0; i < jsonResp.length; i++) {
+          grade = (parseFloat(jsonResp[i]['harnic']) + parseFloat(jsonResp[i]['comunicativ']) + parseFloat(jsonResp[i]['disponibil']) + parseFloat(jsonResp[i]['punctual']) + parseFloat(jsonResp[i]['serios']))/5;
+          if(grade>maxGrade)
+            maxGrade=grade;
+          if(grade<minGrade)
+            minGrade=grade;
+      }
+
+      if ((maxGrade==5) && (myBadges.includes('JZ5PB52MRKG4JXN1G_xt7Q') == 0)) {
+        fetch('https://api.badgr.io/v2/badgeclasses/JZ5PB52MRKG4JXN1G_xt7Q/assertions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+          },
+          body: JSON.stringify(recipientPayload)
+        })
+      }
+      if ((minGrade <= 2.5) && (myBadges.includes('gRh4mFl0QSWvu-8yS12KdA') == 0)) {
+        fetch('https://api.badgr.io/v2/badgeclasses/gRh4mFl0QSWvu-8yS12KdA/assertions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+          },
+          body: JSON.stringify(recipientPayload)
+        })
+      }
     })
   //window.location.reload();
 }
