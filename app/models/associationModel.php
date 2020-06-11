@@ -344,7 +344,6 @@ class AssociationModel
         }
         }
         $row = pg_fetch_all($result, PGSQL_ASSOC);
-        pg_close();
 
         // $row = json_encode($row);
         return $row;

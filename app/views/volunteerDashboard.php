@@ -1,3 +1,16 @@
+<?php 
+    if (isset($_SESSION['joined_into_assoc'])){
+        $msg = 'Felicitari! Acum faci parte din asociatie';
+        unset($_SESSION['joined_into_assoc']);
+        alert($msg);
+    }
+    
+    function alert($msg) {
+		echo "<script type='text/javascript'>alert('$msg');</script>";
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

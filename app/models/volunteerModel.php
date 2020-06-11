@@ -295,7 +295,7 @@ public function readCompletedTasks($assoc_id) {
         $db_conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'get_volunteer', 'SELECT * FROM tblVolunteers WHERE id =' . $id);
+            pg_send_prepare($db_conn, 'get_volunteer', 'SELECT * FROM tblvolunteers WHERE id =' . $id);
     
             $res = pg_get_result($db_conn);
         }
@@ -306,8 +306,6 @@ public function readCompletedTasks($assoc_id) {
         }
     
         $row = pg_fetch_array($result, NULL, PGSQL_ASSOC);
-    
-        pg_close();
 
         // $row = json_encode($row);
         return $row;
@@ -317,7 +315,7 @@ public function readCompletedTasks($assoc_id) {
         $db_conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'get_volunteers', 'SELECT nume, prenume FROM tblVolunteers');
+            pg_send_prepare($db_conn, 'get_volunteers', 'SELECT nume, prenume FROM tblvolunteers');
 
             $res = pg_get_result($db_conn);
         }
@@ -328,8 +326,6 @@ public function readCompletedTasks($assoc_id) {
         }
 
         $all_volunteers = pg_fetch_all($result, PGSQL_ASSOC);
-
-        pg_close();
 
         // $all_volunteers = json_encode($all_volunteers);
 
@@ -345,13 +341,13 @@ public function readCompletedTasks($assoc_id) {
         // print_r($query);
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'delete_volunteer_from_assoc', $query);
+            pg_send_prepare($db_conn, 'update_volunteer_by_id_1', $query);
 
             $res = pg_get_result($db_conn);
         }
         
         if (!pg_connection_busy($db_conn)) {
-            pg_send_execute($db_conn, 'delete_volunteer_from_assoc', array());
+            pg_send_execute($db_conn, 'update_volunteer_by_id_1', array());
             $result = pg_get_result($db_conn);
         }
 
@@ -370,19 +366,17 @@ public function readCompletedTasks($assoc_id) {
         $db_conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($db_conn)) {
-            pg_send_prepare($db_conn, 'delete_volunteer', 'DELETE FROM tblVolunteers WHERE id =' . $id);
+            pg_send_prepare($db_conn, 'delete_volunteer_by_id', 'DELETE FROM tblvolunteers WHERE id =' . $id);
 
             $res = pg_get_result($db_conn);
         }
         
         if (!pg_connection_busy($db_conn)) {
-            pg_send_execute($db_conn, 'delete_volunteer', array());
+            pg_send_execute($db_conn, 'delete_volunteer_by_id', array());
             $result = pg_get_result($db_conn);
         }
 
         $cmdtuples = pg_affected_rows($result);
-
-        pg_close();
 
         if (!$cmdtuples){
             return false;
@@ -430,8 +424,6 @@ public function readCompletedTasks($assoc_id) {
         }
         
         $tasks = pg_fetch_all($result, PGSQL_ASSOC);
-
-        pg_close();
         
         return $tasks;
     }
@@ -476,8 +468,6 @@ public function readCompletedTasks($assoc_id) {
         }
         
         $activity = pg_fetch_all($result, PGSQL_ASSOC);
-
-        pg_close();
         
         return $activity;
     }
@@ -500,8 +490,6 @@ public function readCompletedTasks($assoc_id) {
         }
         
         $task = pg_fetch_all($result, PGSQL_ASSOC);
-
-        pg_close();
         
         return $task;
     }
@@ -525,8 +513,6 @@ public function readCompletedTasks($assoc_id) {
         
         $tasks = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
-        
         return $tasks;
     }
 
@@ -548,8 +534,6 @@ public function readCompletedTasks($assoc_id) {
         
         $task = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
-        
         return $task;
     }
 
@@ -571,8 +555,6 @@ public function readCompletedTasks($assoc_id) {
         
         $review = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
-        
         return $review;
     }
 
@@ -593,8 +575,6 @@ public function readCompletedTasks($assoc_id) {
         
         $review = pg_fetch_all($result, PGSQL_ASSOC);
 
-        pg_close();
-        
         return $review;
     }
 
@@ -671,6 +651,8 @@ public function readCompletedTasks($assoc_id) {
             pg_send_execute($db_conn, 'assign_task_to_volunteer', array());
             $result = pg_get_result($db_conn);
         }
+
+        print_r($result);
 
         $cmdtuples = pg_affected_rows($result);
 

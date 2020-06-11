@@ -1,3 +1,14 @@
+<?php 
+
+    if (!isset($data['email'])){
+        $data['email'] = "";
+        $data['last_name'] = "";
+        $data['first_name'] = "";
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,11 +46,11 @@
                     <br/>
 
                     <div class="form__group">
-                        <input type="text" class="form__input" name="name" placeholder="Nume" required="" />
+                        <input type="text" class="form__input" name="name" placeholder="Nume"  required="" value="<?php echo $data['first_name'] ?>" />
                     </div>
 
                     <div class="form__group">
-                        <input type="text" class="form__input" name="surname" placeholder="Prenume" required="" />
+                        <input type="text" class="form__input" name="surname" placeholder="Prenume" value="<?php echo $data['last_name']?>" required="" />
                     </div>
 
                     <div class="form__group">
@@ -51,7 +62,7 @@
                     </div>
 
                     <div class="form__group">
-                        <input type="text" class="form__input" name="email" placeholder="Email" required="" />
+                        <input type="text" class="form__input" name="email" placeholder="Email" value= "<?php echo $data['email']?>" required="" />
                     </div>
                     
                     <div class="form__group">
@@ -126,7 +137,7 @@
                         <input type="radio" id="da" name="accord" value="no" checked="checked"/>
                     </div>
                     <button type="submit" class="btn">Creare cont</button>
-                    <a href="/user/register" id="reg_link"><button type="button" class="btn">Inapoi</button></a>
+                    <a href="/user/login" id="reg_link"><button type="button" class="btn">Inapoi</button></a>
                 </form>
             </div>
         </div>
@@ -186,8 +197,8 @@
                         <input required type="email" id="email" name="email" placeholder="Email"/>
                     </div> -->
 
-                    <div class="form__group">
-                        <input type="text" class="form__input" name="email" placeholder="Email" required="" />
+                    <div class="form__group">   
+                        <input type="text" class="form__input" name="email" placeholder="Email" value="<?php echo $data['email']?>" required=""/>
                     </div>
 
                     <div class="form__group">
@@ -236,7 +247,7 @@
                         <input type="radio" id="da" name="accord" value="no" checked="checked"/>
                     </div>
                     <button type="submit" class="btn">Creare cont</button>
-                    <a href="/user/register" id="back_link"><button type="button" class="btn">Inapoi</button></a>
+                    <a href="/user/login" id="reg_link"><button type="button" class="btn">Inapoi</button></a>
                 </form>
             </div>
         </div>

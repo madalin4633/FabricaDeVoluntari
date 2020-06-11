@@ -4,6 +4,10 @@
 	$user = new User();
 
 	$result = $user->login_with_facebook();
+
+	function alert($msg) {
+		echo "<script type='text/javascript'>alert('$msg');</script>";
+	}	
 ?>
 
 <!DOCTYPE html>
@@ -42,5 +46,11 @@
 		</div>
 		
 	</div>
+	<?php 
+		if (isset($_SESSION['fresh_registered'])){
+			alert("Felicitari! V-ati inregistrat cu succes!");
+			unset($_SESSION['fresh_registered']);
+		}
+	?>
 </body>
 </html>
