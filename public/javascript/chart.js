@@ -548,6 +548,7 @@ function addTable(lbs, hrs, tks, avghrs, lastDate) {
   var table = document.createElement('TABLE');
   table.style.backgroundColor = 'white';
   table.style.border = '2px solid #38d39f';
+  table.setAttribute("id", "generatedTable");
 
   var tableBody = document.createElement('TBODY');
   table.appendChild(tableBody);
@@ -557,7 +558,7 @@ function addTable(lbs, hrs, tks, avghrs, lastDate) {
     tableBody.appendChild(tr);
     for (var j = 0; j <= 4; j++) {
       var td = document.createElement('TD');
-      td.width = '150';
+      //td.width = '150';
       if (i == 0 && j == 0) {
         td.appendChild(document.createTextNode("Nume si prenume"));
         td.style.textAlign = 'center';

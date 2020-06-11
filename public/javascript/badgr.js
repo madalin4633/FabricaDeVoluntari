@@ -56,6 +56,7 @@ fetch('https://api.badgr.io/o/token', {
             myBadges.push(jsonResp['result'][i]['badgeclass']);
             var img = document.createElement("img");
             img.src = badgeImage;
+            img.setAttribute('alt','badge');
             var slider = document.getElementsByClassName("slider")[0];
             slider.insertBefore(img, document.getElementsByClassName("prev")[0]);
           }

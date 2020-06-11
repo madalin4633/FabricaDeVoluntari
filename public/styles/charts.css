@@ -85,3 +85,6 @@ table{
   	border-color: #32be8f;
   	border-width: 7px;
 }
+#generatedTable td {
+	width: 150px;
+  }

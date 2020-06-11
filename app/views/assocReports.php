@@ -49,7 +49,7 @@
         <div id="exportContainer"></div>
         <div class="bigChart">
         <div class="chartContainer" id="chartContainer">
-            <canvas id="activityChart" aria-label="Activitate in asociatie" role="activitate">
+            <canvas id="activityChart" aria-label="Activitate in asociatie">
             <p>Graficele nu s-au generat</p>
             </canvas>
         </div> <!-- chartContainer-->
@@ -60,7 +60,7 @@
     </div>
     
     <script>initCollapsible();initMenu()</script>
-    <script type='text/javascript'>
+    <script>
         var assoc_id = "<?php echo $_SESSION['id'] ?>";
     </script>
     <script src="/public/javascript/chart.js"></script>
