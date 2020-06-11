@@ -262,15 +262,17 @@ public function readCompletedTasks($assoc_id) {
     function readSuggestedAssociations($vol_id) {
         $conn = $GLOBALS['db'];
 
+        $query = 'SELECT DISTINCT tblAssociations.id as assoc_id, email, nume, logo , count(tblProjects.id) as no_projects, no_volunteers
+        FROM tblAssociations 
+        LEFT JOIN tblProjects ON tblProjects.assoc_id = tblAssociations.id
+        LEFT JOIN (SELECT assoc_id, count(vol_id) as no_volunteers FROM tblVolAssoc GROUP BY assoc_id) tblVol ON tblVol.assoc_id = tblAssociations.id 
+        where tblProjects.in_campaign = true AND tblAssociations.id not in 
+        (select distinct assoc_id from vvolunteerdashboard where vol_id = $1)
+        GROUP BY tblAssociations.id, nume, logo, no_volunteers
+            ';
+
         if (!pg_connection_busy($conn)) {
-            pg_send_prepare($conn, 'get_suggested_associations', 'SELECT DISTINCT tblAssociations.id as assoc_id, email, nume, logo , count(tblProjects.id) as no_projects, no_volunteers
-            FROM tblAssociations 
-			LEFT JOIN tblProjects ON tblProjects.assoc_id = tblAssociations.id
-			LEFT JOIN (SELECT assoc_id, count(vol_id) as no_volunteers FROM tblVolAssoc GROUP BY assoc_id) tblVol ON tblVol.assoc_id = tblAssociations.id 
-            where tblAssociations.id not in 
-            (select distinct assoc_id from vvolunteerdashboard where vol_id = $1)
-			GROUP BY tblAssociations.id, nume, logo, no_volunteers
-                ');
+            pg_send_prepare($conn, 'get_suggested_associations', $query);
 
             $res = pg_get_result($conn);
         }

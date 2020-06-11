@@ -154,6 +154,25 @@
     visibility: hidden;
 }
 
+.campaign-button {
+    background: url(/public/images/campaign-24px.svg);
+    background-color: orange;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px 3px gainsboro;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    margin-top: 5px;
+    color: white;
+    outline: none;
+    border: none;
+    visibility: hidden;
+    position: absolute;
+    right: 10px;
+}
+
 .feedback-button {
     background: url(/public/images/rate_review-24px.svg);
     background-color: orange;
@@ -187,6 +206,22 @@
     border: none;
     visibility: hidden;
 }
+
+.project:hover .campaign-button {
+    visibility: visible;
+    box-shadow: 0px 0px 3px 3px aliceblue;
+}
+
+.campaign-button:active {
+    background-color: green;
+}
+
+.project[data-in-campaign="true"]  .campaign-button{
+    background-color: green;
+    visibility: visible;
+}
+
+
 
 /* always show buttons if device input does not support hover  */
 @media (hover: none) {

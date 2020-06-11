@@ -177,3 +177,35 @@ function assoc_markTaskDone(elem, task_id, vol_id, assoc_id) {
         taskContainer.classList.remove("pending");
     })
 }
+
+function assoc_ToggleCampaign(elem, proj_id) {
+    let projContainer = elem.parentNode;
+
+
+    let payload = {};
+
+    if (projContainer.getAttribute('data-in-campaign') == 'false') {
+        projContainer.setAttribute('data-in-campaign', 'true');
+        payload = {'projId':proj_id, 'enableCampaign': true};
+    }
+    else
+    {
+        projContainer.setAttribute('data-in-campaign', 'false');
+        payload = {'projId':proj_id, 'enableCampaign': false};
+    }
+
+    elem.disabled = true;
+
+    fetch("/api/association/campaigns", {method: 'PUT', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)})
+     .then(function (resp) {
+ 
+            elem.disabled = false;
+            
+         })
+     .catch(function (error) {
+         console.log("a crapat! " + error);
+         elem.disabled = false;
+        })
+}

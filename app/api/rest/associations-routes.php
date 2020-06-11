@@ -132,6 +132,12 @@ $associationsRoutes = [
         "middlewares" => ["IsLoggedInHere"],
         "route" => "association/:assocId/recruitments/disable",
         "handler" => "disable_recruitments"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "association/campaigns",
+        "handler" => "edit_campaigns"
     ]
 ];
 //de discutat daca metodele alese sunt ok
@@ -245,6 +251,27 @@ function enable_recruitments($req){
     Response::status(200);
     Response::json($output);
 }
+
+function edit_campaigns($req) {
+    require_once __DIR__ . "/../../models/associationModel.php";
+
+    $association = new associationModel();
+
+    $result = $association->edit_campaigns($req['payload']->projId, $req['payload']->enableCampaign);
+
+    $output = array();
+
+    if ($result){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+}
+
 
 function disable_recruitments($req){
     require_once __DIR__ . "/../../models/associationModel.php";
