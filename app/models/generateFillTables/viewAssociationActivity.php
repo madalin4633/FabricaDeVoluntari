@@ -91,7 +91,7 @@ function createViewMyAssociationActivity($conn)
             INNER JOIN tblVolAssoc ON tblVolAssoc.id=tblActivity.volassoc_id AND tblVolAssoc.assoc_id=tblProjects.assoc_id
             INNER JOIN tblVolunteers ON tblvolunteers.id=tblVolAssoc.vol_id
 			INNER JOIN tblAssociations ON tblProjects.assoc_id=tblAssociations.id
-            WHERE done=true
+            WHERE tblTasks.done=true
             GROUP BY tblTasks.id, tblvolunteers.id, tblVolAssoc.assoc_id, tblVolunteers.nume, tblVolunteers.prenume, tbltasks.hours_worked
 		ORDER BY nume_prenume ASC
         ")) {

@@ -68,3 +68,38 @@
     height: 100%;
     
 }
+#awardBadge{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+	display: flex;
+	border-style: inset;
+  	border-color: #32be8f;
+    border-width: 7px;
+}
+#awardBadgeBTN{
+    display: block;
+	width: 100%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+	background-size: 200%;
+    font-size: 1rem;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+	transition: .5s;/*
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;*/
+}
+.slider{
+    width: 70vw;
+    display: flex;
+    overflow: auto;
+    margin: auto;
+}

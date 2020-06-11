@@ -66,7 +66,24 @@
                         </div>
                     </div>
                 </div>
-                
+                <!--BADGR PART-------------------------------------------------------------------------------------------->
+                <div class="info-table">
+                    <div class="collapsible-container">
+                        <div class="collapsible-btn">Badge-urile mele</div>
+                        <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="slider">
+                        </div>
+                        <div  id="collapsible-profile">
+                            <?php
+                        require_once __DIR__ . "/../models/badgrModel.php";
+                        $badge = new BadgrModel();
+                            ?>
+                        </div>
+                    </div>
+                </div> <!--info-table -->
+                <!--BADGR PART-------------------------------------------------------------------------------------------->
                 <div class="info-table">
                     <div class="collapsible-container">
                         <div class="collapsible-btn">Feedback</div>
@@ -101,6 +118,12 @@
     </div>
 
     <script>initCollapsible();initMenu()</script>
+    <script type='text/javascript'>
+        var refresh_token = "<?php echo $badge->refresh_token; ?>";
+        email = "<?php echo $_SESSION['email'] ?>";
+        myID = "<?php echo $_SESSION['id'] ?>";
+    </script>
+    <script src="/public/javascript/badgr.js"></script>
 </body>
 
 </html>

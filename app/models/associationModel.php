@@ -296,8 +296,9 @@ class AssociationModel
         }
     }
 
-    function get_myassociation_activity($assoc_id, $filter_by){ //de adaugat inca un field la functie care sa fie de fapt acel parametru luat din formularul.. acum cate luni sau saptamani
+    function get_myassociation_activity($assoc_id, $filter_by, $option){ //de adaugat inca un field la functie care sa fie de fapt acel parametru luat din formularul.. acum cate luni sau saptamani
         $db_conn = $GLOBALS['db'];
+        if($option==1){
         switch ($filter_by) {
             case 'last_week':
                 $interval='week';
@@ -324,7 +325,24 @@ class AssociationModel
             pg_send_execute($db_conn, 'get_my_activity', array($assoc_id));
             $result = pg_get_result($db_conn);
         }
+    }
+        else{
+            $start=$filter_by['start'];
+            $end=$filter_by['end'];
     
+            $selectul = 'SELECT nume_prenume, SUM(hours_worked) AS ore_lucrate, COUNT(task_id) AS nr_taskuri, SUM(hours_worked)/COUNT(task_id) AS ora_task, TO_CHAR(max(updated_on),\'dd-mm-yyyy hh24:mi\') AS ultima_activitate
+            FROM vMyAssociationActivity WHERE assoc_id=$1 AND (updated_on >= date_trunc(\'day\', TO_TIMESTAMP(\'' . $start . '\', \'YYYY-MM-DD\')) and updated_on < date_trunc(\'day\',TO_TIMESTAMP(\''. $end .'\',\'YYYY-MM-DD\'))) GROUP BY nume_prenume ORDER BY nume_prenume ASC';
+        
+        if (!pg_connection_busy($db_conn)) {
+                pg_send_prepare($db_conn, 'get_my_activity', $selectul);
+            $res = pg_get_result($db_conn);
+        }
+          
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'get_my_activity', array($assoc_id));
+            $result = pg_get_result($db_conn);
+        }
+        }
         $row = pg_fetch_all($result, PGSQL_ASSOC);
         pg_close();
 

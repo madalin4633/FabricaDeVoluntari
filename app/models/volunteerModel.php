@@ -824,4 +824,31 @@ public function readCompletedTasks($assoc_id) {
 
         return true;
     }
+
+    function refresh_access_token_badger($payload){
+        
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'UPDATE tblbadgr SET access_token = $1, refresh_token = $2 WHERE id = 1';
+        
+        // print_r($query);
+
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_prepare($db_conn, 'refresh_access_token_badger', $query);
+
+            $res = pg_get_result($db_conn);
+        }
+        
+        if (!pg_connection_busy($db_conn)) {
+            pg_send_execute($db_conn, 'refresh_access_token_badger', array($payload->access_token, $payload->refresh_token));
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+        return true;
+    }
 }
