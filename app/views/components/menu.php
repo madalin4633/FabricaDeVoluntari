@@ -10,6 +10,7 @@
         <?= $_SESSION['is_volunteer']?"<button type='button' class='menu-button' onclick='location.href=\"/volunteer/activity\"'>Activity</button>":'' ?>
 
         <!-- association menu -->
+        <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/dashboard\"'>Dashboard </button>":'' ?>
         <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/profile\"'>Profile </button>":'' ?>
         <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/activity\"'>Activity</button>":'' ?>
         <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/reports\"'>Reports </button>":'' ?>

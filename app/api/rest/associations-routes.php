@@ -132,6 +132,18 @@ $associationsRoutes = [
         "middlewares" => ["IsLoggedInHere"],
         "route" => "association/:assocId/recruitments/disable",
         "handler" => "disable_recruitments"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "association/campaigns",
+        "handler" => "edit_campaigns"
+    ],
+    [
+        "method" => "PUT",
+        "middlewares" => ["IsLoggedInHere"],
+        "route" => "association/certifications",
+        "handler" => "edit_certifications"
     ]
 ];
 
@@ -156,7 +168,10 @@ function getMyActivity($req){
     $association = new AssociationModel();
     Response::status(200);
     $output = array();
-    $result=$association->get_myassociation_activity($req['params']['assocId'], $req['query']['filter_by']);
+    if(isset($req['query']['filter_by']))
+        $result=$association->get_myassociation_activity($req['params']['assocId'], $req['query']['filter_by'], 1);
+    else
+        $result=$association->get_myassociation_activity($req['params']['assocId'], $req['query'], 2);
     if($result)
         $output=array_merge(array(),$result);
     Response::json($output);
@@ -246,6 +261,47 @@ function enable_recruitments($req){
     Response::status(200);
     Response::json($output);
 }
+
+function edit_campaigns($req) {
+    require_once __DIR__ . "/../../models/associationModel.php";
+
+    $association = new associationModel();
+
+    $result = $association->edit_campaigns($req['payload']->projId, $req['payload']->enableCampaign);
+
+    $output = array();
+
+    if ($result){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+}
+
+function edit_certifications($req) {
+    require_once __DIR__ . "/../../models/associationModel.php";
+
+    $association = new associationModel();
+
+    $result = $association->edit_certifications($req['payload']->volassoc_id, $req['payload']->drive_url);
+
+    $output = array();
+
+    if ($result){
+        $output['result'] = 'true';
+    }
+    else{
+        $output['result'] = 'false';
+    }
+
+    Response::status(200);
+    Response::json($output);
+}
+
 
 function disable_recruitments($req){
     require_once __DIR__ . "/../../models/associationModel.php";

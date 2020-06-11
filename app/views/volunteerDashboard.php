@@ -25,7 +25,7 @@
     <link rel="stylesheet" type="text/css" href="/public/styles/menu.css" />
     <link rel="icon" href="/public/images/fdv_logo.png" />
     <title>Fabrica de Voluntari</title>
-    <script src="/public/javascript/userprofile.js" ></script>
+    <script src="/public/javascript/collapsible.js" ></script>
     <script src="/public/javascript/menu.js" ></script>
 </head>
 
@@ -38,7 +38,7 @@
             <div class="details-container">
                 <div class="info-table">
                     <div class="collapsible-container active">
-                        <div class="collapsible-btn">Asociatiile mele</div>
+                        <div class="collapsible-btn">My Associations</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white" src="/public/images/arrow_drop_down_circle-24px.svg" >
                     </div>
                     <div class="collapsible-content" style="max-height: fit-content;">
@@ -49,20 +49,25 @@
                 </div>
                 <div class="info-table">
                     <div class="collapsible-container active">
-                        <div class="collapsible-btn">Asociatii Sugerate</div>
+                        <div class="collapsible-btn">Campaigns</div>
                         <img alt="drodpown-btn" class="dropdown-btn svg-white"
                             src="/public/images/arrow_drop_down_circle-24px.svg" >
-                    </div>
-                    <div class="collapsible-content" style="max-height: fit-content;">
+                        </div>
+                        <div class="collapsible-content" style="max-height: fit-content;">
                         <div class="flex-grid-expandable-list">
                             <?php
                             foreach ($volunteer -> suggestedAssociations as $assoc) {
                                 echo
                                     "<div class='flex-grid-expandable'>
-                                        <div class='tooltip' style='background: url(/public/images/logo/no-logo-png-4.png); background-size: cover; background-position: center; background-repeat: no-repeat;'><span class='tooltiptext'>" . $assoc['nume'] . "</span>
+                                        <div data-assoc-id='" . $assoc['assoc_id'] . "' class='tooltip' style='background: url(/public/images/logo/no-logo-png-4.png); background-size: cover; background-position: center; background-repeat: no-repeat;'><span class='tooltiptext'>" . $assoc['nume'] . "</span>
                                             <div class='asoc-logo'
                                                 style='background: url(/public/images/logo/" . $assoc['logo'] . "); background-size: cover; background-position: center; background-repeat: no-repeat;'>
                                             </div>
+                                        </div>
+                                        <div class='assoc-details'>
+                                        <div> # Projects: " . $assoc['no_projects'] . "</div>
+                                        <div> # Volunteers: " . $assoc['no_volunteers'] . "</div>
+                                        <button type='button' onclick="; echo '"javascript:window.location.href = \'mailto:' . $assoc['email'] . '\'"'; echo ">Contact Us</button>
                                         </div>
                                     </div>"
                                 ;

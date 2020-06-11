@@ -187,6 +187,8 @@
     display: block;
     margin: 20px;
     align-self: flex-end;
+    position: fixed;
+    left: 130px;
 }
 
 .menu.collapsed {

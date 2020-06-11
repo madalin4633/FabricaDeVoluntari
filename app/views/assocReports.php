@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/public/styles/charts.css" />
     <link rel="icon" href="/public/images/fdv_logo.png" />
     <title>Fabrica de Voluntari</title>
-    <script src="/public/javascript/userprofile.js" ></script>
+    <script src="/public/javascript/collapsible.js" ></script>
     <script src="/public/javascript/menu.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
@@ -36,10 +36,20 @@
             Ultimul an
             </button>
         </div>
+        <h3>sau dintr-un anumit interval:</h3>
+        <div class="datesParent">
+        <div class="datesContainer">
+            <input type="date" id="start" value="2020-01-01">
+            <input type="date" id="end" value="2020-06-10">
+            <button id="submitDates" type="button">
+            Genereaza
+            </button>
+        </div>
+        </div>
         <div id="exportContainer"></div>
         <div class="bigChart">
         <div class="chartContainer" id="chartContainer">
-            <canvas id="activityChart" aria-label="Activitate in asociatie" role="activitate">
+            <canvas id="activityChart" aria-label="Activitate in asociatie">
             <p>Graficele nu s-au generat</p>
             </canvas>
         </div> <!-- chartContainer-->
@@ -50,7 +60,7 @@
     </div>
     
     <script>initCollapsible();initMenu()</script>
-    <script type='text/javascript'>
+    <script>
         var assoc_id = "<?php echo $_SESSION['id'] ?>";
     </script>
     <script src="/public/javascript/chart.js"></script>
