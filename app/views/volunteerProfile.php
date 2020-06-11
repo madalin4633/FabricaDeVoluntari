@@ -108,7 +108,8 @@
     <script>initCollapsible();initMenu()</script>
     <script type='text/javascript'>
         var refresh_token = "<?php echo $badge->refresh_token; ?>";
-        var email = "<?php echo $_SESSION['email'] ?>";
+        email = "<?php echo $_SESSION['email'] ?>";
+        myID = "<?php echo $_SESSION['id'] ?>";
     </script>
     <script src="/public/javascript/badgr.js"></script>
 </body>

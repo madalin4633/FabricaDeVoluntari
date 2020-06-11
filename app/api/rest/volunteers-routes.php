@@ -159,7 +159,6 @@ function IsPartOfAssociation($req) //middleware de verificare daca e in asociati
     return false;
 }
 
-
 function getVolunteers($req) {
 
     require_once __DIR__ . "/../../models/volunteerModel.php";
