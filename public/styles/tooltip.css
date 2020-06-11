@@ -21,6 +21,10 @@
     margin: 7px;
   }
   
+  .progress-asociatie .tooltip .tooltiptext {
+    margin: 0px;
+  }
+
   /* Show the tooltip text when you mouse over the tooltip container */
   .tooltip:hover .tooltiptext {
     visibility: visible;

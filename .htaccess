@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# serve robots
+RewriteRule ^robots.txt - [L]
+
 # Stop processing if already in the /public directory
 RewriteRule ^public/ - [L]
 
@@ -7,6 +10,9 @@ RewriteRule ^public/ - [L]
 RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
 RewriteRule (.+) public/$1 [L]
 
-# redirct all urls to index.php except urls to files
+# API REST redirect
+# RewriteRule ^api/.+$    app/api/rest/rest-service.php    [NC,L]  
+
+# redirect all urls to index.php except urls to files
 RewriteCond ${REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php?url=$1 [QSA]

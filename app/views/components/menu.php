@@ -1,19 +1,36 @@
-<section class="top-menu">
-    <img class="company-logo" alt="company logo" src="/public/images/fabrica_logo.png"; >
-    <button type="button" class="menu-button" onclick="location.href='/volunteer/dashboard'">Dashboard </button>
-    <button type="button" class="menu-button" onclick="location.href='/volunteer/profile'">Profile </button>
+<nav class="menu">
+    <img class="company-logo" alt="company logo" src="/public/images/fabrica_logo.png" >
+    <button id="menu-icon">
+        <img alt="menu icon" class="svg-white" src="/public/images/menu-24px.svg" >
+    </button>
+    <div class="vertical-menu">
+        <!-- volunteer menu -->
+        <?= $_SESSION['is_volunteer']?"<button type='button' class='menu-button' onclick='location.href=\"/volunteer/dashboard\"'>Dashboard </button>":'' ?>
+        <?= $_SESSION['is_volunteer']?"<button type='button' class='menu-button' onclick='location.href=\"/volunteer/profile\"'>Profile </button>":'' ?>
+        <?= $_SESSION['is_volunteer']?"<button type='button' class='menu-button' onclick='location.href=\"/volunteer/activity\"'>Activity</button>":'' ?>
 
-    <button class="messages-button">
+        <!-- association menu -->
+        <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/dashboard\"'>Dashboard </button>":'' ?>
+        <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/profile\"'>Profile </button>":'' ?>
+        <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/activity\"'>Activity</button>":'' ?>
+        <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/reports\"'>Reports </button>":'' ?>
+        <?= $_SESSION['is_association']?"<button type='button' class='menu-button' onclick='location.href=\"/association/recruitments\"'>Recruitments</button>":'' ?>
+        
+        <!-- common menu -->
+        <button type="button" id="logout-btn" class="menu-button" onclick="location.href='/user/logout'">Logout </button>
+    </div>
+
+    <button type="button" class="messages-button">
         <img alt="mail icon" class="svg-white" src="/public/images/mail_outline-24px.svg" >
     </button>
 
-    <div class="crop" >
-        <img alt="profile pic" src="/public/images/<?= $volunteer -> pic ?>" >
+    <div class='assoc-icon'
+        style='background: url("/public/images/<?= $_SESSION['is_volunteer']?'profile-pics/'.$volunteer -> pic: 'logo/'.$association->pic ?>"); background-size: cover; background-position: center; background-repeat: no-repeat;'>
     </div>
-</section>
-<section class="user-notifications">
+</nav>
+<div class="user-notifications">
     <?= $GLOBALS['user-notifications']->showNotifications(); ?>
-</section>
+</div>
 
 
 

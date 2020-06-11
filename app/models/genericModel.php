@@ -20,6 +20,8 @@
 // how many to generate?
 define("HOW_MANY_ASSOC", 12);
 define("HOW_MANY_VOL", 12);
+define("HOW_MANY_TASKS",5); // MAX TASKS
+define("HOW_MANY_PROJECTS",3); // MAX TASKS
 
 // ratings
 define ("METRIC1","harnic");
@@ -34,31 +36,83 @@ require_once __DIR__ . "/generateFillTables/tblAssociations.php";
 require_once __DIR__ . "/generateFillTables/tblVolunteers.php";
 require_once __DIR__ . "/generateFillTables/tblFeedback.php";
 require_once __DIR__ . "/generateFillTables/viewVolunteerDashboard.php";
+require_once __DIR__ . "/generateFillTables/viewVolunteerActivity.php";
+require_once __DIR__ . "/generateFillTables/viewAssociationActivity.php";
+require_once __DIR__ . "/generateFillTables/tblTasks.php";
+require_once __DIR__ . "/generateFillTables/tblActivity.php";
+require_once __DIR__ . "/generateFillTables/tblProjects.php";
+require_once __DIR__ . "/generateFillTables/tblCertifications.php";
+require_once __DIR__ . "/generateFillTables/tblBadgr.php";
 
 /**
  * called from api/createTables (admin only)
  */
 function createTables($conn)
 {
-    dropViewVolunteerDashboard($conn);
+    /* dropViewVolunteerDashboard($conn);
+    dropViewVolunteerActivity($conn);
+    dropViewAssociationActivity($conn);
+    dropViewActivityEnrolledVolunteers($conn);
+    dropViewVolunteerNewTasks($conn);
+
+   dropTableCertifications($conn);
+    dropTableActivity($conn);
     dropTableFeedback($conn);
+    dropTableTasks($conn);
     dropTableVolAssoc($conn);
     dropTableVolunteers($conn);
-    dropTableAssociations($conn);
-
-    createTableVolunteers($conn);
+    dropTableProjects($conn);
+    dropTableAssociations($conn); */
+    dropTableBadgr($conn);
+ 
+    /* createTableVolunteers($conn);
     createTableAssociations($conn);
     createTableVolAssoc($conn);
+     createTableProjects($conn);
+   createTableTasks($conn);
     createTableFeedback($conn);
-    createViewVolunteerDashboard($conn);
+    createTableActivity($conn);
+    createTableCertifications($conn); */
+    createTableBadgr($conn);
 
+    // createViewVolunteerDashboard($conn);
+    // createViewVolunteerActivity($conn);
+    // createViewAssociationActivity($conn);
+    // createViewActivityEnrolledVolunteers($conn);
+    // createViewVolunteerNewTasks($conn);
 
 }
 
-function insertDataAll($conn) {
-    insertDataAssociations($conn);
-    insertDataVolunteers($conn);
-    insertDataVolAssoc($conn);
-    insertDataFeedback($conn);
+function createViews($conn)
+{
+    dropViewVolunteerDashboard($conn);
+    dropViewVolunteerActivity($conn);
+    dropViewAssociationActivity($conn);
+    dropViewActivityEnrolledVolunteers($conn);
+    dropViewVolunteerNewTasks($conn);
+    dropViewVolunteerCompleted($conn);
+    dropViewMyAssociationActivity($conn);
+    // dropViewVolunteerNewTasks($conn);
+    // dropViewMyAssociationActivity($conn);
 
+    createViewMyAssociationActivity($conn);
+    createViewVolunteerDashboard($conn);
+    createViewVolunteerActivity($conn);
+    createViewAssociationActivity($conn);
+    createViewActivityEnrolledVolunteers($conn);
+    createViewVolunteerNewTasks($conn);
+    createViewVolunteerCompleted($conn);
+    // createViewVolunteerNewTasks($conn);
+    // createViewMyAssociationActivity($conn);
+}
+
+function insertDataAll($conn) {
+    // insertDataAssociations($conn);
+    // insertDataVolunteers($conn);
+    // insertDataVolAssoc($conn);
+    // insertDataProjects($conn);
+    // insertDataTasks($conn);
+
+    // insertDataActivity($conn);
+    // insertDataFeedback($conn);
 }

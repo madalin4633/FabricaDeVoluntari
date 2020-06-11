@@ -1,15 +1,28 @@
 *{
+	padding: 0;
+	margin: 0;
 	box-sizing: border-box;
-	align-items: center;
 }
-form{
-	width: 50%;
+
+body{
+	background-image: url("/public/images/blue_background.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	/* font: bold 20px/1.5 "Garamond";
+	color: #fff; */
+	text-align: center;]
+}
+
+/* form{
+	width: 350px;
 	display: inline-block;
 	margin-left: auto;
 	margin-right: auto;
-}
+} */
 div {
 	margin: 0 auto;
+	font-size: 1.25vw;
  }
 
  .tab:nth-child(1) { 
@@ -21,7 +34,7 @@ body{
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
-	font: bold 20px/1.5 "Garamond";
+	font: bold 2vw "Garamond";
 	color: #fff;
 	text-align: center;
 }
@@ -32,12 +45,21 @@ body{
 }
 
 #fdv{
-	height: 10%;
-	width: 10%;
+	height: 10vmin;
+	width: 10vmin;
 	display: block;
   	margin-left: auto;
   	margin-right: auto;
 }
+
+@media only screen and (max-width: 900px) {
+	#GDPR {
+	font-size:2vw;
+	}
+	body {
+		font: bold 4vw "Garamond";
+	}
+  }
 
 .img{
 	display: flex;
@@ -53,11 +75,6 @@ input{
 input[type=text]:focus, input[type=email]:focus, input[type=url]:focus, input[type=date]:focus {
 	background-color: lightblue;
   }
-
-input[type='checkbox']:focus,
-input[type='radio']:focus {
-  box-shadow: 0 0 0 var(--focus);
-}
 
 input[type='checkbox']:disabled + label,
 input[type='radio']:disabled + label {
@@ -78,10 +95,12 @@ input[type='radio']:disabled + label {
 	text-align: center;
 	font-size: 125%;
 }
+
 .tab {
 	overflow: hidden;
 	display: flex;
-	justify-content: center; // centers its children
+	justify-content: center; 
+	/* centers its children */
 	border: 1px solid #ccc;
 	background-color: #f1f1f1;
   }
@@ -123,7 +142,7 @@ input[type='radio']:disabled + label {
 	from {opacity: 0;}
 	to {opacity: 1;}
   }
-.btn {
+/* .btn {
 	display: block;
 	width: 100%;
 	height: 50px;
@@ -141,4 +160,4 @@ input[type='radio']:disabled + label {
 	transition: .5s;/*
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;*/
-}
+} */

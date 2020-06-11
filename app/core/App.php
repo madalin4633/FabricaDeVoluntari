@@ -3,13 +3,13 @@
 
 class App {
     private $controller = 'volunteer'; // default controller
-    private $method = 'dashboard'; // default view
+    private $method = 'index'; // default view
 
     private $params =[];
 
     public function __construct()
     {
-       
+
         $url = [];
         if(isset($_GET['url'])) {
             $url = $this -> parseUrl($_GET['url']);
@@ -19,18 +19,14 @@ class App {
 
         // redirect to api or to controller?
         if (isset($url[0]) && $url[0] == "api") 
-            $this -> executeAPI($url);
+        {
+            require_once __DIR__ . '/../api/rest/rest-service.php';
+            $APIRestClass = new RestService();
+        }
         else
             $this -> executeController($url);
 
-    }
-
-    private function executeAPI($url) {
-        if(isset($url[1]) && file_exists(__DIR__ . '/../api/' . $url[1] . '.api.php')) {
-            require_once __DIR__ . '/../api/' . $url[1] . '.api.php';
-            $className = $url[1] .'API';
-            $tablesAPI = new $className();
-        }
+        pg_close($GLOBALS['db']);
     }
 
     private function executeController($url) {
@@ -44,6 +40,11 @@ class App {
             return;
         }
 
+        if (!isset($_SESSION['id']) && strtolower($this->controller) != 'user') {
+            redirect('/user/login');
+            exit();
+        }
+        
         require_once __DIR__ . '/../controllers/' . $this -> controller . '.php';
         $controller = new $this->controller();
 
@@ -56,13 +57,31 @@ class App {
         $method = $this->method;
 
         if (method_exists($controller, $this->method))
-            $controller->$method();
+            $controller->$method($this -> params);
     }
 
     private function parseUrl($url) {
         $trimmedUrl = rtrim($url, '/');
 
         return explode('/', $url);
-
     }
+
+    // Load view
+    public function view($view, $data = []){
+        // Check for view file
+        if(file_exists(__DIR__ .'/../views/' . $view . '.php')){
+          require_once __DIR__ .'/../views/' . $view . '.php';
+        } else {
+          // View does not exist
+          die('View does not exist');
+        }
+      }
+
+      public function model($model){
+        
+        require_once __DIR__.'/../models/' . $model . '.php';
+       
+        return new $model();
+      }
 }
+?>
