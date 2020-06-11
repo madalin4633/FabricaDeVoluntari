@@ -263,10 +263,13 @@ public function readCompletedTasks($assoc_id) {
         $conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($conn)) {
-            pg_send_prepare($conn, 'get_suggested_associations', 'SELECT DISTINCT id, nume, logo 
+            pg_send_prepare($conn, 'get_suggested_associations', 'SELECT DISTINCT tblAssociations.id as assoc_id, email, nume, logo , count(tblProjects.id) as no_projects, no_volunteers
             FROM tblAssociations 
-            where id not in 
+			LEFT JOIN tblProjects ON tblProjects.assoc_id = tblAssociations.id
+			LEFT JOIN (SELECT assoc_id, count(vol_id) as no_volunteers FROM tblVolAssoc GROUP BY assoc_id) tblVol ON tblVol.assoc_id = tblAssociations.id 
+            where tblAssociations.id not in 
             (select distinct assoc_id from vvolunteerdashboard where vol_id = $1)
+			GROUP BY tblAssociations.id, nume, logo, no_volunteers
                 ');
 
             $res = pg_get_result($conn);

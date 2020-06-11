@@ -15,7 +15,7 @@
                 <div class='progress-asociatie'>
                     <div class='tooltip'><span class='tooltiptext'>Hours Worked</span><img class='svg-white' alt='icon' src='/public/images/query_builder-24px.svg'>
                         <span class='ore-lucrate'>" . $assoc['hours_worked'] . "</span></div>
-                    <div class='tooltip'><span class='tooltiptext'>Tasks Completed</span><img class='svg-red' alt='icon' src='/public/images/engineering-24px.svg'>
+                    <div class='tooltip'><span class='tooltiptext'>Tasks Completed</span><img class='svg-white' alt='icon' src='/public/images/engineering-24px.svg'>
                         <span class='aprecieri'>" . $assoc['bonus'] . "</span></div>";
                         showFeedbackStars($assoc['rating']);
                 echo "</div>
