@@ -12,35 +12,73 @@
       <div class="banner">
         <img src="/../../public/images/fdv_logo.png" width="227" height="50" alt="FdV logo">
       </div>
-      <h1>Scholarly HTML</h1>
-    </header>
+      <h1>Raport Scholarly HTML - Fabrica de Voluntari</h1>
+</header>
 
     <div role="contentinfo">
+    <section typeof="sa:ProjectLinks">
+			<ul>
+				<li typeof="schema:WebPage" role="link" resource="https://github.com/madalin4633/FabricaDeVoluntari"
+					property="schema:citation" id="github">
+					<cite property="schema:name">
+						<a href="https://github.com/madalin4633/FabricaDeVoluntari">Github</a>
+					</cite>
+				</li>
+				<li typeof="schema:WebPage" role="link" resource="https://app.swaggerhub.com/apis/FabricaDeVoluntari/Fabrica-de-Voluntari/1.0.0"
+					property="schema:citation" id="github">
+					<cite property="schema:name">
+						<a href="https://app.swaggerhub.com/apis/FabricaDeVoluntari/Fabrica-de-Voluntari/1.0.0">Swagger</a>
+					</cite>
+				</li>
+			</ul>
+		</section>
+
+    <section typeof="sa:AuthorsList">
+			<h2>Autori</h2>
+			<ul>
+				<li typeof="sa:ContributorRole" property="schema:author">
+					<span typeof="schema:Person">
+						<meta property="schema:givenName" content="Madalin">
+						<meta property="schema:familyName" content="Florea">
+						<span property="schema:name">Madalin Florea</span>
+					</span>
+				</li>
+				<li typeof="sa:ContributorRole" property="schema:author">
+					<span typeof="schema:Person">
+						<meta property="schema:givenName" content="Valeriu">
+						<meta property="schema:familyName" content="Bejan">
+						<span property="schema:name">Bejan Valeriu</span>
+					</span>
+				</li>
+				<li typeof="sa:ContributorRole" property="schema:author">
+					<span typeof="schema:Person">
+						<meta property="schema:givenName" content="Dani">
+						<meta property="schema:familyName" content="Dobre">
+						<span property="schema:name">Dobre Dani</span>
+					</span>
+				</li>
+			</ul>
+		</section>
+
       <dl>
-        <dt>Autori</dt>
-        <dd>
-          Florea Madalin, Bejan Valeriu
-          &amp;
-          Dobre Dani
-        </dd>
         <dt>Licenta</dt>
         <dd>
           <a href="https://opensource.org/licenses/MIT">MIT Licence</a>
         </dd>
       </dl>
     </div>
+
     <section typeof="sa:Abstract" id="abstract" role="doc-abstract">
       <h2>Abstract</h2>
       <p>
         Proiectul <b>Fabrica de Voluntari</b> 
-        este o aplicatie Web cu API REST propriu care permite asociatiilor de voluntari sa-si gestioneze activitatea.
+        este o <i>aplicatie Web cu API REST</i> propriu care permite asociatiilor de voluntari sa-si gestioneze activitatea. Mai exact, sa managerieze proiectele pe care le au si task-urile din cadrul acestora, avand toate informatiile reunite intr-un singur loc.
       </p>
     </section>
     <section id="introduction" role="doc-introduction">
-      <h2>Introduction </h2>
-      <p style='color:red; font-size:60px;'>
-        
-      Madalin, baga mare!
+      <h2>Introducere</h2>
+      <p>
+      Ideea <b> Fabrica de Voluntari </b> porneste de la sectia de voluntariat a Casei de Cultura a Studentilor Iasi. Multiple asociatii si ligi studentesti cauta ajutor in aceasta institutie, insa, pe drum, odata ce numarul voluntarilor creste, informatia se pierde, iar responsabilitatea se deleaga la nesfarsit. Prin urmare, este nevoie ca odata inceput un proiect cu o echipa prestabilita de oameni, task-urile care sunt de facut sa fie impartit exact, iar efortul depus sa fie contorizat. Astfel, a luat nastere aplicatia Fabrica de Voluntari, ce permite atat managerierea proiectelor si task-urilor, cat si monitorizarea datelor despre implicare si munca depusa, tocmai pentru a rasplati eforturile oamenilor implicati si valorosi din organizatii.
       </p>
     </section>
     
