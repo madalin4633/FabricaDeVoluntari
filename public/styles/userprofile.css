@@ -111,7 +111,7 @@ nav .vertical-split{
 
 .ore-lucrate, .aprecieri {
     font-size: 1.6em;
-    color: rgb(150, 231, 57);
+    color: white
 }
 
 .editable {
@@ -128,13 +128,34 @@ nav .vertical-split{
 }
 
 .flex-grid-expandable {
-    order: 1;
+    flex: 1 1 160px;
+    display: flex;
+    flex-direction: row;
 }
 
-.flex-grid-expandable:active {
-    width: 500px;
-    border: violet 2px solid;
-    order: 0;
+.flex-grid-expandable:hover {
+    flex: 1 0 300px;
+    /* border: violet 2px solid; */
+}
+
+.assoc-details > *
+{
+    background-color: rgb(28, 42, 88);
+    padding: 7px;
+    border-radius: 4px;
+    color: white;
+}
+
+.flex-grid-expandable:hover .assoc-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.assoc-details {
+    display: none;
 }
 
 .assoc-row {
@@ -214,6 +235,7 @@ nav .vertical-split{
     width: 100%;
     color: cyan;
 }
+
 
 @media only screen and (max-width: 800px) {
     .leftPanel {
