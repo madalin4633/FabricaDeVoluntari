@@ -282,6 +282,70 @@
     display: inline-block;
 }
 
+.myVolunteers {
+    padding: 10px;
+    display: flex;
+    max-width: 90vw;
+    flex-wrap: wrap;}
+
+.myVolunteers .assoc-icon {
+    width: 150px;
+    height: 150px;
+
+}
+
+.myVolunteers .volunteerDetails {
+    display: inline-flex;
+    flex-direction: row;
+}
+.myVolunteers .vol-hours {
+    color: white;
+    font-size: 20px;
+
+}
+
+.myVolunteers .nume-voluntar {
+    color: white;
+    font-size: 30px;
+}
+
+.myVolunteers .progress-asociatie {
+    height: 150px;
+}
+
+.myVolunteers .gdrive.disabled {
+    pointer-events: all;
+}
+
+.myVolunteers .assoc-icon {
+    line-height: 150px;
+    font-size: 60px;
+}
+
+#drive-form {
+    display: none;
+    height: 100px;
+    margin: 10px;
+    vertical-align: middle;
+}
+
+#drive-form input{ 
+    height: 25px;
+    width: 400px;
+    margin-right: 4px;
+}
+
+#drive-btn {
+    height: 30px;
+}
+
+#drive-form.show {
+    display: flex;
+    align-items: center;
+
+}
+
+
 .project-banner {
     background-color: rgb(28, 42, 88);
     color: white;
@@ -429,5 +493,57 @@
         'desc'
         'notes';
         padding-top: 40px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .myVolunteers .assoc-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .myVolunteers .assoc-icon {
+        line-height: 100px;
+        font-size: 40px;
+    }
+
+    .myVolunteers .progress-asociatie {
+        height: 100px;
+    }
+
+    .myVolunteers .nume-voluntar {
+        color: white;
+        font-size: 20px;
+    }
+
+    .myVolunteers .vol-hours {
+        color: white;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (orientation: portrait) and (max-width: 460px), (orientation: landscape) and (max-height: 460px) {
+    .myVolunteers .assoc-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .myVolunteers .assoc-icon {
+        line-height: 75px;
+        font-size: 30px;
+    }
+
+    .myVolunteers .progress-asociatie {
+        height: 60px;
+    }
+
+    .myVolunteers .nume-voluntar {
+        color: white;
+        font-size: 20px;
+    }
+
+    .myVolunteers .vol-hours {
+        color: white;
+        font-size: 14px;
     }
 }

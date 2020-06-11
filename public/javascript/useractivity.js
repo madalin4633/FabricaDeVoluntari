@@ -209,3 +209,39 @@ function assoc_ToggleCampaign(elem, proj_id) {
          elem.disabled = false;
         })
 }
+
+function assoc_EditDriveUrl(elem, caller, volassoc_id) {
+    let urlInput = document.getElementById('drive-url-input');
+
+
+    let payload = {'volassoc_id':volassoc_id, 'drive_url': urlInput.value};
+
+    elem.disabled = true;
+    elem.innerText = "Loading...";
+
+    fetch("/api/association/certifications", {method: 'PUT', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)})
+     .then(function (resp) {
+ 
+            elem.disabled = false;
+            elem.innerText = "Edit Google Drive URL";
+
+            caller.classList.remove('disabled');
+            document.getElementById('drive-form').style.display = 'none';
+         })
+     .catch(function (error) {
+         console.log("a crapat! " + error);
+         elem.disabled = false;
+         elem.innerText = "Edit Google Drive URL";
+        })
+}
+
+function showDriveForm(elem, volassoc_id) {
+    document.getElementById('drive-url-input').value = "";
+    document.getElementById('drive-form').style.display = 'flex';
+
+    document.getElementById('drive-btn').onclick = function() {
+        assoc_EditDriveUrl(document.getElementById('drive-btn'), elem,  volassoc_id); 
+    }
+}

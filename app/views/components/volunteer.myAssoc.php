@@ -19,7 +19,7 @@
                         <span class='aprecieri'>" . $assoc['bonus'] . "</span></div>";
                         showFeedbackStars($assoc['rating']);
                         
-                echo "<button type='button' class='gdrive" . (($assoc['drive_url'] == null) ? " disabled'" : '') . "' onclick="; echo '"javascript:window.location.href = \'' . $assoc['drive_url'] . '\'"'; echo ">Certifications</button>
+                echo "<button type='button' class='gdrive" . (($assoc['drive_url'] == null) ? " disabled'" : "'") . "' onclick="; echo '"javascript:window.location.href = \'' . $assoc['drive_url'] . '\'"'; echo ">Certifications</button>
                 </div>
             </div>
         </div>";
