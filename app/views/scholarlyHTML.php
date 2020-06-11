@@ -76,14 +76,40 @@
         </p>
           <img alt='schema relationala' src='/../../public/images/FdV-DB-ER-model.png'/>
           <p>
-              Toate scripturile de creare a tabelelor si a (SQL) VIEW-urilor le-am scris in models/generateFillTables, fiecare in fisiere bine delimitate, usor de gestionat. Aceste scripturi sunt rulate printr-un api call la una din rutele:
-              <ul>
-                  <li><code> POST /api/createTables/</code> pentru a crea tabelele</li>
+              Toate scripturile de creare a tabelelor si a (SQL) VIEW-urilor le-am scris in <code>models/generateFillTables/</code>, fiecare in fisiere bine delimitate, usor de gestionat. Aceste scripturi sunt rulate printr-un api call la una din rutele:
+        </p>             
+         <ul>
+         <li><code> POST /api/createTables/</code> pentru a crea tabelele</li>
+         <li><code> POST /api/createTables/views</code> pentru a crea view-urile</li>
+         <li><code> PUT /api/createTables/</code> pentru a popula tabelele cu date random luate din diverse API-uri publice</li>
         </ul>
+
+        <p>
+            Am ales sa pastram scripturi de creare a tabelelor din considerente practice, pentru a pastra centralizat logica bazei de date si pentru a permite tuturor membrilor echipei sa modifice scripturile dupa necesitati.
         </p>
         </section>
         </section>
 
+        <section id="implementare">
+        <h3>Implementare</h3>
+
+       <section id="impl-login">
+        <h3>Login si sesiuni</h3>
+       </section>
+       
+        <section id="impl-asoc">
+        <h3>Asociatii</h3>
+       </section>
+       
+       <section id="impl-vol">
+        <h3>Voluntari</h3>
+       </section>
+       
+       <section id="impl-api">
+        <h3>API REST</h3>
+       </section>
+       
+        </section>
 <section id='resurse'>
     <h2>Resurse folosite la implementare</h2>
 <p>
