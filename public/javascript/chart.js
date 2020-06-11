@@ -14,6 +14,9 @@ monthBtn.addEventListener("click", onClickMonth);
 let yearBtn = document.getElementById("LastYear");
 yearBtn.addEventListener("click", onClickYear);
 
+let intervalBtn = document.getElementById("submitDates");
+intervalBtn.addEventListener("click", onClickInterval);
+
 function onClickWeek() {
   weekBtn.setAttribute("disabled", true);
   weekBtn.textContent = 'Se incarca...';
@@ -308,6 +311,109 @@ function onClickYear() {
          //downloadPDF(exLabels, exHours, exTasks, exAverage, exDates);
          downloadPDF(names, hours, tasks, hours_tasks, last_activity);
     });
+    })
+    .catch(function () {
+      //error
+    })
+
+}
+
+function onClickInterval() {
+  intervalBtn.setAttribute("disabled", true);
+  intervalBtn.textContent = 'Se incarca...';
+
+  var start = document.getElementById("start").value;
+  var end = document.getElementById("end").value;
+
+  const myNaiveUrl = `/api/associations/${assoc_id}/myactivity?start=${start}&end=${end}`;
+  fetch(myNaiveUrl)
+    .then(function (resp) {
+      return resp.json();
+    })
+    .then(function (jsonResp) {
+      console.log(jsonResp);
+
+      var names = jsonResp.map(function (e) {
+        return e.nume_prenume;
+      });
+
+      var hours = jsonResp.map(function (e) {
+        return e.ore_lucrate;
+      });
+
+      var tasks = jsonResp.map(function (e) {
+        return e.nr_taskuri;
+      });
+
+      var hours_tasks = jsonResp.map(function (e) {
+        return e.ora_task;
+      });
+
+      var last_activity = jsonResp.map(function (e) {
+        return e.ultima_activitate;
+      });
+
+      document.getElementById('exportContainer').innerHTML = '<h3>Salveaza rapoartele grafice si numerice</h3><div class="exportContainer"><button id="exportHTML" type="button">Export HTML</button><button id="exportCSV" type="button">Export CSV</button><button id="exportPDF" type="button">Export PDF</button></div>';
+
+      let activityChart = document.getElementById('activityChart').getContext('2d');
+      Chart.defaults.global.defaultFontColor = 'white';
+      Chart.defaults.global.defaultFontSize = 15;
+      document.getElementById("chartContainer").style.border = "5px dashed black";
+      if (volunteersChart != null) {
+        volunteersChart.destroy();
+        volunteersChart = null;
+      }
+      volunteersChart = new Chart.Bar(activityChart, {
+        data: {
+          labels: names,
+          //labels: exLabels,
+          datasets: [{
+            label: 'Ore de voluntariat',
+            backgroundColor: '#ffffff',
+            data: hours
+            //data: exHours
+          },
+          {
+            label: 'Task-uri indeplinite si de facut',
+            backgroundColor: '#32be8f',
+            data: tasks
+            //data: exTasks
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                suggestedMin: 0
+              }
+            }]
+          }
+        }
+      });
+
+      if (exLabels.length > 0) {
+        document.getElementById("myDynamicTable").innerHTML = '';
+        addTable(names, hours, tasks, hours_tasks, last_activity);
+        //addTable(exLabels, exHours, exTasks, exAverage, exDates);
+      }
+      else { //ceva - un paragraf sau un text care spune ca nu avem date la acest call
+      }
+      intervalBtn.removeAttribute("disabled");
+      intervalBtn.textContent = 'Genereaza';
+
+      let htmlBtn = document.getElementById("exportHTML");
+      htmlBtn.addEventListener("click", downloadHTML);
+
+      let csvBtn = document.getElementById("exportCSV");
+      csvBtn.addEventListener("click", downloadCSV);
+
+      let pdfBtn = document.getElementById("exportPDF");
+      pdfBtn.addEventListener("click", function(){
+        //downloadPDF(exLabels, exHours, exTasks, exAverage, exDates);
+        downloadPDF(names, hours, tasks, hours_tasks, last_activity);
+   });
     })
     .catch(function () {
       //error

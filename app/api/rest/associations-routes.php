@@ -156,7 +156,10 @@ function getMyActivity($req){
     $association = new AssociationModel();
     Response::status(200);
     $output = array();
-    $result=$association->get_myassociation_activity($req['params']['assocId'], $req['query']['filter_by']);
+    if(isset($req['query']['filter_by']))
+        $result=$association->get_myassociation_activity($req['params']['assocId'], $req['query']['filter_by'], 1);
+    else
+        $result=$association->get_myassociation_activity($req['params']['assocId'], $req['query'], 2);
     if($result)
         $output=array_merge(array(),$result);
     Response::json($output);

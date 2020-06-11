@@ -36,6 +36,16 @@
             Ultimul an
             </button>
         </div>
+        <h3>sau dintr-un anumit interval:</h3>
+        <div class="datesParent">
+        <div class="datesContainer">
+            <input type="date" id="start" value="2020-01-01">
+            <input type="date" id="end" value="2020-06-10">
+            <button id="submitDates" type="button">
+            Genereaza
+            </button>
+        </div>
+        </div>
         <div id="exportContainer"></div>
         <div class="bigChart">
         <div class="chartContainer" id="chartContainer">

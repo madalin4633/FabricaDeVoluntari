@@ -242,5 +242,5 @@ function onClickAward(myBadges, bearer) {
         })
       }
     })
-  //window.location.reload();
+  setTimeout(() => { window.location.reload(); }, 3500);
 }
