@@ -9,6 +9,7 @@ class AssociationModel
     public $personalDetails = [];
     public $pic = "no-logo-png-4.png";
     public $nume = "";
+    public $feedback = [];
 
     public function __construct()
     {
@@ -83,8 +84,9 @@ class AssociationModel
             due_date,
             task_done
             FROM vAssociationActivity 
-            WHERE proj_id=$1 AND task_done=false
-            ORDER BY task_id ASC";
+            WHERE proj_id=$1 AND task_done=false ";
+
+            $query .= "ORDER BY task_id ASC";
 
             pg_send_prepare($conn, 'get_assoc_activity', $query);
             
@@ -94,9 +96,6 @@ class AssociationModel
         if (!pg_connection_busy($conn)) {
             $params=[];
             $params[] = $proj_id;
-            if (isset($vol_id)) {
-                $params[] = $vol_id;
-            }
             pg_send_execute($conn, 'get_assoc_activity', $params);
             $result = pg_get_result($conn);
         }
@@ -114,8 +113,10 @@ class AssociationModel
         if (!pg_connection_busy($conn)) {
             $query = "SELECT * 
             FROM vActivityEnrolledVolunteers 
-            WHERE proj_id=$1 AND done=false
-            ORDER BY task_id ASC";
+            WHERE proj_id=$1 AND task_done=false ";
+            if (isset($vol_id)) $query.= "AND vol_id=$2 ";
+
+            $query .= "ORDER BY task_id ASC";
 
             pg_send_prepare($conn, 'get_activityDetails', $query);
             
@@ -125,6 +126,9 @@ class AssociationModel
         if (!pg_connection_busy($conn)) {
             $params=[];
             $params[] = $proj_id;
+            if (isset($vol_id)) {
+                $params[] = $vol_id;
+            }
             pg_send_execute($conn, 'get_activityDetails', $params);
             $resultDetails = pg_get_result($conn);
         }
@@ -173,9 +177,6 @@ class AssociationModel
         if (!pg_connection_busy($conn)) {
             $params=[];
             $params[] = $proj_id;
-            if (isset($vol_id)) {
-                $params[] = $vol_id;
-            }
             pg_send_execute($conn, 'get_assoc_completed', $params);
             $result = pg_get_result($conn);
         }
@@ -193,8 +194,10 @@ class AssociationModel
         if (!pg_connection_busy($conn)) {
             $query = "SELECT * 
             FROM vActivityEnrolledVolunteers 
-            WHERE proj_id=$1 AND done=true
-            ORDER BY task_id ASC";
+            WHERE proj_id=$1 AND task_done=true ";
+            if (isset($vol_id)) $query.= "AND vol_id=$2 ";
+
+            $query .= "ORDER BY task_id ASC";
 
             pg_send_prepare($conn, 'get_completedDetails', $query);
             
@@ -204,6 +207,9 @@ class AssociationModel
         if (!pg_connection_busy($conn)) {
             $params=[];
             $params[] = $proj_id;
+            if (isset($vol_id)) {
+                $params[] = $vol_id;
+            }
             pg_send_execute($conn, 'get_completedDetails', $params);
             $resultDetails = pg_get_result($conn);
         }
@@ -224,6 +230,36 @@ class AssociationModel
         }
     
         return $activity;
+    }
+
+    public function readFeedback($assoc_id) {
+        $conn = $GLOBALS['db'];
+
+        $query = "SELECT descriere, 
+        TO_CHAR(tblFeedback.created_on, 'dd-mm-yyyy') as created_date,
+        tblVolunteers.nume || ' ' || tblVolunteers.prenume as nume_vol
+
+        FROM tblFeedback
+        INNER JOIN tblVolAssoc ON tblVolAssoc.id = tblFeedback.volassoc_id
+        INNER JOIN tblVolunteers ON tblVolunteers.id = tblVolAssoc.vol_id 
+        WHERE assoc_id = $1 AND for_volunteer=false
+        ORDER BY tblFeedback.created_on DESC";
+
+
+        if (!pg_connection_busy($conn)) {
+            pg_send_prepare($conn, 'get_assoc_feedback', $query);
+
+            $res = pg_get_result($conn);
+        }
+        
+        if (!pg_connection_busy($conn)) {
+            pg_send_execute($conn, 'get_assoc_feedback', array($assoc_id));
+            $result = pg_get_result($conn);
+        }
+            
+        if (isset($result) && pg_num_rows($result) > 0) {
+            $this -> feedback[] = pg_fetch_assoc($result);
+        }
     }
 
     public function readPersonalDetails($assoc_id) {
@@ -390,6 +426,36 @@ class AssociationModel
         return $invitation_code;
     }
 
+    function edit_campaigns($proj_id, $enable){
+        $db_conn = $GLOBALS['db'];
+
+        $query = 'UPDATE tblProjects SET in_campaign = $1 WHERE id = $2';
+
+        // print_r($query);
+
+        if(!pg_connection_busy($db_conn)){
+            pg_send_prepare($db_conn, 'edit_campaigns', $query);
+    
+            $res = pg_get_result($db_conn);
+        }
+
+        if (!pg_connection_busy($db_conn)) {
+            $params=[];
+            $params[] = $enable;
+            $params[] = $proj_id;
+            pg_send_execute($db_conn, 'edit_campaigns', $params);
+            $result = pg_get_result($db_conn);
+        }
+
+        $cmdtuples = pg_affected_rows($result);
+
+        if (!$cmdtuples){
+            return false;
+        }
+
+        return true;
+    }
+
     function disable_recruitments($association_id){
         $db_conn = $GLOBALS['db'];
 
@@ -469,16 +535,18 @@ class AssociationModel
         return false;
     }
 
-    public function readProjects($assoc_id) {
+    public function readProjects($assoc_id, $vol_id) {
         $conn = $GLOBALS['db'];
 
         if (!pg_connection_busy($conn)) {
             $query = "SELECT 
             id,
             title,
-            descr
+            descr,
+            in_campaign 
             FROM tblProjects 
             WHERE assoc_id=$1 AND active=true
+            ORDER BY id ASC
             ";
 
             pg_send_prepare($conn, 'get_assoc_proj', $query);
@@ -495,8 +563,8 @@ class AssociationModel
 
         for ($xi = 0; $xi < pg_num_rows($result); $xi++) {
             $array = pg_fetch_assoc($result);
-            $array['activity'] = $this->readActivity($array['id'], null);
-            $array['completed'] = $this->readCompleted($array['id'], null);
+            $array['activity'] = $this->readActivity($array['id'], $vol_id);
+            $array['completed'] = $this->readCompleted($array['id'], $vol_id);
             $this -> projects[] = $array;
         }
     }

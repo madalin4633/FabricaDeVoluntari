@@ -9,7 +9,7 @@ class App {
 
     public function __construct()
     {
-       
+
         $url = [];
         if(isset($_GET['url'])) {
             $url = $this -> parseUrl($_GET['url']);
@@ -40,6 +40,11 @@ class App {
             return;
         }
 
+        if (!isset($_SESSION['id']) && strtolower($this->controller) != 'user') {
+            redirect('/user/login');
+            exit();
+        }
+        
         require_once __DIR__ . '/../controllers/' . $this -> controller . '.php';
         $controller = new $this->controller();
 

@@ -1,7 +1,6 @@
 
 .leftPanel {
     position: relative;
-    align-self: left;
     background: rgb(67, 71, 82);
     width: 10%;
     height: auto;
@@ -9,7 +8,6 @@
 
 .rightPanel {
     position: relative;
-    align-self: right;
     background-color: rgb(255, 0, 200);
 }
 
@@ -45,6 +43,9 @@ nav .vertical-split{
     font: 21px "Source Sans Pro";
     color: whitesmoke;
     padding: 0.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .crop {
@@ -88,8 +89,7 @@ nav .vertical-split{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: space-evenly;
-    height: 80%;
+    height: 90%;
     padding-left: 4px;
 }
 
@@ -111,7 +111,7 @@ nav .vertical-split{
 
 .ore-lucrate, .aprecieri {
     font-size: 1.6em;
-    color: rgb(150, 231, 57);
+    color: white
 }
 
 .editable {
@@ -121,6 +121,27 @@ nav .vertical-split{
     background-position-y: 0px;
 }
 
+.gdrive {
+    background: url("/public/images/kisspng-google-drive-computer-icons-google-docs-transparent-google-drive-png-5ab1174c17bbe1.8275644315215552760972.png");
+    background-size: contain;
+    background-position: left;
+    background-repeat: no-repeat;
+    width: 130px;
+    height: 30px;
+    color: white;
+    text-align: end;
+    border: none;
+}
+
+.gdrive:hover {
+    box-shadow:  1px 1px #77aaff;
+}
+
+.gdrive.disabled {
+    filter: grayscale(1);
+    pointer-events: none;
+}
+
 .flex-grid-expandable-list {
     display: flex;
     max-width: 90vw;
@@ -128,13 +149,34 @@ nav .vertical-split{
 }
 
 .flex-grid-expandable {
-    order: 1;
+    flex: 1 1 160px;
+    display: flex;
+    flex-direction: row;
 }
 
-.flex-grid-expandable:active {
-    width: 500px;
-    border: violet 2px solid;
-    order: 0;
+.flex-grid-expandable:hover {
+    flex: 1 0 300px;
+    /* border: violet 2px solid; */
+}
+
+.assoc-details > *
+{
+    background-color: rgb(28, 42, 88);
+    padding: 7px;
+    border-radius: 4px;
+    color: white;
+}
+
+.flex-grid-expandable:hover .assoc-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.assoc-details {
+    display: none;
 }
 
 .assoc-row {
@@ -184,6 +226,38 @@ nav .vertical-split{
     width: auto;
 }
 
+.feedbackRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.feedbackRow * {
+    padding: 5px;
+    color: white;
+    font-size: 18px;
+}
+
+.feedbackStars {
+    display: block;
+}
+
+.feedbackDate {
+    display: block;
+    width: 270px;
+}
+
+.feedbackFrom {
+    display: block;
+}
+
+.feedbackDescr {
+    width: 100%;
+    color: cyan;
+}
+
+
 @media only screen and (max-width: 800px) {
     .leftPanel {
         display: none;
@@ -211,3 +285,4 @@ nav .vertical-split{
     }
 
 }
+

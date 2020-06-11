@@ -61,11 +61,41 @@
     box-shadow: 0px 0px 1px 1px aliceblue;
 }
 
+#new-tasks-container .done-button {
+    visibility: hidden;
+}
+
 .completed-tasks .activity-task {
     background-color: gainsboro;
 }
 
-#active-tasks .enrollTask {
+/* do not show enroll button in active tasks */
+#active-tasks .enroll-button {
+    display: none;
+}
+
+/* do not show enroll button in completed tasks */
+#completed-tasks-container .enroll-button {
+    display: none;
+}
+
+/* do not show feedback button in active tasks */
+#active-tasks .feedback-button {
+    display: none;
+}
+
+/* do not show feedback button in active tasks */
+.active-tasks .feedback-button {
+    display: none;
+}
+
+/* do not show feedback button in new tasks */
+#new-tasks-container .feedback-button {
+    display: none;
+}
+
+/* do not show done button in new tasks */
+#new-tasks-container .done-button {
     display: none;
 }
 
@@ -73,7 +103,36 @@
     visibility: visible;
 }
 
+.task-panel > .feedback-button {
+    right: 0px;
+    top: 0px;
+}
+
+/* only show feedback button if task has not been given feedback */
+.need-feedback.activity-task:hover .feedback-button {
+    visibility: visible;
+}
+
+/* only show feedback button if task has not been given feedback */
+.activity-task:hover .need-feedback .feedback-button {
+    visibility: visible;
+}
+
+.activity-task:hover .enroll-button {
+    visibility: visible;
+}
+
 .done-button:active {
+    box-shadow: 0px 0px 1px 1px aliceblue;
+    background-color: green;
+}
+
+.enroll-button:active {
+    box-shadow: 0px 0px 1px 1px aliceblue;
+    background-color: green;
+}
+
+.feedback-button:active {
     box-shadow: 0px 0px 1px 1px aliceblue;
     background-color: green;
 }
@@ -95,10 +154,102 @@
     visibility: hidden;
 }
 
-.enrollTask {
-    grid-area: btn;
-    margin-top: 3px;
+.campaign-button {
+    background: url(/public/images/campaign-24px.svg);
+    background-color: orange;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px 3px gainsboro;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    margin-top: 5px;
+    color: white;
+    outline: none;
+    border: none;
+    visibility: hidden;
+    position: absolute;
+    right: 10px;
 }
+
+.feedback-button {
+    background: url(/public/images/rate_review-24px.svg);
+    background-color: orange;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px 3px gainsboro;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    margin-top: 5px;
+    color: white;
+    outline: none;
+    border: none;
+    visibility: hidden;
+    position: absolute;
+    top: 20px;
+}
+
+.enroll-button {
+    background: url(/public/images/palma-FabricaDeVoluntari.png);
+    border-radius: 50%;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    margin-top: 5px;
+    color: white;
+    outline: none;
+    border: none;
+    visibility: hidden;
+}
+
+.project:hover .campaign-button {
+    visibility: visible;
+    box-shadow: 0px 0px 3px 3px aliceblue;
+}
+
+.campaign-button:active {
+    background-color: green;
+}
+
+.project[data-in-campaign="true"]  .campaign-button{
+    background-color: green;
+    visibility: visible;
+}
+
+
+
+/* always show buttons if device input does not support hover  */
+@media (hover: none) {
+    .activity-task .done-button {
+        visibility: visible;
+    }
+    
+    /* only show feedback button if task has not been given feedback */
+    .need-feedback.activity-task .feedback-button {
+        visibility: visible;
+    }
+    
+    .activity-task .enroll-button {
+        visibility: visible;
+    }
+    }
+
+/* show spinner when container contains class 'pending' */
+.pending .sk-chase-container {
+    display: flex;
+}
+
+/* disable user input */
+.pending .task-panel {
+    pointer-events: none;
+}
+
+
 
 .activity-title {
     padding: 4px;
@@ -159,6 +310,15 @@
     align-content: space-around;
 }
 
+.activity-hours {
+    padding: 4px;
+    font-size: 20px;
+    color: green;
+    bottom: 0px;
+    align-self: flex-start;
+    line-height: 60px;
+}
+
 .activity-duedate {
     padding: 4px;
     font-size: 20px;
@@ -209,7 +369,7 @@
 
 .project {
     border: rgb(28, 42, 88) 2px dotted;
-    margin-bottom: 2px;
+    margin-bottom: 60px;
 }
 
 .break-row {
@@ -224,11 +384,16 @@
 }
 
 .task-form>input[name="title"] {
-    width: 70%;
+    width: calc(100% - 15px);
 }
 
 .task-form>input[name="due_date"] {
     max-width: fit-content;
+    align-self: flex-end;
+}
+
+.task-form>input[name="hours"] {
+    width: 50px;
     align-self: flex-end;
 }
 

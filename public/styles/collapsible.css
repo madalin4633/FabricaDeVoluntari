@@ -11,7 +11,7 @@
 }
 
 .active, .collapsible-container:hover {
-    background: rgb(80, 194, 128);
+    background: rgb(69, 178, 192);
     border-radius: 2em;
     transition: 0.2s ease-out;
 }

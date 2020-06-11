@@ -26,6 +26,7 @@ function createTableProjects($conn)
         active BOOLEAN DEFAULT TRUE,
         created_on TIMESTAMP NOT NULL,
         updated_on TIMESTAMP NOT NULL,
+        in_campaign BOOLEAN DEFAULT false,
         CONSTRAINT task_assoc_fkey FOREIGN KEY (assoc_id)
         REFERENCES tblAssociations(id)
         )  ')) {
