@@ -186,9 +186,10 @@
         <section id="impl-asoc">
         <h3>Asociatii</h3>
         <p>
+          Contul de asociatie permite indeplinirea de multiple optiuni - oferirea de feedback si adeverinte, realizarea de grafice numerice si vizuale, vizualizarea task-urilor si crearea de unele noi, alaturi de managerierea activitatii per total. Astfel, partea de birocratie si management de resurse umane a fiecarei organizatii este mult usurata, aplicatia venind in intampinarea lor. Odata observata activitatea mai usor, se poate rasplati un voluntar si productivitatea creste.
         </p>
         <figure typeof="sa:image">
-				<img src="/../../public/images/asssociation.png">
+				<img src="/../../public/images/asociatie.png">
 				<figcaption>Fig.6 - Exemplificare cont asociatie</figcaption>
 			</figure>
        </section>
@@ -204,11 +205,6 @@
 			</figure>
        </section>
        
-       <section id="impl-api">
-        <h3>API REST</h3>
-       </section>
-       
-        </section>
 <section id='resurse'>
     <h2>Resurse folosite la implementare</h2>
 <p>
