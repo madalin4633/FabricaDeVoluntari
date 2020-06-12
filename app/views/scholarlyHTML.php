@@ -84,10 +84,32 @@
     
     <section id="model">
         <h2>Modelul de functionare <i>Fabrica de Voluntari</i></h2>
-        <p style='color:red;'>
-            Descrie cum functioneaza asociatia FdV si celelalte asociatii inregistrate, voluntari, proiecte, taskuri, etc. (ce se leaga de aplicatia noastra). 
-            Ar fi un prilej bun sa bagi meta data la <a href="https://w3c.github.io/scholarly-html/#person-org">persons si organisations</a>
-</p>
+        <p>
+            Exista 2 tipuri de conturi ce pot fi create pe aplicatia noastra - de asociatie si de voluntar. In linii mari, asociatia creeaza proiecte si task-uri, iar voluntarul intra in asociatii, vede proiecte si task-uri si le preia pentru a se ocupa de ele. Odata finalizate, se marcheaza acest lucru si se poate oferi feedback reciproc, lasand loc de o continua dezvoltare.
+        </p>
+        <p> Exemplu de voluntar si datele sale:
+        <span typeof="schema:Person" resource="https://www.facebook.com/bader.maria.5">
+        <meta property="schema:givenName" content="Bader">
+        <meta property="schema:familyName" content="Jouda">
+        <a href="https://www.facebook.com/bader.maria.5">
+        <span property="schema:name">Jouda Bader</span>
+        </p>
+        <p> Exemplu de organizatie si datele sale:
+        <span typeof="schema:Organization" resource="https://www.facebook.com/asociatiamoldavia">
+          <a href="https://www.faceebok.com/asociatiamoldavia">
+            <span property="schema:name">Asociatia Moldavia</span>
+          </a>
+          (<span property="schema:location" typeof="schema:Place">
+          <span property="schema:address" typeof="schema:PostalAddress">
+          <span property="schema:addressLocality">Str. Arcu, nr. 5</span>,
+          <span property="schema:addressRegion">MD</span>,
+          <span property="schema:addressCountry">RO</span>
+          </span>
+          </span>)
+        </span>
+        </p>
+  </a>
+</span>
     </section>
 
     <section id="structure">
@@ -96,6 +118,10 @@
         Am optat pentru arhitectura <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC</a> implementata in backend cu PHP, iar pentru frontend am folosit JavaScript, inclusiv tehnologia <a href="https://en.wikipedia.org/wiki/Ajax_(programming)">AJAX</a>.
         Fisierele resursa (media, .js si .css) sunt stocate intr-un director <i>public</i>, separat de directorul aplicatiei <i>app</i>. In directorul radacina avem fisierul <a href="http://www.htaccess-guide.com/">.htaccess</a>, un fisier de configuratie pentru serverul Apache care redirecteaza toate <a href="https://www.w3schools.com/tags/ref_httpmethods.asp">cererile HTTP</a> catre API REST, daca ruta contine /api/... , catre controller cand acesta exista sau catre o pagina de erroare <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">404 Not Found</a>, altfel.
       </p>
+      <figure typeof="sa:image">
+				<img src="/../../public/images/MVC.png">
+				<figcaption>Fig.1 - Structura MVC a fisierelor</figcaption>
+			</figure>
       <p>
         Baza de date ruleaza in cloud pe <a href="https://www.heroku.com/">Heroku</a>. Am ales <i>Heroku Postgres</i> pe un plan gratuit <i>Hobby Dev</i> pentru a facilita dezvoltarea aplicatiei in sistem distribuit, la distanta, prin intermediul platformei <a href="https://github.com/">Git</a>. Accesul la baza de date s-a realizat prin intermediul aplicatiei pgAdmin, iar aplicatia FdV a rulat local pe un server XAMPP.
         </p>
@@ -103,7 +129,7 @@
         <!-- review? -->
         <h3>Arhitectura MVC</h3>
         <p>
-          
+          MVC (Model - View - Controller) este un model de arhitectura utilizat in ingineria software, pe care l-am abordat si noi. Succesul modelului se datoreaza izolarii partii logice (business) de consideratele interfete cu utilizatorul, rezultand o aplicatie unde aspectul vizual sau/si nivelele inferioare ale regulilor de business sunt mai suor de modificat, fara a afeca alte nivele. Astfel, reprezentarea informatiilor din interactiunea cu utilizatorul sunt separate de informatiile in sine.
         </p>
         
       </section>
@@ -130,17 +156,52 @@
 
         <section id="implementare">
         <h3>Implementare</h3>
-
+        <p>
+        S-a realizat un design responsive, care permite navigarea intre toate paginile site-ului folosind-use un meniu care pentru tableta este de tip acordeon, iar pentru mobile se restrange in partea stanga.
+        <p>
+        <figure typeof="sa:image">
+				<img src="/../../public/images/meniu-mare.png">
+				<figcaption>Fig.2 - Meniul pe desktop</figcaption>
+        </figure>
+        <figure typeof="sa:image">
+				<img src="/../../public/images/meniu-acordeon.png">
+				<figcaption>Fig.3 - Meniul acordeon pentru tablete</figcaption>
+			</figure>
+      <figure typeof="sa:image">
+				<img src="/../../public/images/meniu-mic.png">
+				<figcaption>Fig.4 - Meniul mic pentru smartphone-uri</figcaption>
+			</figure>
+		
        <section id="impl-login">
         <h3>Login si sesiuni</h3>
+        <p>
+        Odata ce un cont este creat, se poate realiza logarea in aplicatie, atat cu email si parola, cat si prin retele sociale externe (Facebook), utilizand API-ul oferit de ei pentru a realiza aceasta functionalitate. Imediat dupa apasarea butonului de login, se va crea o sesiune ce va stoca ID-ul utilizatorului si EMAIL-ul sau, fiind necesare ulterior in afisarea datelor din aplicatie si in interogarea bazei de date pentru informatii personalizate.
+        </p>
+        <figure typeof="sa:image">
+				<img src="/../../public/images/sesiune.png">
+				<figcaption>Fig.5 - Creare sesiune</figcaption>
+			</figure>
        </section>
        
         <section id="impl-asoc">
         <h3>Asociatii</h3>
+        <p>
+        </p>
+        <figure typeof="sa:image">
+				<img src="/../../public/images/asssociation.png">
+				<figcaption>Fig.6 - Exemplificare cont asociatie</figcaption>
+			</figure>
        </section>
        
        <section id="impl-vol">
         <h3>Voluntari</h3>
+        <p>
+          Contul de voluntar ofera pe DASHBOARD toate organizatiile din care face parte, iar pe PROFILE un tabel cu datele personale, badge-urile pe care le are in colectie (si pentru care exista diverse criterii de colectionare) si feedback-urile primite ulterior rezolvarii task-urilor. Pe pagina ACTIVITY, voluntarul va putea marca task-uri ca fiind preluate sau incheiate prin butoane specifice.
+        </p>
+        <figure typeof="sa:image">
+				<img src="/../../public/images/volunteer.png">
+				<figcaption>Fig.7 - Exemplificare cont voluntar</figcaption>
+			</figure>
        </section>
        
        <section id="impl-api">
@@ -161,14 +222,13 @@
 <a href="https://www.the-art-of-web.com/sql/trigger-update-timestamp/">Update timestamp with postgres triggers</a> <br>
 
 
-<a href="http://thecodinglove.com/post/95378251969/when-code-works-and-i-dont-know-why">Intreaba-l pe Valeriu</a> <br>
-<a href="http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/">Intreaba-l pe Valeriu</a> <br>
-<a href="https://tools.ietf.org/html/rfc7230#section-3.1.2">Intreaba-l pe Madalin</a> <br>
-<a href="https://www.youtube.com/watch?v=cpHCv3gbPuk">Intreaba-l pe Madalin</a> <br>
-<a href="https://stackoverflow.com/questions/22084698/how-to-export-source-content-within-div-to-text-html-file">Intreaba-l pe Madalin</a> <br>
-<a href="https://developers.facebook.com/docs/graph-api/making-multiple-requests#limits">Intrebati-va unul pe celalalt ce reprezinta linkurile astea</a> <br>
-<a href="https://developers.facebook.com/docs/facebook-login/access-tokens#long-via-code">Intrebati-va unul pe celalalt ce reprezinta linkurile astea</a> <br>
-<a href="http://www.cl.cam.ac.uk/~mgk25/iso-time.html">Intrebati-va unul pe celalalt ce reprezinta linkurile astea</a> <br>
+<a href="https://www.w3schools.com/php/php_sessions.asp">Despre sesiuni</a> <br>
+<a href="http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/">Despre validarea datelor in PostgreSQL</a> <br>
+<a href="https://github.com/MrRio/jsPDF">Despre folosirea jsPDF</a> <br>
+<a href="https://github.com/simonbengtsson/jsPDF-AutoTable">Adagare la jsPDF - jsPDF AutoTable</a> <br>
+<a href="https://www.chartjs.org/docs/latest/">Documentatie charts.js</a> <br>
+<a href="https://developers.facebook.com/docs/graph-api/making-multiple-requests#limits">Realizarea de request-uri multiple</a> <br>
+<a href="https://developers.facebook.com/docs/facebook-login/access-tokens#long-via-code">Token de acces Facebook</a> <br>
         </p>
         </section>
         
